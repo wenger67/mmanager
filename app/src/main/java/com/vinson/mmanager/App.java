@@ -1,17 +1,17 @@
 package com.vinson.mmanager;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.vinson.mmanager.base.BaseApplication;
 import com.vinson.mmanager.tools.CrashHandler;
 import com.vinson.mmanager.utils.ToastCompat;
 
 import im.zego.zegoexpress.ZegoExpressEngine;
 import im.zego.zegoexpress.constants.ZegoScenario;
 
-public class App extends Application {
+public class App extends BaseApplication {
     private static final String SP_NAME = "config";
     private static App INSTANCE;
     private SharedPreferences sp;
@@ -24,9 +24,10 @@ public class App extends Application {
         sp = getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
         // register crash handler
         CrashHandler.getInstance().init();
-
+        // video call
         ENGINE = ZegoExpressEngine.createEngine(BuildConfig.ZegoAppId, BuildConfig.ZegoAppSign,
                 true, ZegoScenario.GENERAL, this, null);
+
     }
 
     public static App getInstance() {

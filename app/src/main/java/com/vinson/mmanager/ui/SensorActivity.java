@@ -1,4 +1,4 @@
-package com.vinson.mmanager;
+package com.vinson.mmanager.ui;
 
 import android.hardware.Sensor;
 import android.os.Bundle;
@@ -14,12 +14,15 @@ import java.util.List;
 import github.nisrulz.easydeviceinfo.base.EasySensorMod;
 
 public class SensorActivity extends AppCompatActivity {
+    private static final String TAG = SensorActivity.class.getSimpleName();
 
     MaterialTextView mTvSensor;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle(TAG);
+
         setContentView(R.layout.activity_sensor);
         mTvSensor = findViewById(R.id.tv_sensors);
     }

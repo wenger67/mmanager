@@ -4,7 +4,6 @@ import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
 
-import com.vinson.mmanager.BuildConfig;
 
 import java.io.BufferedReader;
 import java.io.Closeable;

@@ -10,15 +10,15 @@ import com.vinson.mmanager.utils.Constants;
 
 public class Config {
 
-    public static void setConfiged(boolean configed) {
-        if (configed == getConfiged()) return;
+    public static void setToken(String token) {
+        if (token.equals(getToken())) return;
         SharedPreferences.Editor editor = App.getInstance().getSP().edit();
-        editor.putBoolean(Constants.SP_KEY_CONFIGED, configed);
+        editor.putString(Constants.SP_KEY_TOKEN, token);
         editor.apply();
     }
 
-    public static boolean getConfiged() {
-        return App.getInstance().getSP().getBoolean(Constants.SP_KEY_CONFIGED, false);
+    public static String getToken() {
+        return App.getInstance().getSP().getString(Constants.SP_KEY_TOKEN, "");
     }
 
     public static void setDeviceSerial(String serial) {
@@ -54,5 +54,16 @@ public class Config {
 
     public static String getStreamId() {
         return App.getInstance().getSP().getString(Constants.SP_KEY_STREAM_ID, "");
+    }
+
+    public static boolean getFirstLaunch() {
+        return App.getInstance().getSP().getBoolean(Constants.SP_KEY_FIRST_LAUNCH, true);
+    }
+
+    public static void setFirstLaunch(boolean flag) {
+        if (getFirstLaunch() == flag) return;
+        SharedPreferences.Editor editor = App.getInstance().getSP().edit();
+        editor.putBoolean(Constants.SP_KEY_FIRST_LAUNCH, flag);
+        editor.apply();
     }
 }

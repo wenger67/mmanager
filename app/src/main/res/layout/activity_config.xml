@@ -4,59 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.vinson.mmanager.MainActivity">
+    tools:context="com.vinson.mmanager.ui.MainActivity">
 
-    <LinearLayout
-        android:id="@+id/rl_get_device_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="20dp"
-        android:gravity="center_horizontal"
-        app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Input Device ID:" />
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_device_id"
-            android:minWidth="80dp"
-            android:maxWidth="120dp"
-            android:layout_marginStart="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_get_info"
-            android:layout_marginStart="20dp"
-            android:text="Get Info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_lift_info"
-        app:layout_constraintTop_toBottomOf="@id/rl_get_device_info"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="36dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        style="@style/TextAppearance.MaterialComponents.Headline4"
-        android:maxLines="30"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_save_info"
-        android:text="Save Info"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
 
     <ImageView
         android:id="@+id/iv_network_state"

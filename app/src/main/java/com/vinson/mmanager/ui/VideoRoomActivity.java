@@ -1,4 +1,4 @@
-package com.vinson.mmanager;
+package com.vinson.mmanager.ui;
 
 import android.os.Bundle;
 import android.view.TextureView;
@@ -6,6 +6,7 @@ import android.view.TextureView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.vinson.mmanager.App;
 import com.vinson.mmanager.R;
 import com.vinson.mmanager.tools.Config;
 

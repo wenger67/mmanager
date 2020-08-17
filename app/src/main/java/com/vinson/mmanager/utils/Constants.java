@@ -7,8 +7,24 @@ public class Constants {
 
     public static final String PREFIX="LIFT_";
 
-    public static final String SP_KEY_CONFIGED = "configed";
-    public static final String SP_KEY_LIFT_INFO = "lift_info";
-    public static final String SP_KEY_DEVICE_SERIAL = "device_serial";
-    public static final String SP_KEY_STREAM_ID = "stream_id";
+    public static final String SP_KEY_TOKEN = "configed";
+    public static final String SP_KEY_LIFT_INFO = "lift.info";
+    public static final String SP_KEY_DEVICE_SERIAL = "device.serial";
+    public static final String SP_KEY_STREAM_ID = "stream.id";
+    /**
+     * first launch flag
+     * after first launch, set false
+     */
+    public static final String SP_KEY_FIRST_LAUNCH = "first.launch";
+
+
+    /**
+     * Arouter Constants
+     */
+
+    public static final String AROUTER_PAGE_WELCOME = "/page/welcome";
+    public static final String AROUTER_PAGE_SPLASH = "/page/splash";
+    public static final String AROUTER_PAGE_CONFIG = "/page/config";
+    public static final String AROUTER_PAGE_LOGIN = "/page/login";
+    public static final String AROUTER_PAGE_MAIN = "/page/main";
 }

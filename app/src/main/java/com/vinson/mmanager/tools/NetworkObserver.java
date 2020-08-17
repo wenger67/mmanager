@@ -48,7 +48,7 @@ public class NetworkObserver {
             mNetworkAvailable = true;
             App.getInstance().showToast("网络已连接");
             if (mListener != null)
-                mListener.changed(true);
+                mListener.networkChanged(true);
         }
 
         @Override
@@ -58,11 +58,11 @@ public class NetworkObserver {
             mNetworkAvailable = false;
             App.getInstance().showToast("网络已断开");
             if (mListener != null)
-                mListener.changed(false);
+                mListener.networkChanged(false);
         }
     };
 
     public interface Listener {
-        void changed(boolean connected);
+        void networkChanged(boolean connected);
     }
 }

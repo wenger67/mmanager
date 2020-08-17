@@ -33,19 +33,21 @@
         android:fullBackupContent="@null"
         android:name="com.vinson.mmanager.App"
         android:theme="@style/Theme.MaterialComponents.Light">
-        <activity android:name="com.vinson.mmanager.SplashActivity">
+        <activity android:name=".ui.SplashActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name="com.vinson.mmanager.initial.ConfigActivity"/>
-        <activity android:name="com.vinson.mmanager.MainActivity"/>
-        <activity android:name="com.vinson.mmanager.VideoRoomActivity"/>
-        <activity android:name="com.vinson.mmanager.SensorActivity"/>
+        <activity android:name=".ui.MainActivity"/>
+        <activity android:name=".ui.VideoRoomActivity"/>
+        <activity android:name=".ui.SensorActivity"/>
+        <activity android:name=".ui.WelcomeActivity"/>
+        <activity android:name=".ui.LoginActivity"/>
 
-        <service android:name="com.vinson.mmanager.services.WSService"/>
+        <service android:name=".services.WSService"/>
     </application>
 
 </manifest>
