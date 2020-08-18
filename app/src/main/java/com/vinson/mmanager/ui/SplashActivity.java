@@ -46,7 +46,21 @@ public class SplashActivity extends BaseActivity implements NavigationCallback {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle(TAG);
-        setContentView(R.layout.activity_splash);
+    }
+
+    @Override
+    protected int getLayoutRes() {
+        return R.layout.activity_splash;
+    }
+
+    @Override
+    protected void initView() {
+
+    }
+
+    @Override
+    protected void initEvent() {
+
     }
 
     @Override

@@ -40,12 +40,22 @@ public class WelcomeActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle(TAG);
+    }
 
-        setContentView(R.layout.activity_welcome);
+    @Override
+    protected int getLayoutRes() {
+        return R.layout.activity_welcome;
+    }
+
+    @Override
+    protected void initView() {
         mViewPager = findViewById(R.id.vp);
         mIndicatorContainer = findViewById(R.id.ll_indicator);
         mEnter = findViewById(R.id.img_enter);
+    }
 
+    @Override
+    protected void initEvent() {
         mViewPager.addOnPageChangeListener(new PageChangeListener());
         mViewPager.setAdapter(new MyPagerAdapter(this));
         mEnter.setOnClickListener(v -> {

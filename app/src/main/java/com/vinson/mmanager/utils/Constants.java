@@ -24,7 +24,7 @@ public class Constants {
 
     public static final String AROUTER_PAGE_WELCOME = "/page/welcome";
     public static final String AROUTER_PAGE_SPLASH = "/page/splash";
-    public static final String AROUTER_PAGE_CONFIG = "/page/config";
     public static final String AROUTER_PAGE_LOGIN = "/page/login";
+    public static final String AROUTER_PAGE_REGISTER = "/page/register";
     public static final String AROUTER_PAGE_MAIN = "/page/main";
 }

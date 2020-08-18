@@ -7,11 +7,12 @@
     android:layout_height="match_parent">
     
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cv"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:id="@+id/cv_register"
+        android:layout_width="320dp"
+        android:layout_height="400dp"
         app:cardCornerRadius="6dp"
         app:cardUseCompatPadding="true"
+        app:cardBackgroundColor="#2ea67f"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -20,26 +21,19 @@
        <androidx.constraintlayout.widget.ConstraintLayout
            android:layout_width="match_parent"
            android:layout_height="match_parent">
-           <ImageView
-               android:layout_marginTop="10dp"
-               app:layout_constraintTop_toTopOf="parent"
-               app:layout_constraintLeft_toLeftOf="parent"
-               android:layout_width="8dp"
-               android:layout_height="45dp"
-               android:background="#2fa881"/>
            <com.google.android.material.textview.MaterialTextView
-               android:layout_marginTop="10dp"
+               android:layout_marginTop="50dp"
                android:id="@+id/tv_login"
                app:layout_constraintTop_toTopOf="parent"
                app:layout_constraintLeft_toLeftOf="parent"
                android:layout_width="wrap_content"
                android:layout_height="45dp"
                android:layout_marginStart="50dp"
-               android:text="LOGIN"
+               android:text="REGISTER"
                android:gravity="center"
                android:textSize="18sp"
                android:textStyle="bold"
-               android:textColor="#ffcc00"/>
+               android:textColor="#fff"/>
            <com.google.android.material.textfield.TextInputLayout
                android:layout_width="match_parent"
                android:layout_height="50dp"
@@ -49,18 +43,18 @@
                app:layout_constraintLeft_toLeftOf="parent"
                android:paddingStart="50dp"
                android:paddingEnd="30dp"
-               android:textColorHint="#c5c5c5">
+               android:textColorHint="#f0f7f4">
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
-                    android:textColor="#2fa881"
+                    android:textColor="#f0f7f4"
                     android:paddingBottom="2dp"
                     android:id="@+id/et_phone"
                     android:hint="PhoneNumber"
                     android:inputType="phone"
-                    android:background="@drawable/login_selector_bg_edit"
-                    android:textCursorDrawable="@drawable/login_bg_input_cursor"/>
+                    android:background="@drawable/login_selector_bg_edit_2"
+                    android:textCursorDrawable="@drawable/login_bg_input_cursor_2"/>
            </com.google.android.material.textfield.TextInputLayout>
            <com.google.android.material.textfield.TextInputLayout
                android:layout_width="match_parent"
@@ -71,42 +65,53 @@
                android:id="@+id/til_password"
                android:paddingStart="50dp"
                android:paddingEnd="30dp"
-               android:textColorHint="#c5c5c5">
+               android:textColorHint="#f0f7f4">
                <com.google.android.material.textfield.TextInputEditText
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    android:textSize="18sp"
-                   android:textColor="#2fa881"
+                   android:textColor="#f0f7f4"
                    android:paddingBottom="2dp"
                    android:id="@+id/et_pass"
                    android:hint="Password"
                    android:inputType="phone"
-                   android:background="@drawable/login_selector_bg_edit"
-                   android:textCursorDrawable="@drawable/login_bg_input_cursor"/>
+                   android:background="@drawable/login_selector_bg_edit_2"
+                   android:textCursorDrawable="@drawable/login_bg_input_cursor_2"/>
+           </com.google.android.material.textfield.TextInputLayout>
+           <com.google.android.material.textfield.TextInputLayout
+               android:layout_width="match_parent"
+               android:layout_height="50dp"
+               android:layout_marginTop="10dp"
+               app:layout_constraintTop_toBottomOf="@+id/til_password"
+               app:layout_constraintLeft_toLeftOf="parent"
+               android:id="@+id/til_repassword"
+               android:paddingStart="50dp"
+               android:paddingEnd="30dp"
+               android:textColorHint="#f0f7f4">
+               <com.google.android.material.textfield.TextInputEditText
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:textSize="18sp"
+                   android:textColor="#f0f7f4"
+                   android:paddingBottom="2dp"
+                   android:id="@+id/et_repass"
+                   android:hint="RePassword"
+                   android:inputType="phone"
+                   android:background="@drawable/login_selector_bg_edit_2"
+                   android:textCursorDrawable="@drawable/login_bg_input_cursor_2"/>
            </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.button.MaterialButton
                 android:layout_width="150dp"
                 android:layout_height="50dp"
-                android:text="Enter"
+                android:text="Next"
                 android:textColor="#d3d3d3"
                 android:layout_marginTop="25dp"
-                app:layout_constraintTop_toBottomOf="@id/til_password"
+                app:layout_constraintTop_toBottomOf="@id/til_repassword"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                android:background="@drawable/login_bt_shape"
+                android:background="@drawable/login_bt_shape_2"
                 android:id="@+id/btn_enter"
                 android:stateListAnimator="@drawable/login_state_list_animator_z"/>
-           <com.google.android.material.textview.MaterialTextView
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:id="@+id/tv_forget"
-               android:textSize="12sp"
-               android:textColor="#9a9a9a"
-               android:layout_marginTop="5dp"
-               app:layout_constraintTop_toBottomOf="@id/btn_enter"
-               app:layout_constraintLeft_toLeftOf="parent"
-               app:layout_constraintRight_toRightOf="parent"
-               android:text="forget password ?"/>
        </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
@@ -114,12 +119,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:fabSize="normal"
-        android:layout_marginTop="25dp"
-        app:layout_constraintTop_toTopOf="@id/cv"
+        android:layout_marginBottom="368dp"
+        app:layout_constraintBottom_toBottomOf="@id/cv_register"
         android:transitionName="loginFab"
-        android:src="@mipmap/login_plus"
-        app:layout_constraintLeft_toLeftOf="@id/cv"
-        android:layout_marginStart="268dp"
+        android:src="@mipmap/login_plus_x"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
         android:id="@+id/fab"/>
 
 
