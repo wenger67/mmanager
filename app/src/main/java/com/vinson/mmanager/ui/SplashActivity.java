@@ -45,7 +45,6 @@ public class SplashActivity extends BaseActivity implements NavigationCallback {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle(TAG);
     }
 
     @Override

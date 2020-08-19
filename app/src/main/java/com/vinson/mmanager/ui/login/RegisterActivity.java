@@ -35,7 +35,6 @@ public class RegisterActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         ShowEnterAnimation();
         super.onCreate(savedInstanceState);
-        setTitle(TAG);
     }
 
     @Override

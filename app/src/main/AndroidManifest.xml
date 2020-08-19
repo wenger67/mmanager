@@ -32,7 +32,7 @@
         android:supportsRtl="true"
         android:fullBackupContent="@null"
         android:name="com.vinson.mmanager.App"
-        android:theme="@style/Theme.MaterialComponents.Light">
+        android:theme="@style/AppTheme">
         <activity android:name=".ui.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
@@ -41,9 +41,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.MainActivity"/>
+        <activity android:name=".ui.main.MainActivity"/>
         <activity android:name=".ui.VideoRoomActivity"/>
-        <activity android:name=".ui.SensorActivity"/>
         <activity android:name=".ui.WelcomeActivity"/>
         <activity android:name=".ui.login.LoginActivity"/>
         <activity android:name=".ui.login.RegisterActivity"/>
