@@ -15,12 +15,13 @@ import com.vinson.mmanager.ui.main.PageFragment;
 
 public class SimpleFragmentPagerAdapter extends FragmentStatePagerAdapter {
 
-    private String[] tabTitles = new String[]{"菜单1", "菜单2", "菜单3"};
+    private int tabCount;
     private Context context;
 
-    public SimpleFragmentPagerAdapter(FragmentManager fm, Context context) {
+    public SimpleFragmentPagerAdapter(FragmentManager fm, Context context, int tabCount) {
         super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         this.context = context;
+        this.tabCount = tabCount;
     }
 
     @NonNull
@@ -31,11 +32,7 @@ public class SimpleFragmentPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return tabTitles.length;
+        return tabCount;
     }
 
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return tabTitles[position];
-    }
 }
