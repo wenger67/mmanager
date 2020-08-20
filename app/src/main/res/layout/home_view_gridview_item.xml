@@ -7,7 +7,7 @@
     <com.mikepenz.iconics.view.IconicsImageView
         android:id="@+id/tab_img"
         android:layout_width="48dp"
-        android:layout_height="36dp"
+        android:layout_height="32dp"
         app:iiv_icon="cmd_google_home"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -18,7 +18,8 @@
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tab_tv"
         android:layout_width="wrap_content"
-        android:layout_height="24dp"
+        android:layout_height="18dp"
+        android:paddingTop="0dp"
         android:gravity="center_horizontal|top"
         android:text="tab"
         app:layout_constraintLeft_toLeftOf="parent"
