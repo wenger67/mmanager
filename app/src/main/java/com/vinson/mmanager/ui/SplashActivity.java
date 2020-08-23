@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
@@ -15,7 +14,6 @@ import androidx.annotation.RequiresApi;
 import com.alibaba.android.arouter.facade.Postcard;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.facade.callback.NavigationCallback;
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.vinson.mmanager.App;
 import com.vinson.mmanager.R;
 import com.vinson.mmanager.base.BaseActivity;
@@ -40,7 +38,6 @@ public class SplashActivity extends BaseActivity implements NavigationCallback {
     private static final int REQUEST_CODE = 200;
 
     private boolean mPermissionGranted = false;
-    private Handler mHandler = new Handler(this::handleMessage);
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -123,7 +120,8 @@ public class SplashActivity extends BaseActivity implements NavigationCallback {
         return true;
     }
 
-    private boolean handleMessage(Message msg) {
+    @Override
+    protected boolean handleMessage(Message msg) {
         if (isFinishing() || isDestroyed()) return true;
         switch (msg.what) {
             case MSG_LAUNCH_MAIN:

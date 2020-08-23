@@ -24,20 +24,19 @@ import com.vinson.mmanager.App;
 import com.vinson.mmanager.R;
 import com.vinson.mmanager.adapter.SimpleFragmentPagerAdapter;
 import com.vinson.mmanager.base.BaseActivity;
+import com.vinson.mmanager.model.ui.ListParamIntent;
 import com.vinson.mmanager.services.WSService;
 import com.vinson.mmanager.utils.Constants;
 
 @Route(path = Constants.AROUTER_PAGE_MAIN)
 public class MainActivity extends BaseActivity {
     public static final String TAG = MainActivity.class.getSimpleName();
-    private static final int MSG_NETWORK_CHANGE = 5;
 
     WSService.Binder wsService;
     ViewPager mViewPager;
     TabLayout mTabLayout;
     private SimpleFragmentPagerAdapter mPagerAdapter;
 
-    private Handler mHandler = new Handler(this::handleMessage);
     private ServiceConnection mServiceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
@@ -78,14 +77,15 @@ public class MainActivity extends BaseActivity {
         for (int i = 0; i < 4; i++) {
             TabLayout.Tab homeTab = mTabLayout.newTab();
 
-            View inflate = View.inflate(this, R.layout.view_tablayout_tab, null);
+            View inflate = View.inflate(this, R.layout.item_home_header_gridview, null);
             IconicsImageView homeTabImg = inflate.findViewById(R.id.tab_img);
             IconicsDrawable drawable = new IconicsDrawable(this, icons[i]);
             drawable.colorListRes(R.color.selector_color_main_tab);
             drawable.sizeDp(24);
             homeTabImg.setIcon(drawable);
             MaterialTextView textView = inflate.findViewById(R.id.tab_tv);
-            textView.setTextColor(ContextCompat.getColorStateList(this, R.color.selector_color_main_tab));
+            textView.setTextColor(ContextCompat.getColorStateList(this,
+                    R.color.selector_color_main_tab));
             textView.setText(titles[i]);
 
             homeTab.setCustomView(inflate);
@@ -151,13 +151,23 @@ public class MainActivity extends BaseActivity {
         super.onDestroy();
     }
 
-    private boolean handleMessage(Message msg) {
+    @Override
+    protected boolean handleMessage(Message message) {
         if (isFinishing() || isDestroyed()) return true;
-        switch (msg.what) {
+        switch (message.what) {
             case MSG_NETWORK_CHANGE:
+                break;
+            case MSG_LAUNCH_DATA_LIST:
+                ListParamIntent listIntent = (ListParamIntent) message.obj;
+                routeTo(Constants.AROUTER_PAGE_DATA_LIST, Constants.DATA_LIST_PARAM, listIntent,
+                        MainActivity.this);
+                break;
+            case MSG_LAUNCH_LOGIN:
+                routeTo(Constants.AROUTER_PAGE_LOGIN, MainActivity.this);
                 break;
         }
         return false;
+
     }
 
     @Override
@@ -168,5 +178,9 @@ public class MainActivity extends BaseActivity {
         } else {
             App.getInstance().showToast("Network disconnected");
         }
+    }
+
+    public Handler getHandler() {
+        return mHandler;
     }
 }

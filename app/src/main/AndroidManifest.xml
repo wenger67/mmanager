@@ -47,6 +47,8 @@
         <activity android:name=".ui.login.LoginActivity"/>
         <activity android:name=".ui.login.RegisterActivity"/>
 
+        <activity android:name=".ui.DataListActivity"/>
+
         <service android:name=".services.WSService"/>
     </application>
 

@@ -1,6 +1,7 @@
 package com.vinson.mmanager.ui.main;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,21 +10,43 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class AboutFragment extends Fragment {
+import com.google.android.material.button.MaterialButton;
+import com.socks.library.KLog;
+import com.vinson.mmanager.R;
+import com.vinson.mmanager.tools.Config;
+import com.vinson.mmanager.ui.login.BaseFragment;
+
+import java.util.Objects;
+
+public class AboutFragment extends BaseFragment {
+
+    MaterialButton mLogout;
+    Handler mHandler;
+
+    @Override
+    protected void initView(View root) {
+        mLogout = root.findViewById(R.id.btn_logout);
+    }
+
+    @Override
+    protected void initEvent() {
+        mLogout.setOnClickListener(v -> {
+            KLog.d();
+            Config.setToken("");
+            Config.setUserInfo(null);
+            Config.setTokenExpire("");
+            mHandler.sendEmptyMessage(MainActivity.MSG_LAUNCH_LOGIN);
+        });
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mHandler = ((MainActivity) Objects.requireNonNull(getActivity())).getHandler();
     }
 
     public AboutFragment(int contentLayoutId) {
         super(contentLayoutId);
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override

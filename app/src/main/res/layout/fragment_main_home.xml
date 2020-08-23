@@ -5,12 +5,13 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryBackground">
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tl_main_home"
+    <GridView
+        android:id="@+id/gv_main_home_header"
         android:layout_width="match_parent"
         android:layout_height="96dp"
+        android:numColumns="4"
         android:background="@color/colorPrimary"
-        android:orientation="horizontal"
+        android:gravity="center"
         android:paddingTop="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -19,7 +20,7 @@
     <GridView
         android:id="@+id/gv_main_home"
         android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/tl_main_home"
+        app:layout_constraintTop_toBottomOf="@id/gv_main_home_header"
         android:layout_marginTop="8dp"
         android:numColumns="5"
         android:layout_width="match_parent"

@@ -1,7 +1,8 @@
 package com.vinson.mmanager.ui.main;
 
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,17 +10,14 @@ import android.widget.GridView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 
-import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.textview.MaterialTextView;
 import com.mikepenz.community_material_typeface_library.CommunityMaterial;
-import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.iconics.typeface.IIcon;
-import com.mikepenz.iconics.view.IconicsImageView;
-import com.vinson.mmanager.App;
 import com.vinson.mmanager.R;
 import com.vinson.mmanager.adapter.HomeGridViewAdapter;
+import com.vinson.mmanager.adapter.HomeHeaderGridViewAdapter;
+import com.vinson.mmanager.model.ui.DataListAnnotation;
+import com.vinson.mmanager.model.ui.ListParamIntent;
 import com.vinson.mmanager.model.ui.HomeGridViewItem;
 import com.vinson.mmanager.ui.login.BaseFragment;
 
@@ -30,9 +28,11 @@ import java.util.Objects;
 public class HomeFragment extends BaseFragment {
     private static final String TAG = HomeFragment.class.getSimpleName();
 
-    TabLayout mTabLayout;
     GridView mGridView;
+    GridView mHeaderGridView;
     HomeGridViewAdapter mGridAdapter;
+    HomeHeaderGridViewAdapter mHeaderGridViewAdapter;
+    Handler mHandler;
 
     public HomeFragment(int contentLayoutId) {
         super(contentLayoutId);
@@ -41,36 +41,35 @@ public class HomeFragment extends BaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mHandler = ((MainActivity) Objects.requireNonNull(getActivity())).getHandler();
     }
 
     @Override
     protected void initView(View root) {
-        mTabLayout = root.findViewById(R.id.tl_main_home);
 
+
+        mHeaderGridView = root.findViewById(R.id.gv_main_home_header);
+        mHeaderGridViewAdapter =
+                new HomeHeaderGridViewAdapter(Objects.requireNonNull(getActivity()),
+                        R.layout.item_home_header_gridview, getHeaderData());
+        mHeaderGridView.setAdapter(mHeaderGridViewAdapter);
+
+        mGridView = root.findViewById(R.id.gv_main_home);
+        mGridAdapter = new HomeGridViewAdapter(getActivity(), R.layout.item_home_header_gridview,
+                getData());
+        mGridView.setAdapter(mGridAdapter);
+    }
+
+    private List<HomeGridViewItem> getHeaderData() {
         IIcon[] icons = new IIcon[]{CommunityMaterial.Icon2.cmd_scanner,
                 CommunityMaterial.Icon2.cmd_office_building, CommunityMaterial.Icon2.cmd_office,
                 CommunityMaterial.Icon2.cmd_help};
         String[] titles = new String[]{"Scan", "Building", "Office", "Help"};
+        List<HomeGridViewItem> items = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
-            TabLayout.Tab tab = mTabLayout.newTab();
-
-            View inflate = View.inflate(getActivity(), R.layout.view_tablayout_tab, null);
-            IconicsImageView tabImg = inflate.findViewById(R.id.tab_img);
-            IconicsDrawable drawable = new IconicsDrawable(App.getInstance(), icons[i]);
-            drawable.colorListRes(R.color.selector_color_main_home_tab);
-            drawable.sizeDp(24);
-            tabImg.setIcon(drawable);
-            MaterialTextView textView = inflate.findViewById(R.id.tab_tv);
-            textView.setTextColor(ContextCompat.getColorStateList(Objects.requireNonNull(getActivity()), R.color.selector_color_main_home_tab));
-            textView.setText(titles[i]);
-
-            tab.setCustomView(inflate);
-            mTabLayout.addTab(tab);
+            items.add(new HomeGridViewItem(icons[i], titles[i]));
         }
-
-        mGridView = root.findViewById(R.id.gv_main_home);
-        mGridAdapter = new HomeGridViewAdapter(getActivity(), R.layout.view_tablayout_tab, getData());
-        mGridView.setAdapter(mGridAdapter);
+        return items;
     }
 
     private List<HomeGridViewItem> getData() {
@@ -95,33 +94,29 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void initEvent() {
-        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                Log.d(TAG, "onTabSelected: " + tab.getPosition());
-            }
+        mHeaderGridView.setOnItemClickListener((parent, view, position, id) -> {
+            switch (position) {
+                case 0:
+                    // goto camera activity
+                    break;
+                case 1:
+                    // goto lift list activity
+                    ListParamIntent listParamIntent = new ListParamIntent();
+                    listParamIntent.dataType = DataListAnnotation.LIFT;
 
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
+                    Message message = new Message();
+                    message.what = MainActivity.MSG_LAUNCH_DATA_LIST;
+                    message.obj = listParamIntent;
+                    mHandler.sendMessage(message);
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                default:
+                    break;
             }
         });
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        View view = super.onCreateView(inflater, container, savedInstanceState);
-        assert view != null;
-        initView(view);
-        initEvent();
-        return view;
     }
 
     @Override

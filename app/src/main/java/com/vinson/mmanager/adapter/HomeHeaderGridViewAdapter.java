@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
-import com.google.android.material.transition.Hold;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.iconics.view.IconicsImageView;
 import com.vinson.mmanager.R;
@@ -20,13 +19,13 @@ import com.vinson.mmanager.model.ui.HomeGridViewItem;
 
 import java.util.List;
 
-public class HomeGridViewAdapter extends ArrayAdapter<HomeGridViewItem> {
+public class HomeHeaderGridViewAdapter extends ArrayAdapter<HomeGridViewItem> {
 
     Context context;
     int layoutRes;
     List<HomeGridViewItem> mDatas;
 
-    public HomeGridViewAdapter(@NonNull Context context, int resource, @NonNull List<HomeGridViewItem> objects) {
+    public HomeHeaderGridViewAdapter(@NonNull Context context, int resource, @NonNull List<HomeGridViewItem> objects) {
         super(context, resource, objects);
         this.context = context;
         this.layoutRes = resource;
@@ -49,9 +48,10 @@ public class HomeGridViewAdapter extends ArrayAdapter<HomeGridViewItem> {
         }
         HomeGridViewItem item = mDatas.get(position);
         viewHolder.textView.setText(item.getTitle());
+        viewHolder.textView.setTextColor(ContextCompat.getColorStateList(context, R.color.selector_color_main_home_tab));
         IconicsDrawable iconicsDrawable = new IconicsDrawable(context, item.getIcon());
-        iconicsDrawable.sizeDp(18);
-        iconicsDrawable.colorRes(android.R.color.black);
+        iconicsDrawable.sizeDp(24);
+        iconicsDrawable.colorListRes(R.color.selector_color_main_home_tab);
         viewHolder.icon.setIcon(iconicsDrawable);
         return convertView;
     }

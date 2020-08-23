@@ -2,6 +2,9 @@ package com.vinson.mmanager.base;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.os.Parcelable;
 import android.util.Log;
 
 import androidx.annotation.LayoutRes;
@@ -11,17 +14,35 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.alibaba.android.arouter.facade.Postcard;
 import com.alibaba.android.arouter.facade.callback.NavigationCallback;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.ethanhua.skeleton.SkeletonScreen;
+import com.google.gson.Gson;
 import com.vinson.mmanager.tools.NetworkObserver;
 
-public abstract class BaseActivity extends AppCompatActivity implements NetworkObserver.Listener, NavigationCallback {
+public abstract class BaseActivity extends AppCompatActivity implements NetworkObserver.Listener,
+        NavigationCallback {
+
     public static final String TAG = BaseActivity.class.getSimpleName();
+    public static final int MSG_LAUNCH_DATA_LIST = 1;
+    public static final int MSG_LAUNCH_LOGIN = 2;
+    protected static final int MSG_FETCH_LIST_DATA = 10;
+    protected static final int MSG_NETWORK_CHANGE = 5;
+    protected Gson mGson = new Gson();
     public NetworkObserver mNetwork;
+    protected SkeletonScreen mSkeletonScreen;
+    protected Handler mHandler = new Handler(this::handleMessage);
+
+    protected abstract boolean handleMessage(Message message);
 
     public void routeTo(String url, Context context) {
         ARouter.getInstance().build(url).navigation(context, this);
     }
-    public void routeTo(String url, Bundle bundle , Context context) {
+
+    public void routeTo(String url, Bundle bundle, Context context) {
         ARouter.getInstance().build(url).withBundle(url, bundle).navigation(context, this);
+    }
+
+    public void routeTo(String url, String key, Parcelable parcelable, Context context) {
+        ARouter.getInstance().build(url).withParcelable(key, parcelable).navigation(context, this);
     }
 
     @Override
@@ -58,8 +79,11 @@ public abstract class BaseActivity extends AppCompatActivity implements NetworkO
         }
     }
 
-    protected abstract @LayoutRes int getLayoutRes();
+    protected abstract @LayoutRes
+    int getLayoutRes();
+
     protected abstract void initView();
+
     protected abstract void initEvent();
 
     @Override

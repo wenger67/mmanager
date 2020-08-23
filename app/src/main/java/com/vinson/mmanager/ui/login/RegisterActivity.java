@@ -3,6 +3,7 @@ package com.vinson.mmanager.ui.login;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.os.Bundle;
+import android.os.Message;
 import android.transition.Explode;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
@@ -30,6 +31,11 @@ public class RegisterActivity extends BaseActivity {
     FloatingActionButton mFab;
     MaterialButton mEnter;
     MaterialCardView mCvRegister;
+
+    @Override
+    protected boolean handleMessage(Message message) {
+        return false;
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

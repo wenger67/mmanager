@@ -2,6 +2,7 @@ package com.vinson.mmanager.ui;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Message;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -16,7 +17,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.alibaba.android.arouter.facade.Postcard;
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.vinson.mmanager.R;
 import com.vinson.mmanager.base.BaseActivity;
 import com.vinson.mmanager.tools.Config;
@@ -35,6 +35,11 @@ public class WelcomeActivity extends BaseActivity {
     LinearLayoutCompat mIndicatorContainer;
     AppCompatImageView mEnter;
     ImageView[] mIndicators;
+
+    @Override
+    protected boolean handleMessage(Message message) {
+        return false;
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -100,7 +105,8 @@ public class WelcomeActivity extends BaseActivity {
     }
 
     class MyPagerAdapter extends PagerAdapter {
-        private final int[] GUIDES = new int[]{R.mipmap.img_welcome_guide_1, R.mipmap.img_welcome_guide_2, R.mipmap.img_welcome_guide_3};
+        private final int[] GUIDES = new int[]{R.mipmap.img_welcome_guide_1,
+                R.mipmap.img_welcome_guide_2, R.mipmap.img_welcome_guide_3};
         private List<ImageView> imgs;
 
         public MyPagerAdapter(Context context) {
@@ -126,7 +132,8 @@ public class WelcomeActivity extends BaseActivity {
         }
 
         @Override
-        public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+        public void destroyItem(@NonNull ViewGroup container, int position,
+                                @NonNull Object object) {
             container.removeView(this.imgs.get(position));
         }
 
