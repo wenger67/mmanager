@@ -140,7 +140,6 @@ public class LoginActivity extends BaseActivity implements Handler.Callback {
             if (verify != null) {
                 Toasty.error(LoginActivity.this, verify, Toast.LENGTH_LONG, true).show();
             } else {
-                KLog.d(mGson.toJson(mLoginParams));
                 RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), mGson.toJson(mLoginParams));
                 ServerHelper2.getInstance().login(requestBody).enqueue(new Callback<BaseResponse<JsonObject>>() {
                     @Override

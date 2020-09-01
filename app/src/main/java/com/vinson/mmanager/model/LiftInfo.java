@@ -3,8 +3,7 @@ package com.vinson.mmanager.model;
 import java.util.Objects;
 
 
-public class LiftInfo {
-    private int ID;
+public class LiftInfo extends BaseModel{
     private String nickName;
     private String code;
     private Company installer;

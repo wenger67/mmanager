@@ -1,4 +1,4 @@
-package com.vinson.mmanager.adapter;
+package com.vinson.mmanager.adapter.home;
 
 import android.content.Context;
 import android.util.SparseArray;

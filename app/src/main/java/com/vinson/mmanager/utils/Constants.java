@@ -1,8 +1,10 @@
 package com.vinson.mmanager.utils;
 
+import com.vinson.mmanager.BuildConfig;
+
 public class Constants {
-    public static final String BASE_URL = "http://192.168.1.3:8888";
-    public static final String WS_BASE_URL = "ws://192.168.1.3:8888";
+    public static final String BASE_URL = "http://" + BuildConfig.BaseUrl;
+    public static final String WS_BASE_URL = "ws://" +  BuildConfig.BaseUrl;
     public static final String WS_PATH = "/api/ws/endpoint";
 
     public static final String PREFIX="LIFT_";
@@ -25,5 +27,8 @@ public class Constants {
     public static final String AROUTER_PAGE_LOGIN = "/page/login";
     public static final String AROUTER_PAGE_REGISTER = "/page/register";
     public static final String AROUTER_PAGE_MAIN = "/page/main";
-    public static final String AROUTER_PAGE_DATA_LIST = "/page/main/datalist";
+    public static final String AROUTER_PAGE_LIFT_LIST = "/page/list/lifts";
+    public static final String AROUTER_PAGE_LIFT_CHANGES = "/page/list/liftchanges";
+    public static final String AROUTER_PAGE_LIFT_RECORDS = "/page/list/liftrecords";
+    public static final String AROUTER_PAGE_LIFT_TROUBLES = "/page/list/lifttroubles";
 }

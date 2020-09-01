@@ -3,9 +3,7 @@ package com.vinson.mmanager.ui.main;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.GridView;
 
 import androidx.annotation.NonNull;
@@ -14,10 +12,10 @@ import androidx.annotation.Nullable;
 import com.mikepenz.community_material_typeface_library.CommunityMaterial;
 import com.mikepenz.iconics.typeface.IIcon;
 import com.vinson.mmanager.R;
-import com.vinson.mmanager.adapter.HomeGridViewAdapter;
-import com.vinson.mmanager.adapter.HomeHeaderGridViewAdapter;
-import com.vinson.mmanager.model.ui.DataListAnnotation;
-import com.vinson.mmanager.model.ui.ListParamIntent;
+import com.vinson.mmanager.adapter.home.HomeGridViewAdapter;
+import com.vinson.mmanager.adapter.home.HomeHeaderGridViewAdapter;
+import com.vinson.mmanager.model.annotation.ModuleType;
+import com.vinson.mmanager.model.ui.ListParams;
 import com.vinson.mmanager.model.ui.HomeGridViewItem;
 import com.vinson.mmanager.ui.login.BaseFragment;
 
@@ -64,7 +62,7 @@ public class HomeFragment extends BaseFragment {
         IIcon[] icons = new IIcon[]{CommunityMaterial.Icon2.cmd_scanner,
                 CommunityMaterial.Icon2.cmd_office_building, CommunityMaterial.Icon2.cmd_office,
                 CommunityMaterial.Icon2.cmd_help};
-        String[] titles = new String[]{"Scan", "Building", "Office", "Help"};
+        String[] titles = new String[]{"Scan", "Lifts", "Office", "Help"};
         List<HomeGridViewItem> items = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             items.add(new HomeGridViewItem(icons[i], titles[i]));
@@ -101,12 +99,9 @@ public class HomeFragment extends BaseFragment {
                     break;
                 case 1:
                     // goto lift list activity
-                    ListParamIntent listParamIntent = new ListParamIntent();
-                    listParamIntent.dataType = DataListAnnotation.LIFT;
-
                     Message message = new Message();
                     message.what = MainActivity.MSG_LAUNCH_DATA_LIST;
-                    message.obj = listParamIntent;
+                    message.obj = new ListParams(ModuleType.MODULE_LIFT_LIST);
                     mHandler.sendMessage(message);
                     break;
                 case 2:
@@ -118,6 +113,8 @@ public class HomeFragment extends BaseFragment {
             }
         });
     }
+
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

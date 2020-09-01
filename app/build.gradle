@@ -22,6 +22,8 @@ android {
     def zego_appid = properties.getProperty("zegoAppid")
     def zego_appsign = properties.getProperty("zegoAppsign")
 
+    def base_url = properties.getProperty("baseUrl")
+
     defaultConfig {
         applicationId "com.vinson.mmanager"
         minSdkVersion 21
@@ -57,6 +59,7 @@ android {
     buildTypes.each {
         it.buildConfigField 'Long', 'ZegoAppId', zego_appid
         it.buildConfigField 'String', 'ZegoAppSign', zego_appsign
+        it.buildConfigField 'String', 'BaseUrl', base_url
     }
 
     buildTypes {
@@ -118,7 +121,7 @@ apply from: 'download_model.gradle'
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     implementation 'com.android.support:multidex:1.0.3'
 
     implementation 'com.google.android.material:material:1.2.0'
@@ -132,6 +135,8 @@ dependencies {
     implementation "com.mikepenz:iconics-views:3.2.1"
     implementation 'com.github.zhaokaiqiang.klog:library:1.6.0' // logcat
     implementation 'com.github.GrenderG:Toasty:1.5.0' // toast
+    implementation 'com.ethanhua:skeleton:1.1.2'  // skeleton load anim
+    implementation 'io.supercharge:shimmerlayout:2.1.0'
 
     implementation 'im.zego:express-video:1.12.0' // video/audio talk
     implementation 'com.github.licheedev:Android-SerialPort-API:2.0.0' // 串口通信
@@ -144,11 +149,8 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.11.0' // media process
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
-    implementation 'com.ethanhua:skeleton:1.1.2'  // skeleton load anim
-    implementation 'io.supercharge:shimmerlayout:2.1.0'
-
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
 }

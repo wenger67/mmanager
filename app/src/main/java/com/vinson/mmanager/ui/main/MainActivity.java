@@ -22,9 +22,9 @@ import com.mikepenz.iconics.typeface.IIcon;
 import com.mikepenz.iconics.view.IconicsImageView;
 import com.vinson.mmanager.App;
 import com.vinson.mmanager.R;
-import com.vinson.mmanager.adapter.SimpleFragmentPagerAdapter;
+import com.vinson.mmanager.adapter.home.SimpleFragmentPagerAdapter;
 import com.vinson.mmanager.base.BaseActivity;
-import com.vinson.mmanager.model.ui.ListParamIntent;
+import com.vinson.mmanager.model.ui.ListParams;
 import com.vinson.mmanager.services.WSService;
 import com.vinson.mmanager.utils.Constants;
 
@@ -34,7 +34,7 @@ public class MainActivity extends BaseActivity {
 
     WSService.Binder wsService;
     ViewPager mViewPager;
-    TabLayout mTabLayout;
+    TabLayout mBottomMenus;
     private SimpleFragmentPagerAdapter mPagerAdapter;
 
     private ServiceConnection mServiceConnection = new ServiceConnection() {
@@ -71,11 +71,11 @@ public class MainActivity extends BaseActivity {
         Intent intent = new Intent(this, WSService.class);
         bindService(intent, mServiceConnection, BIND_AUTO_CREATE);
 
-        mTabLayout = findViewById(R.id.tl);
-        mTabLayout.setTabMode(TabLayout.MODE_FIXED);
+        mBottomMenus = findViewById(R.id.tl);
+        mBottomMenus.setTabMode(TabLayout.MODE_FIXED);
 
         for (int i = 0; i < 4; i++) {
-            TabLayout.Tab homeTab = mTabLayout.newTab();
+            TabLayout.Tab homeTab = mBottomMenus.newTab();
 
             View inflate = View.inflate(this, R.layout.item_home_header_gridview, null);
             IconicsImageView homeTabImg = inflate.findViewById(R.id.tab_img);
@@ -89,11 +89,11 @@ public class MainActivity extends BaseActivity {
             textView.setText(titles[i]);
 
             homeTab.setCustomView(inflate);
-            mTabLayout.addTab(homeTab);
+            mBottomMenus.addTab(homeTab);
         }
 
         mPagerAdapter = new SimpleFragmentPagerAdapter(getSupportFragmentManager(), this,
-                mTabLayout.getTabCount());
+                mBottomMenus.getTabCount());
         mPagerAdapter.addFragment(new HomeFragment(R.layout.fragment_main_home));
         mPagerAdapter.addFragment(new ManageFragment(R.layout.fragment_main_manage));
         mPagerAdapter.addFragment(new MessageFragment(R.layout.fragment_main_message));
@@ -105,7 +105,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initEvent() {
-        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        mBottomMenus.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 mViewPager.setCurrentItem(tab.getPosition());
@@ -131,7 +131,7 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
-                mTabLayout.setScrollPosition(position, 0f, true);
+                mBottomMenus.setScrollPosition(position, 0f, true);
             }
 
             @Override
@@ -158,8 +158,8 @@ public class MainActivity extends BaseActivity {
             case MSG_NETWORK_CHANGE:
                 break;
             case MSG_LAUNCH_DATA_LIST:
-                ListParamIntent listIntent = (ListParamIntent) message.obj;
-                routeTo(Constants.AROUTER_PAGE_DATA_LIST, Constants.DATA_LIST_PARAM, listIntent,
+                ListParams listParams = (ListParams) message.obj;
+                routeTo(Constants.AROUTER_PAGE_LIFT_LIST, Constants.DATA_LIST_PARAM, listParams,
                         MainActivity.this);
                 break;
             case MSG_LAUNCH_LOGIN:
