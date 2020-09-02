@@ -15,7 +15,11 @@ import com.alibaba.android.arouter.facade.Postcard;
 import com.alibaba.android.arouter.facade.callback.NavigationCallback;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.ethanhua.skeleton.SkeletonScreen;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.gson.Gson;
+import com.mikepenz.community_material_typeface_library.CommunityMaterial;
+import com.mikepenz.iconics.IconicsDrawable;
+import com.vinson.mmanager.R;
 import com.vinson.mmanager.tools.NetworkObserver;
 
 public abstract class BaseActivity extends AppCompatActivity implements NetworkObserver.Listener,
@@ -24,24 +28,23 @@ public abstract class BaseActivity extends AppCompatActivity implements NetworkO
     public static final String TAG = BaseActivity.class.getSimpleName();
     public static final int MSG_LAUNCH_LIFT_LIST = 1;
     public static final int MSG_LAUNCH_LOGIN = 2;
-    protected static final int MSG_FETCH_LIST_DATA = 10;
-    protected static final int MSG_NETWORK_CHANGE = 5;
     public static final int MSG_LAUNCH_LIFT_CHANGES = 11;
     public static final int MSG_LAUNCH_LIFT_RECORDS = 12;
     public static final int MSG_LAUNCH_LIFT_TROUBLES = 13;
     public static final int MSG_LAUNCH_USERS = 14;
-
     public static final int MSG_LAUNCH_DEVICE_LIST = 101;
     public static final int MSG_LAUNCH_DEVICE_EVENT = 102;
     public static final int MSG_LAUNCH_DEVICE_DATA = 103;
     public static final int MSG_LAUNCH_DEVICE_CONFIG = 104;
-
     public static final int MSG_LAUNCH_COMPANY_LIST = 201;
-
-    protected Gson mGson = new Gson();
+    public static final int MSG_FETCH_LIST_DATA = 1002;
+    public static final int MSG_NETWORK_CHANGE = 1001;
     public NetworkObserver mNetwork;
+    protected Gson mGson = new Gson();
     protected SkeletonScreen mSkeletonScreen;
     protected Handler mHandler = new Handler(this::handleMessage);
+
+    protected MaterialToolbar mMaterialToolbar;
 
     protected abstract boolean handleMessage(Message message);
 
@@ -94,9 +97,16 @@ public abstract class BaseActivity extends AppCompatActivity implements NetworkO
     protected abstract @LayoutRes
     int getLayoutRes();
 
-    protected abstract void initView();
+    protected void initView() {
+        mMaterialToolbar = findViewById(R.id.tb);
+        setSupportActionBar(mMaterialToolbar);
+        mMaterialToolbar.setNavigationIcon(new IconicsDrawable(this,
+                CommunityMaterial.Icon.cmd_arrow_left).sizeDp(16).color(getResources().getColor(android.R.color.white)));
+    }
 
-    protected abstract void initEvent();
+    protected void initEvent(){
+        mMaterialToolbar.setNavigationOnClickListener(v -> finish());
+    }
 
     @Override
     public void networkChanged(boolean connected) {

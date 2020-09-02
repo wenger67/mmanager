@@ -117,13 +117,14 @@ public class DevicesActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        super.initView();
         mCustomList = findViewById(R.id.rcv);
         mCustomList.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         mDevicesAdapter = new DevicesAdapter(null, this);
         mCustomList.setAdapter(mDevicesAdapter);
 
         mSkeletonScreen = Skeleton.bind(mCustomList)
-                .adapter(mDevicesAdapter).load(R.layout.activity_data_list)
+                .adapter(mDevicesAdapter).load(R.layout.activity_data_list_skeleton)
                 .show();
         mHandler.sendEmptyMessage(MSG_FETCH_LIST_DATA);
     }
@@ -131,5 +132,6 @@ public class DevicesActivity extends BaseActivity {
 
     @Override
     protected void initEvent() {
+        super.initEvent();
     }
 }

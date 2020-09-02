@@ -117,13 +117,14 @@ public class CompaniesActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        super.initView();
         mCustomList = findViewById(R.id.rcv);
         mCustomList.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         mCompaniesAdapter = new CompaniesAdapter(null, this);
         mCustomList.setAdapter(mCompaniesAdapter);
 
         mSkeletonScreen = Skeleton.bind(mCustomList)
-                .adapter(mCompaniesAdapter).load(R.layout.activity_data_list)
+                .adapter(mCompaniesAdapter).load(R.layout.activity_data_list_skeleton)
                 .show();
         mHandler.sendEmptyMessage(MSG_FETCH_LIST_DATA);
     }
@@ -131,5 +132,6 @@ public class CompaniesActivity extends BaseActivity {
 
     @Override
     protected void initEvent() {
+        super.initEvent();
     }
 }

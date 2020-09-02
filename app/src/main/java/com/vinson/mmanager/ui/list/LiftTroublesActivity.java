@@ -114,13 +114,14 @@ public class LiftTroublesActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        super.initView();
         mCustomList = findViewById(R.id.rcv);
         mCustomList.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         mTroublesAdapter = new LiftTroublesAdapter(null, this);
 
 
         mSkeletonScreen = Skeleton.bind(mCustomList)
-                .adapter(mTroublesAdapter).load(R.layout.activity_data_list)
+                .adapter(mTroublesAdapter).load(R.layout.activity_data_list_skeleton)
                 .show();
         mHandler.sendEmptyMessage(MSG_FETCH_LIST_DATA);
     }
@@ -128,5 +129,6 @@ public class LiftTroublesActivity extends BaseActivity {
 
     @Override
     protected void initEvent() {
+        super.initEvent();
     }
 }

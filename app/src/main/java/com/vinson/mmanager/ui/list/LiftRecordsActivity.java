@@ -115,13 +115,14 @@ public class LiftRecordsActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        super.initView();
         mCustomList = findViewById(R.id.rcv);
         mCustomList.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         mRecordsAdapter = new LiftRecordsAdapter(null, this);
         mCustomList.setAdapter(mRecordsAdapter);
 
         mSkeletonScreen = Skeleton.bind(mCustomList)
-                .adapter(mRecordsAdapter).load(R.layout.activity_data_list)
+                .adapter(mRecordsAdapter).load(R.layout.activity_data_list_skeleton)
                 .show();
         mHandler.sendEmptyMessage(MSG_FETCH_LIST_DATA);
     }
@@ -129,5 +130,6 @@ public class LiftRecordsActivity extends BaseActivity {
 
     @Override
     protected void initEvent() {
+        super.initEvent();
     }
 }
