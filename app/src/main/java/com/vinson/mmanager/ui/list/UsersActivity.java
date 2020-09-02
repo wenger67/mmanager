@@ -14,10 +14,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.socks.library.KLog;
 import com.vinson.mmanager.R;
-import com.vinson.mmanager.adapter.LiftsAdapter;
+import com.vinson.mmanager.adapter.UsersAdapter;
 import com.vinson.mmanager.base.BaseActivity;
 import com.vinson.mmanager.data.ServerHelper;
-import com.vinson.mmanager.model.lift.LiftInfo;
+import com.vinson.mmanager.model.login.UserInfo;
 import com.vinson.mmanager.model.request.BaseListParams;
 import com.vinson.mmanager.model.response.BaseResponse;
 import com.vinson.mmanager.ui.view.CustomList;
@@ -26,15 +26,17 @@ import com.vinson.mmanager.utils.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-@Route(path = Constants.AROUTER_PAGE_LIFT_LIST)
-public class LiftsActivity extends BaseActivity {
+@Route(path = Constants.AROUTER_PAGE_USERS)
+public class UsersActivity extends BaseActivity {
     CustomList mCustomList;
-    List<LiftInfo> mLiftInfos = new ArrayList<>();
-    LiftsAdapter mLiftsAdapter;
+    List<UserInfo> mUsers = new ArrayList<>();
+    UsersAdapter mUsersAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,19 +57,21 @@ public class LiftsActivity extends BaseActivity {
 
     private void fetchData() {
         BaseListParams listParams = new BaseListParams();
-        ServerHelper.getInstance().getLiftList(listParams.getPage(), listParams.getPageSize()).enqueue(new Callback<BaseResponse<JsonObject>>() {
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), mGson.toJson(listParams));
+        ServerHelper.getInstance().getUserList(requestBody).enqueue(new Callback<BaseResponse<JsonObject>>() {
             @Override
             public void onResponse(Call<BaseResponse<JsonObject>> call,
                                    Response<BaseResponse<JsonObject>> response) {
                 BaseResponse<JsonObject> body = response.body();
                 if (body != null) {
                     JsonObject data = body.getData();
-                    KLog.d(data.get("list").toString());
                     for (JsonElement element : data.getAsJsonArray("list")) {
-                        mLiftInfos.add(mGson.fromJson(element, LiftInfo.class));
+                        mUsers.add(mGson.fromJson(element, UserInfo.class));
                     }
-                    mLiftsAdapter.setData(mLiftInfos);
+                    mUsersAdapter.setData(mUsers);
                     mSkeletonScreen.hide();
+                } else {
+                    KLog.w("get user list empty!");
                 }
             }
 
@@ -117,11 +121,11 @@ public class LiftsActivity extends BaseActivity {
     protected void initView() {
         mCustomList = findViewById(R.id.rcv);
         mCustomList.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-        mLiftsAdapter = new LiftsAdapter(null, this);
-        mCustomList.setAdapter(mLiftsAdapter);
+        mUsersAdapter = new UsersAdapter(null, this);
+        mCustomList.setAdapter(mUsersAdapter);
 
         mSkeletonScreen = Skeleton.bind(mCustomList)
-                .adapter(mLiftsAdapter).load(R.layout.activity_data_list)
+                .adapter(mUsersAdapter).load(R.layout.activity_data_list)
                 .show();
         mHandler.sendEmptyMessage(MSG_FETCH_LIST_DATA);
     }

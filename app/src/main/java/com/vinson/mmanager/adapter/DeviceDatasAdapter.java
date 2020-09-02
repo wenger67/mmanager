@@ -11,14 +11,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.textview.MaterialTextView;
 import com.vinson.mmanager.R;
 import com.vinson.mmanager.adapter.base.BaseDataListAdapter;
+import com.vinson.mmanager.model.device.DeviceData;
 import com.vinson.mmanager.model.lift.LiftChange;
 
 import java.util.List;
 
-public class LiftChangesAdapter extends BaseDataListAdapter<LiftChange, LiftChangesAdapter.ChangeViewHolder> {
+public class DeviceDatasAdapter extends BaseDataListAdapter<DeviceData, DeviceDatasAdapter.ChangeViewHolder> {
 
 
-    public LiftChangesAdapter(List<LiftChange> data, Context context) {
+    public DeviceDatasAdapter(List<DeviceData> data, Context context) {
         super(data, context);
     }
 
@@ -34,10 +35,10 @@ public class LiftChangesAdapter extends BaseDataListAdapter<LiftChange, LiftChan
 
     @Override
     public void onBindViewHolder(@NonNull ChangeViewHolder holder, int position) {
-        LiftChange info = mData.get(position);
-        holder.name.setText(info.getLift().getNickName());
-        holder.code.setText(info.getLift().getAddress().getAddressName());
-        holder.owner.setText(info.getContent());
+        DeviceData info = mData.get(position);
+        holder.name.setText(String.valueOf(info.getID()));
+        holder.code.setText(info.getAccx() + ", " + info.getAccy() + ", " + info.getAccz());
+        holder.owner.setText(info.getDegx() + ", " + info.getDegy() + ", " + info.getDegz());
     }
 
     static class ChangeViewHolder extends RecyclerView.ViewHolder {

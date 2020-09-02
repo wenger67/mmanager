@@ -11,12 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.textview.MaterialTextView;
 import com.vinson.mmanager.R;
 import com.vinson.mmanager.adapter.base.BaseDataListAdapter;
-import com.vinson.mmanager.model.LiftInfo;
-import com.vinson.mmanager.model.LiftTrouble;
+import com.vinson.mmanager.model.lift.LiftTrouble;
 
 import java.util.List;
 
-public class LiftTroublesAdapter extends BaseDataListAdapter<LiftTrouble, LiftTroublesAdapter.LiftViewHolder> {
+public class LiftTroublesAdapter extends BaseDataListAdapter<LiftTrouble, LiftTroublesAdapter.TroubleViewHolder> {
 
 
     public LiftTroublesAdapter(List<LiftTrouble> data, Context context) {
@@ -25,25 +24,25 @@ public class LiftTroublesAdapter extends BaseDataListAdapter<LiftTrouble, LiftTr
 
     @NonNull
     @Override
-    public LiftViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public TroubleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View root = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_lift_list, parent, false);
-        final LiftViewHolder holder = new LiftViewHolder(root);
+        final TroubleViewHolder holder = new TroubleViewHolder(root);
 
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull LiftViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull TroubleViewHolder holder, int position) {
         LiftTrouble info = mData.get(position);
-//        holder.name.setText(info.getNickName());
-//        holder.code.setText(info.getCode());
-//        holder.owner.setText(info.getOwner().getFullName());
+        holder.name.setText(info.getLift().getNickName());
+        holder.code.setText(info.getFromCategory().getCategoryName());
+        holder.owner.setText(info.getFixCategory().getCategoryName());
     }
 
-    static class LiftViewHolder extends RecyclerView.ViewHolder {
+    static class TroubleViewHolder extends RecyclerView.ViewHolder {
         MaterialTextView name, code, owner;
-        public LiftViewHolder(@NonNull View itemView) {
+        public TroubleViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.tv_name);
             code = itemView.findViewById(R.id.tv_code);

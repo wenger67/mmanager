@@ -9,7 +9,6 @@ import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.transition.Explode;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -25,21 +24,17 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.socks.library.KLog;
 import com.vinson.mmanager.R;
 import com.vinson.mmanager.base.BaseActivity;
-import com.vinson.mmanager.data.ServerHelper;
-import com.vinson.mmanager.data.ServerHelper2;
+import com.vinson.mmanager.data.ServerHelperWithoutToken;
 import com.vinson.mmanager.model.login.Captcha;
 import com.vinson.mmanager.model.login.UserInfo;
 import com.vinson.mmanager.model.request.LoginParams;
 import com.vinson.mmanager.model.response.BaseResponse;
 import com.vinson.mmanager.tools.Config;
 import com.vinson.mmanager.utils.Constants;
-
-import org.json.JSONObject;
 
 import es.dmoral.toasty.Toasty;
 import okhttp3.MediaType;
@@ -88,7 +83,7 @@ public class LoginActivity extends BaseActivity implements Handler.Callback {
     }
 
     private void fillCaptcha() {
-        ServerHelper2.getInstance().captcha().enqueue(new Callback<BaseResponse<Captcha>>() {
+        ServerHelperWithoutToken.getInstance().captcha().enqueue(new Callback<BaseResponse<Captcha>>() {
             @Override
             public void onResponse(Call<BaseResponse<Captcha>> call,
                                    Response<BaseResponse<Captcha>> response) {
@@ -141,7 +136,7 @@ public class LoginActivity extends BaseActivity implements Handler.Callback {
                 Toasty.error(LoginActivity.this, verify, Toast.LENGTH_LONG, true).show();
             } else {
                 RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), mGson.toJson(mLoginParams));
-                ServerHelper2.getInstance().login(requestBody).enqueue(new Callback<BaseResponse<JsonObject>>() {
+                ServerHelperWithoutToken.getInstance().login(requestBody).enqueue(new Callback<BaseResponse<JsonObject>>() {
                     @Override
                     public void onResponse(Call<BaseResponse<JsonObject>> call,
                                            Response<BaseResponse<JsonObject>> response) {

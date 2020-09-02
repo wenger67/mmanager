@@ -1,20 +1,10 @@
 package com.vinson.mmanager.model;
 
-public class CategorySubject {
-    private int ID;
+public class CategorySubject extends BaseModel{
     private String subjectName;
 
-    public CategorySubject(int ID, String subjectName) {
-        this.ID = ID;
+    public CategorySubject(String subjectName) {
         this.subjectName = subjectName;
-    }
-
-    public int getID() {
-        return ID;
-    }
-
-    public void setID(int ID) {
-        this.ID = ID;
     }
 
     public String getSubjectName() {

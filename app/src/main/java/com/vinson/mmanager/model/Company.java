@@ -1,7 +1,7 @@
 package com.vinson.mmanager.model;
 
 
-public class Company {
+public class Company extends BaseModel{
     private String fullName;
     private String alias;
     private String legalPerson;

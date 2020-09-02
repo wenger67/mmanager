@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.vinson.mmanager.App;
-import com.vinson.mmanager.model.LiftInfo;
+import com.vinson.mmanager.model.lift.LiftInfo;
 import com.vinson.mmanager.model.login.UserInfo;
 
 import static com.vinson.mmanager.utils.Constants.SP_KEY_FIRST_LAUNCH;

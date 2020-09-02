@@ -1,6 +1,5 @@
 package com.vinson.mmanager.ui.list;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 
@@ -15,33 +14,30 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.socks.library.KLog;
 import com.vinson.mmanager.R;
-import com.vinson.mmanager.adapter.LiftsAdapter;
+import com.vinson.mmanager.adapter.LiftRecordsAdapter;
 import com.vinson.mmanager.base.BaseActivity;
 import com.vinson.mmanager.data.ServerHelper;
-import com.vinson.mmanager.model.LiftInfo;
+import com.vinson.mmanager.model.lift.LiftRecord;
 import com.vinson.mmanager.model.request.BaseListParams;
 import com.vinson.mmanager.model.response.BaseResponse;
-import com.vinson.mmanager.model.ui.ListParams;
 import com.vinson.mmanager.ui.view.CustomList;
 import com.vinson.mmanager.utils.Constants;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-@Route(path = Constants.AROUTER_PAGE_LIFT_LIST)
+@Route(path = Constants.AROUTER_PAGE_LIFT_RECORDS)
 public class LiftRecordsActivity extends BaseActivity {
-    ListParams mListParam;
     CustomList mCustomList;
-    List<LiftInfo> mLiftInfos;
-    LiftsAdapter mLiftsAdapter;
+    List<LiftRecord> mLiftRecords = new ArrayList<>();
+    LiftRecordsAdapter mRecordsAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        Intent intent = getIntent();
-        mListParam = intent.getParcelableExtra(Constants.DATA_LIST_PARAM);
         super.onCreate(savedInstanceState);
     }
 
@@ -59,7 +55,7 @@ public class LiftRecordsActivity extends BaseActivity {
 
     private void fetchData() {
         BaseListParams listParams = new BaseListParams();
-        ServerHelper.getInstance().getLiftList(listParams.getPage(), listParams.getPageSize()).enqueue(new Callback<BaseResponse<JsonObject>>() {
+        ServerHelper.getInstance().getLiftRecordList(listParams.getPage(), listParams.getPageSize()).enqueue(new Callback<BaseResponse<JsonObject>>() {
             @Override
             public void onResponse(Call<BaseResponse<JsonObject>> call,
                                    Response<BaseResponse<JsonObject>> response) {
@@ -67,9 +63,10 @@ public class LiftRecordsActivity extends BaseActivity {
                 if (body != null) {
                     JsonObject data = body.getData();
                     for (JsonElement element : data.getAsJsonArray("list")) {
-                        mLiftInfos.add(mGson.fromJson(element, LiftInfo.class));
+                        mLiftRecords.add(mGson.fromJson(element, LiftRecord.class));
                     }
-                    mLiftsAdapter.setData(mLiftInfos);
+                    mRecordsAdapter.setData(mLiftRecords);
+                    KLog.d(mLiftRecords.size());
                     mSkeletonScreen.hide();
                 }
             }
@@ -120,12 +117,11 @@ public class LiftRecordsActivity extends BaseActivity {
     protected void initView() {
         mCustomList = findViewById(R.id.rcv);
         mCustomList.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-        mCustomList.setListType(mListParam.dataType);
-        mLiftsAdapter = new LiftsAdapter(null, this);
-
+        mRecordsAdapter = new LiftRecordsAdapter(null, this);
+        mCustomList.setAdapter(mRecordsAdapter);
 
         mSkeletonScreen = Skeleton.bind(mCustomList)
-                .adapter(mLiftsAdapter).load(R.layout.item_lift_list)
+                .adapter(mRecordsAdapter).load(R.layout.activity_data_list)
                 .show();
         mHandler.sendEmptyMessage(MSG_FETCH_LIST_DATA);
     }

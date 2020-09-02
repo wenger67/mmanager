@@ -1,6 +1,5 @@
 package com.vinson.mmanager.ui.list;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 
@@ -16,16 +15,15 @@ import com.google.gson.JsonObject;
 import com.socks.library.KLog;
 import com.vinson.mmanager.R;
 import com.vinson.mmanager.adapter.LiftTroublesAdapter;
-import com.vinson.mmanager.adapter.LiftsAdapter;
 import com.vinson.mmanager.base.BaseActivity;
 import com.vinson.mmanager.data.ServerHelper;
-import com.vinson.mmanager.model.LiftTrouble;
+import com.vinson.mmanager.model.lift.LiftTrouble;
 import com.vinson.mmanager.model.request.BaseListParams;
 import com.vinson.mmanager.model.response.BaseResponse;
-import com.vinson.mmanager.model.ui.ListParams;
 import com.vinson.mmanager.ui.view.CustomList;
 import com.vinson.mmanager.utils.Constants;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -34,15 +32,12 @@ import retrofit2.Response;
 
 @Route(path = Constants.AROUTER_PAGE_LIFT_TROUBLES)
 public class LiftTroublesActivity extends BaseActivity {
-    ListParams mListParam;
     CustomList mCustomList;
-    List<LiftTrouble> mLiftTroubles;
+    List<LiftTrouble> mLiftTroubles = new ArrayList<>();
     LiftTroublesAdapter mTroublesAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        Intent intent = getIntent();
-        mListParam = intent.getParcelableExtra(Constants.DATA_LIST_PARAM);
         super.onCreate(savedInstanceState);
     }
 
@@ -60,7 +55,7 @@ public class LiftTroublesActivity extends BaseActivity {
 
     private void fetchData() {
         BaseListParams listParams = new BaseListParams();
-        ServerHelper.getInstance().getLiftList(listParams.getPage(), listParams.getPageSize()).enqueue(new Callback<BaseResponse<JsonObject>>() {
+        ServerHelper.getInstance().getLiftTroubleList(listParams.getPage(), listParams.getPageSize()).enqueue(new Callback<BaseResponse<JsonObject>>() {
             @Override
             public void onResponse(Call<BaseResponse<JsonObject>> call,
                                    Response<BaseResponse<JsonObject>> response) {
@@ -121,12 +116,11 @@ public class LiftTroublesActivity extends BaseActivity {
     protected void initView() {
         mCustomList = findViewById(R.id.rcv);
         mCustomList.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-        mCustomList.setListType(mListParam.dataType);
         mTroublesAdapter = new LiftTroublesAdapter(null, this);
 
 
         mSkeletonScreen = Skeleton.bind(mCustomList)
-                .adapter(mTroublesAdapter).load(R.layout.item_lift_list)
+                .adapter(mTroublesAdapter).load(R.layout.activity_data_list)
                 .show();
         mHandler.sendEmptyMessage(MSG_FETCH_LIST_DATA);
     }

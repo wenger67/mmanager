@@ -1,29 +1,24 @@
 package com.vinson.mmanager.model.login;
 
+import com.vinson.mmanager.model.BaseModel;
 import com.vinson.mmanager.model.Company;
 
 import java.util.Objects;
 
-public class UserInfo {
-    int ID;
-    String CreatedAt;
-    String UpdatedAt;
+public class UserInfo extends BaseModel {
     String uuid;
     String phoneNumber;
     String realName;
     String nickName;
     String avatar;
-    String companyId;
+    int companyId;
     Company company;
     String address;
-    int authorityId;
+    String authorityId;
 
-    public UserInfo(int ID, String createdAt, String updatedAt, String uuid, String phoneNumber,
-                    String realName, String nickName, String avatar, String companyId,
-                    Company company, String address, int authorityId) {
-        this.ID = ID;
-        CreatedAt = createdAt;
-        UpdatedAt = updatedAt;
+    public UserInfo(String uuid, String phoneNumber,
+                    String realName, String nickName, String avatar, int companyId,
+                    Company company, String address, String authorityId) {
         this.uuid = uuid;
         this.phoneNumber = phoneNumber;
         this.realName = realName;
@@ -33,30 +28,6 @@ public class UserInfo {
         this.company = company;
         this.address = address;
         this.authorityId = authorityId;
-    }
-
-    public int getID() {
-        return ID;
-    }
-
-    public void setID(int ID) {
-        this.ID = ID;
-    }
-
-    public String getCreatedAt() {
-        return CreatedAt;
-    }
-
-    public void setCreatedAt(String createdAt) {
-        CreatedAt = createdAt;
-    }
-
-    public String getUpdatedAt() {
-        return UpdatedAt;
-    }
-
-    public void setUpdatedAt(String updatedAt) {
-        UpdatedAt = updatedAt;
     }
 
     public String getUuid() {
@@ -99,11 +70,11 @@ public class UserInfo {
         this.avatar = avatar;
     }
 
-    public String getCompanyId() {
+    public int getCompanyId() {
         return companyId;
     }
 
-    public void setCompanyId(String companyId) {
+    public void setCompanyId(int companyId) {
         this.companyId = companyId;
     }
 
@@ -123,11 +94,11 @@ public class UserInfo {
         this.address = address;
     }
 
-    public int getAuthorityId() {
+    public String getAuthorityId() {
         return authorityId;
     }
 
-    public void setAuthorityId(int authorityId) {
+    public void setAuthorityId(String authorityId) {
         this.authorityId = authorityId;
     }
 
@@ -136,10 +107,7 @@ public class UserInfo {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserInfo userInfo = (UserInfo) o;
-        return ID == userInfo.ID &&
-                authorityId == userInfo.authorityId &&
-                Objects.equals(CreatedAt, userInfo.CreatedAt) &&
-                Objects.equals(UpdatedAt, userInfo.UpdatedAt) &&
+        return authorityId.equals(userInfo.authorityId) &&
                 Objects.equals(uuid, userInfo.uuid) &&
                 phoneNumber.equals(userInfo.phoneNumber) &&
                 realName.equals(userInfo.realName) &&
@@ -152,7 +120,26 @@ public class UserInfo {
 
     @Override
     public int hashCode() {
-        return Objects.hash(ID, CreatedAt, UpdatedAt, uuid, phoneNumber, realName, nickName,
+        return Objects.hash(uuid, phoneNumber, realName, nickName,
                 avatar, companyId, company, address, authorityId);
+    }
+
+    @Override
+    public String toString() {
+        return "UserInfo{" +
+                "uuid='" + uuid + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", realName='" + realName + '\'' +
+                ", nickName='" + nickName + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", companyId=" + companyId +
+                ", company=" + company +
+                ", address='" + address + '\'' +
+                ", authorityId='" + authorityId + '\'' +
+                ", ID=" + ID +
+                ", CreatedAt='" + CreatedAt + '\'' +
+                ", UpdatedAt='" + UpdatedAt + '\'' +
+                ", DeletedAt='" + DeletedAt + '\'' +
+                '}';
     }
 }

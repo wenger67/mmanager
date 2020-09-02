@@ -21,11 +21,11 @@ import java.util.Objects;
 public class AboutFragment extends BaseFragment {
 
     MaterialButton mLogout;
-    Handler mHandler;
 
     @Override
     protected void initView(View root) {
         mLogout = root.findViewById(R.id.btn_logout);
+        KLog.d(Config.getUserInfo().toString());
     }
 
     @Override
@@ -42,15 +42,9 @@ public class AboutFragment extends BaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mHandler = ((MainActivity) Objects.requireNonNull(getActivity())).getHandler();
     }
 
     public AboutFragment(int contentLayoutId) {
         super(contentLayoutId);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
     }
 }

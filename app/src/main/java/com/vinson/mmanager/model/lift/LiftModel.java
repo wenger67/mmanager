@@ -1,26 +1,19 @@
-package com.vinson.mmanager.model;
+package com.vinson.mmanager.model.lift;
 
-public class LiftModel {
-    private int ID;
+import com.vinson.mmanager.model.BaseModel;
+import com.vinson.mmanager.model.Company;
+
+public class LiftModel extends BaseModel {
     private Company company;
     private String brand;
     private String modal;
     private int load;
 
-    public LiftModel(int ID, Company company, String brand, String modal, int load) {
-        this.ID = ID;
+    public LiftModel(Company company, String brand, String modal, int load) {
         this.company = company;
         this.brand = brand;
         this.modal = modal;
         this.load = load;
-    }
-
-    public int getID() {
-        return ID;
-    }
-
-    public void setID(int ID) {
-        this.ID = ID;
     }
 
     public Company getCompany() {

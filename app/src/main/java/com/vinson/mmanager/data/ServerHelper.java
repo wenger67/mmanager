@@ -1,8 +1,6 @@
 package com.vinson.mmanager.data;
 
 import com.google.gson.JsonObject;
-import com.socks.library.KLog;
-import com.vinson.mmanager.model.login.Captcha;
 import com.vinson.mmanager.model.login.UserInfo;
 import com.vinson.mmanager.model.response.BaseResponse;
 import com.vinson.mmanager.tools.Config;
@@ -16,7 +14,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -26,6 +23,8 @@ public class ServerHelper {
     private static OkHttpClient okHttpClient;
     private static ServerHelper INSTANCE;
     private LiftService mLiftService;
+    private DeviceService mDeviceService;
+    private CompanyService mCompanyService;
 
     public ServerHelper(String host) {
         Retrofit retrofit = new Retrofit.Builder()
@@ -34,6 +33,8 @@ public class ServerHelper {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         mLiftService = retrofit.create(LiftService.class);
+        mDeviceService = retrofit.create(DeviceService.class);
+        mCompanyService = retrofit.create(CompanyService.class);
     }
 
     public static ServerHelper getInstance() {
@@ -44,6 +45,42 @@ public class ServerHelper {
 
     public Call<BaseResponse<JsonObject>> getLiftList(int page, int pageSize) {
         return mLiftService.getLiftList(page, pageSize);
+    }
+
+    public Call<BaseResponse<JsonObject>> getLiftChangeList(int page, int pageSize) {
+        return mLiftService.getLiftChangeList(page, pageSize);
+    }
+
+    public Call<BaseResponse<JsonObject>> getLiftRecordList(int page, int pageSize) {
+        return mLiftService.getLiftRecordList(page, pageSize);
+    }
+
+    public Call<BaseResponse<JsonObject>> getLiftTroubleList(int page, int pageSize) {
+        return mLiftService.getLiftTroubleList(page, pageSize);
+    }
+
+    public Call<BaseResponse<JsonObject>> getAdDeviceList(int page, int pageSize) {
+        return mDeviceService.getAdDeviceList(page, pageSize);
+    }
+
+    public Call<BaseResponse<JsonObject>> getDeviceDataList(int page, int pageSize) {
+        return mDeviceService.getAdDeviceDataList(page, pageSize);
+    }
+
+    public Call<BaseResponse<JsonObject>> getDeviceConfigList(int page, int pageSize) {
+        return mDeviceService.getAdDeviceConfigList(page, pageSize);
+    }
+
+    public Call<BaseResponse<JsonObject>> getAdDeviceEventList(int page, int pageSize) {
+        return mDeviceService.getAdDeviceEventList(page, pageSize);
+    }
+
+    public Call<BaseResponse<JsonObject>> getCompanyList(int page, int pageSize) {
+        return mCompanyService.getCompanyList(page, pageSize);
+    }
+
+    public Call<BaseResponse<JsonObject>> getUserList(RequestBody body) {
+        return mCompanyService.getUserList(body);
     }
 
     private OkHttpClient getOkHttpClient() {

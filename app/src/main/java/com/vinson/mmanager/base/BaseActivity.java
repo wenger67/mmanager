@@ -22,10 +22,22 @@ public abstract class BaseActivity extends AppCompatActivity implements NetworkO
         NavigationCallback {
 
     public static final String TAG = BaseActivity.class.getSimpleName();
-    public static final int MSG_LAUNCH_DATA_LIST = 1;
+    public static final int MSG_LAUNCH_LIFT_LIST = 1;
     public static final int MSG_LAUNCH_LOGIN = 2;
     protected static final int MSG_FETCH_LIST_DATA = 10;
     protected static final int MSG_NETWORK_CHANGE = 5;
+    public static final int MSG_LAUNCH_LIFT_CHANGES = 11;
+    public static final int MSG_LAUNCH_LIFT_RECORDS = 12;
+    public static final int MSG_LAUNCH_LIFT_TROUBLES = 13;
+    public static final int MSG_LAUNCH_USERS = 14;
+
+    public static final int MSG_LAUNCH_DEVICE_LIST = 101;
+    public static final int MSG_LAUNCH_DEVICE_EVENT = 102;
+    public static final int MSG_LAUNCH_DEVICE_DATA = 103;
+    public static final int MSG_LAUNCH_DEVICE_CONFIG = 104;
+
+    public static final int MSG_LAUNCH_COMPANY_LIST = 201;
+
     protected Gson mGson = new Gson();
     public NetworkObserver mNetwork;
     protected SkeletonScreen mSkeletonScreen;

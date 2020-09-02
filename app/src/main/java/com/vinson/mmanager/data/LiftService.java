@@ -14,4 +14,13 @@ public interface LiftService {
 
     @GET("/lift/getLiftList")
     Call<BaseResponse<JsonObject>> getLiftList(@Query("page") int page, @Query("pageSize") int pageSize);
+
+    @GET("/liftChange/getLiftChangeList")
+    Call<BaseResponse<JsonObject>> getLiftChangeList(@Query("page") int page, @Query("pageSize") int pageSize);
+
+    @GET("/liftRecord/getLiftRecordList")
+    Call<BaseResponse<JsonObject>> getLiftRecordList(@Query("page") int page, @Query("pageSize") int pageSize);
+
+    @GET("/liftTrouble/getLiftTroubleList")
+    Call<BaseResponse<JsonObject>> getLiftTroubleList(@Query("page") int page, @Query("pageSize") int pageSize);
 }

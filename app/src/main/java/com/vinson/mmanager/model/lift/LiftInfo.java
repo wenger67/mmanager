@@ -1,26 +1,32 @@
-package com.vinson.mmanager.model;
+package com.vinson.mmanager.model.lift;
+
+import com.vinson.mmanager.model.device.Device;
+import com.vinson.mmanager.model.Address;
+import com.vinson.mmanager.model.BaseModel;
+import com.vinson.mmanager.model.Category;
+import com.vinson.mmanager.model.Company;
 
 import java.util.Objects;
 
 
-public class LiftInfo extends BaseModel{
-    private String nickName;
-    private String code;
-    private Company installer;
-    private Company maintainer;
-    private Company checker;
-    private Company owner;
-    private String factoryTime;
-    private String installTime;
-    private String checkTime;
-    private LiftModel liftModel;
-    private Category category;
-    private Address address;
-    private String location;
-    private int floorCount;
-    private String building;
-    private int cell;
-    private AdDevice adDevice;
+public class LiftInfo extends BaseModel {
+    String nickName;
+    String code;
+    Company installer;
+    Company maintainer;
+    Company checker;
+    Company owner;
+    String factoryTime;
+    String installTime;
+    String checkTime;
+    LiftModel liftModel;
+    Category category;
+    Address address;
+    String location;
+    int floorCount;
+    String building;
+    int cell;
+    Device mDevice;
 
     @Override
     public boolean equals(Object o) {
@@ -37,7 +43,7 @@ public class LiftInfo extends BaseModel{
         return Objects.hash(ID, nickName, code);
     }
 
-    public LiftInfo(int ID, String nickName, String code, Company installer, Company maintainer, Company checker, Company owner, String factoryTime, String installTime, String checkTime, LiftModel liftModel, Category category, Address address, String location, int floorCount, String building, int cell, AdDevice adDevice) {
+    public LiftInfo(int ID, String nickName, String code, Company installer, Company maintainer, Company checker, Company owner, String factoryTime, String installTime, String checkTime, LiftModel liftModel, Category category, Address address, String location, int floorCount, String building, int cell, Device device) {
         this.ID = ID;
         this.nickName = nickName;
         this.code = code;
@@ -55,7 +61,7 @@ public class LiftInfo extends BaseModel{
         this.floorCount = floorCount;
         this.building = building;
         this.cell = cell;
-        this.adDevice = adDevice;
+        this.mDevice = device;
     }
 
     public int getFloorCount() {
@@ -82,12 +88,12 @@ public class LiftInfo extends BaseModel{
         this.cell = cell;
     }
 
-    public AdDevice getAdDevice() {
-        return adDevice;
+    public Device getDevice() {
+        return mDevice;
     }
 
-    public void setAdDevice(AdDevice adDevice) {
-        this.adDevice = adDevice;
+    public void setDevice(Device device) {
+        this.mDevice = device;
     }
 
     public int getID() {
@@ -223,7 +229,7 @@ public class LiftInfo extends BaseModel{
                 ", floorCount=" + floorCount +
                 ", building='" + building + '\'' +
                 ", cell=" + cell +
-                ", adDevice=" + adDevice +
+                ", adDevice=" + mDevice +
                 '}';
     }
 }

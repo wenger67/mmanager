@@ -31,4 +31,10 @@ public class Constants {
     public static final String AROUTER_PAGE_LIFT_CHANGES = "/page/list/liftchanges";
     public static final String AROUTER_PAGE_LIFT_RECORDS = "/page/list/liftrecords";
     public static final String AROUTER_PAGE_LIFT_TROUBLES = "/page/list/lifttroubles";
+    public static final String AROUTER_PAGE_USERS = "/page/list/users";
+    public static final String AROUTER_PAGE_DEVICE_LIST = "/page/list/devices";
+    public static final String AROUTER_PAGE_DEVICE_EVENT = "/page/list/deviceevents";
+    public static final String AROUTER_PAGE_DEVICE_DATA = "/page/list/devicedatas";
+    public static final String AROUTER_PAGE_DEVICE_CONFIG = "/page/list/deviceconfigs";
+    public static final String AROUTER_PAGE_COMPANY_LIST = "/page/list/companys";
 }

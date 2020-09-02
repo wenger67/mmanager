@@ -157,13 +157,40 @@ public class MainActivity extends BaseActivity {
         switch (message.what) {
             case MSG_NETWORK_CHANGE:
                 break;
-            case MSG_LAUNCH_DATA_LIST:
+            case MSG_LAUNCH_LIFT_LIST:
                 ListParams listParams = (ListParams) message.obj;
                 routeTo(Constants.AROUTER_PAGE_LIFT_LIST, Constants.DATA_LIST_PARAM, listParams,
                         MainActivity.this);
                 break;
             case MSG_LAUNCH_LOGIN:
                 routeTo(Constants.AROUTER_PAGE_LOGIN, MainActivity.this);
+                break;
+            case MSG_LAUNCH_LIFT_CHANGES:
+                routeTo(Constants.AROUTER_PAGE_LIFT_CHANGES, MainActivity.this);
+                break;
+            case MSG_LAUNCH_LIFT_RECORDS:
+                routeTo(Constants.AROUTER_PAGE_LIFT_RECORDS, MainActivity.this);
+                break;
+            case MSG_LAUNCH_LIFT_TROUBLES:
+                routeTo(Constants.AROUTER_PAGE_LIFT_TROUBLES, MainActivity.this);
+                break;
+            case MSG_LAUNCH_USERS:
+                routeTo(Constants.AROUTER_PAGE_USERS, MainActivity.this);
+                break;
+            case MSG_LAUNCH_DEVICE_LIST:
+                routeTo(Constants.AROUTER_PAGE_DEVICE_LIST, MainActivity.this);
+                break;
+            case MSG_LAUNCH_DEVICE_EVENT:
+                routeTo(Constants.AROUTER_PAGE_DEVICE_EVENT, MainActivity.this);
+                break;
+            case MSG_LAUNCH_DEVICE_DATA:
+                routeTo(Constants.AROUTER_PAGE_DEVICE_DATA, MainActivity.this);
+                break;
+            case MSG_LAUNCH_DEVICE_CONFIG:
+                routeTo(Constants.AROUTER_PAGE_DEVICE_CONFIG, MainActivity.this);
+                break;
+            case MSG_LAUNCH_COMPANY_LIST:
+                routeTo(Constants.AROUTER_PAGE_COMPANY_LIST, MainActivity.this);
                 break;
         }
         return false;

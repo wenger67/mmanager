@@ -48,6 +48,15 @@
         <activity android:name=".ui.login.RegisterActivity"/>
 
         <activity android:name=".ui.list.LiftsActivity"/>
+        <activity android:name=".ui.list.LiftChangesActivity"/>
+        <activity android:name=".ui.list.LiftRecordsActivity"/>
+        <activity android:name=".ui.list.LiftTroublesActivity"/>
+        <activity android:name=".ui.list.DevicesActivity"/>
+        <activity android:name=".ui.list.DeviceDatasActivity"/>
+        <activity android:name=".ui.list.DeviceConfigsActivity"/>
+        <activity android:name=".ui.list.DeviceEventsActivity"/>
+        <activity android:name=".ui.list.UsersActivity"/>
+        <activity android:name=".ui.list.CompaniesActivity"/>
 
         <service android:name=".services.WSService"/>
     </application>

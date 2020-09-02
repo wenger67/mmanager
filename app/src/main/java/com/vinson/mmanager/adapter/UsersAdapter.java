@@ -11,38 +11,38 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.textview.MaterialTextView;
 import com.vinson.mmanager.R;
 import com.vinson.mmanager.adapter.base.BaseDataListAdapter;
-import com.vinson.mmanager.model.lift.LiftInfo;
+import com.vinson.mmanager.model.login.UserInfo;
 
 import java.util.List;
 
-public class LiftsAdapter extends BaseDataListAdapter<LiftInfo, LiftsAdapter.LiftViewHolder> {
+public class UsersAdapter extends BaseDataListAdapter<UserInfo, UsersAdapter.UserViewHolder> {
 
 
-    public LiftsAdapter(List<LiftInfo> data, Context context) {
+    public UsersAdapter(List<UserInfo> data, Context context) {
         super(data, context);
     }
 
     @NonNull
     @Override
-    public LiftViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View root = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_lift_list, parent, false);
-        final LiftViewHolder holder = new LiftViewHolder(root);
+        final UserViewHolder holder = new UserViewHolder(root);
 
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull LiftViewHolder holder, int position) {
-        LiftInfo info = mData.get(position);
-        holder.name.setText(info.getNickName());
-        holder.code.setText(info.getCode());
-        holder.owner.setText(info.getOwner().getFullName());
+    public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
+        UserInfo info = mData.get(position);
+        holder.name.setText(info.getRealName());
+        holder.code.setText(info.getUuid());
+        holder.owner.setText(info.getCompany().getFullName());
     }
 
-    static class LiftViewHolder extends RecyclerView.ViewHolder {
+    static class UserViewHolder extends RecyclerView.ViewHolder {
         MaterialTextView name, code, owner;
-        public LiftViewHolder(@NonNull View itemView) {
+        public UserViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.tv_name);
             code = itemView.findViewById(R.id.tv_code);
