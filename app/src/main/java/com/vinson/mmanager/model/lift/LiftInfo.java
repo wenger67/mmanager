@@ -7,8 +7,6 @@ import com.vinson.mmanager.model.Category;
 import com.vinson.mmanager.model.Company;
 
 import java.util.Objects;
-
-
 public class LiftInfo extends BaseModel {
     String nickName;
     String code;

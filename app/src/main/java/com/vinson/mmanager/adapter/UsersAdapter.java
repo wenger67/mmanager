@@ -46,7 +46,7 @@ public class UsersAdapter extends BaseDataListAdapter<UserInfo, UsersAdapter.Use
             super(itemView);
             name = itemView.findViewById(R.id.tv_name);
             code = itemView.findViewById(R.id.tv_code);
-            owner = itemView.findViewById(R.id.tv_owner);
+            owner = itemView.findViewById(R.id.tv_content);
         }
     }
 }

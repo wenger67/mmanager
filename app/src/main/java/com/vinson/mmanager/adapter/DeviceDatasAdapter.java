@@ -12,7 +12,6 @@ import com.google.android.material.textview.MaterialTextView;
 import com.vinson.mmanager.R;
 import com.vinson.mmanager.adapter.base.BaseDataListAdapter;
 import com.vinson.mmanager.model.device.DeviceData;
-import com.vinson.mmanager.model.lift.LiftChange;
 
 import java.util.List;
 
@@ -47,7 +46,7 @@ public class DeviceDatasAdapter extends BaseDataListAdapter<DeviceData, DeviceDa
             super(itemView);
             name = itemView.findViewById(R.id.tv_name);
             code = itemView.findViewById(R.id.tv_code);
-            owner = itemView.findViewById(R.id.tv_owner);
+            owner = itemView.findViewById(R.id.tv_content);
         }
     }
 }

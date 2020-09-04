@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.alibaba.android.arouter.facade.Postcard;
 import com.alibaba.android.arouter.facade.callback.NavigationCallback;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.blankj.utilcode.util.BarUtils;
 import com.ethanhua.skeleton.SkeletonScreen;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.gson.Gson;
@@ -64,6 +65,7 @@ public abstract class BaseActivity extends AppCompatActivity implements NetworkO
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutRes());
+        BarUtils.setStatusBarLightMode(this, true);
         initView();
         initEvent();
         // TODO add some common logic
@@ -101,7 +103,7 @@ public abstract class BaseActivity extends AppCompatActivity implements NetworkO
         mMaterialToolbar = findViewById(R.id.tb);
         setSupportActionBar(mMaterialToolbar);
         mMaterialToolbar.setNavigationIcon(new IconicsDrawable(this,
-                CommunityMaterial.Icon.cmd_arrow_left).sizeDp(16).color(getResources().getColor(android.R.color.white)));
+                CommunityMaterial.Icon.cmd_arrow_left).sizeDp(16).color(getResources().getColor(android.R.color.black)));
     }
 
     protected void initEvent(){

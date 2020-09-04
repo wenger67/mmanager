@@ -62,9 +62,9 @@ public class LiftsActivity extends BaseActivity {
                 BaseResponse<JsonObject> body = response.body();
                 if (body != null) {
                     JsonObject data = body.getData();
-                    KLog.d(data.get("list").toString());
                     for (JsonElement element : data.getAsJsonArray("list")) {
-                        mLiftInfos.add(mGson.fromJson(element, LiftInfo.class));
+                        LiftInfo liftInfo = mGson.fromJson(element, LiftInfo.class);
+                        mLiftInfos.add(liftInfo);
                     }
                     mLiftsAdapter.setData(mLiftInfos);
                     mSkeletonScreen.hide();

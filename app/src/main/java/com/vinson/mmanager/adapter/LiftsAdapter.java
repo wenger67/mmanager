@@ -8,7 +8,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.blankj.utilcode.constant.TimeConstants;
+import com.blankj.utilcode.util.TimeUtils;
 import com.google.android.material.textview.MaterialTextView;
+import com.socks.library.KLog;
 import com.vinson.mmanager.R;
 import com.vinson.mmanager.adapter.base.BaseDataListAdapter;
 import com.vinson.mmanager.model.lift.LiftInfo;
@@ -26,7 +29,7 @@ public class LiftsAdapter extends BaseDataListAdapter<LiftInfo, LiftsAdapter.Lif
     @Override
     public LiftViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View root = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_lift_list, parent, false);
+                .inflate(R.layout.item_lift, parent, false);
         final LiftViewHolder holder = new LiftViewHolder(root);
 
         return holder;
@@ -37,16 +40,26 @@ public class LiftsAdapter extends BaseDataListAdapter<LiftInfo, LiftsAdapter.Lif
         LiftInfo info = mData.get(position);
         holder.name.setText(info.getNickName());
         holder.code.setText(info.getCode());
-        holder.owner.setText(info.getOwner().getFullName());
+        holder.address.setText(info.getAddress().getAddressName() + info.getBuilding() + "dong" + info.getCell()+ "danyuan");
+        String installTime = info.getInstallTime();
+        String pattern = "yyyy-MM-dd'T'HH:mm:ss";
+        long uptimeSum = TimeUtils.string2Millis(installTime, pattern);
+        long checktimeSum = TimeUtils.string2Millis(info.getCheckTime(), pattern);
+        holder.uptime.setText(TimeUtils.getTimeSpanByNow(uptimeSum, TimeConstants.HOUR) + " hours");
+        holder.checkTime.setText(TimeUtils.getFitTimeSpanByNow(checktimeSum, 1));
+//        holder.online.setText(info.getDevice().isOnline() ? "Online":"Offline");
     }
 
     static class LiftViewHolder extends RecyclerView.ViewHolder {
-        MaterialTextView name, code, owner;
+        MaterialTextView name, code, address, uptime, checkTime, online;
         public LiftViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.tv_name);
             code = itemView.findViewById(R.id.tv_code);
-            owner = itemView.findViewById(R.id.tv_owner);
+            address = itemView.findViewById(R.id.tv_address);
+            uptime = itemView.findViewById(R.id.tv_uptime);
+            checkTime = itemView.findViewById(R.id.tv_checktime);
+            online = itemView.findViewById(R.id.tv_online);
         }
     }
 }

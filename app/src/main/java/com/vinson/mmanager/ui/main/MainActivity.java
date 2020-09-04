@@ -3,6 +3,7 @@ package com.vinson.mmanager.ui.main;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -26,6 +27,7 @@ import com.vinson.mmanager.adapter.home.SimpleFragmentPagerAdapter;
 import com.vinson.mmanager.base.BaseActivity;
 import com.vinson.mmanager.model.ui.ListParams;
 import com.vinson.mmanager.services.WSService;
+import com.vinson.mmanager.ui.view.CustomViewPager;
 import com.vinson.mmanager.utils.Constants;
 
 @Route(path = Constants.AROUTER_PAGE_MAIN)
@@ -33,7 +35,7 @@ public class MainActivity extends BaseActivity {
     public static final String TAG = MainActivity.class.getSimpleName();
 
     WSService.Binder wsService;
-    ViewPager mViewPager;
+    CustomViewPager mViewPager;
     TabLayout mBottomMenus;
     private SimpleFragmentPagerAdapter mPagerAdapter;
 
@@ -100,6 +102,7 @@ public class MainActivity extends BaseActivity {
         mPagerAdapter.addFragment(new AboutFragment(R.layout.fragment_main_about));
 
         mViewPager = findViewById(R.id.vp);
+        mViewPager.setCanScroll(false); // disable horizontal scroll
         mViewPager.setAdapter(mPagerAdapter);
     }
 
@@ -121,6 +124,7 @@ public class MainActivity extends BaseActivity {
 
             }
         });
+
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

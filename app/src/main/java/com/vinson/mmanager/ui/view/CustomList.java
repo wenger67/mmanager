@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.marshalchen.ultimaterecyclerview.UltimateRecyclerView;
 import com.vinson.mmanager.adapter.LiftChangesAdapter;
 import com.vinson.mmanager.adapter.LiftRecordsAdapter;
 import com.vinson.mmanager.adapter.LiftTroublesAdapter;
@@ -19,7 +20,7 @@ import static com.vinson.mmanager.model.annotation.ModuleType.MODULE_LIFT_LIST;
 import static com.vinson.mmanager.model.annotation.ModuleType.MODULE_LIFT_RECORDS;
 import static com.vinson.mmanager.model.annotation.ModuleType.MODULE_LIFT_TROUBLE;
 
-public class CustomList extends RecyclerView {
+public class CustomList extends UltimateRecyclerView {
 
     @ModuleType
     int listType;

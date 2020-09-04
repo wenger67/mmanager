@@ -1,15 +1,13 @@
 package com.vinson.mmanager.ui.main;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
-import com.vinson.mmanager.ui.login.BaseFragment;
+import com.google.android.material.textview.MaterialTextView;
+import com.vinson.mmanager.R;
+import com.vinson.mmanager.base.BaseFragment;
 
 public class MessageFragment extends BaseFragment {
     @Override
@@ -27,7 +25,8 @@ public class MessageFragment extends BaseFragment {
 
     @Override
     protected void initView(View root) {
-
+        MaterialTextView textView = root.findViewById(R.id.tb_title);
+        textView.setText("Message");
     }
 
     @Override

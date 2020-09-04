@@ -1,7 +1,6 @@
 package com.vinson.mmanager.ui.main;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.GridView;
@@ -17,7 +16,7 @@ import com.vinson.mmanager.adapter.home.HomeHeaderGridViewAdapter;
 import com.vinson.mmanager.model.annotation.ModuleType;
 import com.vinson.mmanager.model.ui.ListParams;
 import com.vinson.mmanager.model.ui.HomeGridViewItem;
-import com.vinson.mmanager.ui.login.BaseFragment;
+import com.vinson.mmanager.base.BaseFragment;
 
 import java.util.ArrayList;
 import java.util.List;

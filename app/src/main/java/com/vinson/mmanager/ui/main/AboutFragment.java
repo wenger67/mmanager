@@ -9,12 +9,10 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textview.MaterialTextView;
-import com.socks.library.KLog;
-import com.vinson.mmanager.App;
 import com.vinson.mmanager.R;
 import com.vinson.mmanager.model.login.UserInfo;
 import com.vinson.mmanager.tools.Config;
-import com.vinson.mmanager.ui.login.BaseFragment;
+import com.vinson.mmanager.base.BaseFragment;
 
 public class AboutFragment extends BaseFragment {
 

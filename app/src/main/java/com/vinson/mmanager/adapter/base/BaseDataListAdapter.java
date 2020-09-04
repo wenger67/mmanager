@@ -4,10 +4,12 @@ import android.content.Context;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.marshalchen.ultimaterecyclerview.UltimateViewAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class BaseDataListAdapter<T, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
+public abstract class BaseDataListAdapter<T, VH extends RecyclerView.ViewHolder> extends UltimateViewAdapter<VH> {
 
     protected List<T> mData;
     protected Context mContext;

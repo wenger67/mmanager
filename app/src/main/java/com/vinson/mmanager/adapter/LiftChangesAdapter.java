@@ -26,27 +26,62 @@ public class LiftChangesAdapter extends BaseDataListAdapter<LiftChange, LiftChan
     @Override
     public ChangeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View root = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_lift_list, parent, false);
+                .inflate(R.layout.item_lift_change, parent, false);
         final ChangeViewHolder holder = new ChangeViewHolder(root);
 
         return holder;
     }
 
     @Override
+    public ChangeViewHolder newFooterHolder(View view) {
+        return null;
+    }
+
+    @Override
+    public ChangeViewHolder newHeaderHolder(View view) {
+        return null;
+    }
+
+    @Override
+    public ChangeViewHolder onCreateViewHolder(ViewGroup parent) {
+        return null;
+    }
+
+    @Override
+    public int getAdapterItemCount() {
+        return 0;
+    }
+
+    @Override
+    public long generateHeaderId(int position) {
+        return 0;
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateHeaderViewHolder(ViewGroup parent) {
+        return null;
+    }
+
+    @Override
+    public void onBindHeaderViewHolder(RecyclerView.ViewHolder holder, int position) {
+
+    }
+
+    @Override
     public void onBindViewHolder(@NonNull ChangeViewHolder holder, int position) {
         LiftChange info = mData.get(position);
         holder.name.setText(info.getLift().getNickName());
-        holder.code.setText(info.getLift().getAddress().getAddressName());
-        holder.owner.setText(info.getContent());
+        holder.code.setText(info.getLift().getCode());
+        holder.content.setText(info.getContent());
     }
 
     static class ChangeViewHolder extends RecyclerView.ViewHolder {
-        MaterialTextView name, code, owner;
+        MaterialTextView name, code, content;
         public ChangeViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.tv_name);
             code = itemView.findViewById(R.id.tv_code);
-            owner = itemView.findViewById(R.id.tv_owner);
+            content = itemView.findViewById(R.id.tv_content);
         }
     }
 }
