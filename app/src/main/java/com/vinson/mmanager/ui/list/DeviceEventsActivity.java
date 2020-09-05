@@ -14,12 +14,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.socks.library.KLog;
 import com.vinson.mmanager.R;
-import com.vinson.mmanager.adapter.DeviceEventsAdapter;
-import com.vinson.mmanager.adapter.LiftRecordsAdapter;
 import com.vinson.mmanager.base.BaseActivity;
 import com.vinson.mmanager.data.ServerHelper;
 import com.vinson.mmanager.model.device.DeviceEvent;
-import com.vinson.mmanager.model.lift.LiftRecord;
 import com.vinson.mmanager.model.request.BaseListParams;
 import com.vinson.mmanager.model.response.BaseResponse;
 import com.vinson.mmanager.ui.view.CustomList;
@@ -28,6 +25,7 @@ import com.vinson.mmanager.utils.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
+import eu.davidea.flexibleadapter.FlexibleAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,7 +34,7 @@ import retrofit2.Response;
 public class DeviceEventsActivity extends BaseActivity {
     CustomList mCustomList;
     List<DeviceEvent> mDeviceEvents = new ArrayList<>();
-    DeviceEventsAdapter mEventsAdapter;
+    FlexibleAdapter<DeviceEvent> mEventsAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,7 +65,7 @@ public class DeviceEventsActivity extends BaseActivity {
                     for (JsonElement element : data.getAsJsonArray("list")) {
                         mDeviceEvents.add(mGson.fromJson(element, DeviceEvent.class));
                     }
-                    mEventsAdapter.setData(mDeviceEvents);
+                    mEventsAdapter.addItems(0, mDeviceEvents);
                     KLog.d(mDeviceEvents.size());
                     mSkeletonScreen.hide();
                 }
@@ -120,7 +118,7 @@ public class DeviceEventsActivity extends BaseActivity {
         super.initView();
         mCustomList = findViewById(R.id.rcv);
         mCustomList.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-        mEventsAdapter = new DeviceEventsAdapter(null, this);
+        mEventsAdapter = new FlexibleAdapter<>(null, this);
         mCustomList.setAdapter(mEventsAdapter);
 
         mSkeletonScreen = Skeleton.bind(mCustomList)

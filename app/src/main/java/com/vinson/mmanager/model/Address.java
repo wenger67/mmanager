@@ -1,7 +1,10 @@
 package com.vinson.mmanager.model;
 
 public class Address {
-    private int ID;
+        int ID;
+    String CreatedAt;
+    String UpdatedAt;
+    String DeletedAt;
     private Region region;
     private String addressName;
     private String location;

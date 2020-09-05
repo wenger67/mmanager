@@ -14,8 +14,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.socks.library.KLog;
 import com.vinson.mmanager.R;
-import com.vinson.mmanager.adapter.DeviceConfigsAdapter;
-import com.vinson.mmanager.adapter.LiftRecordsAdapter;
 import com.vinson.mmanager.base.BaseActivity;
 import com.vinson.mmanager.data.ServerHelper;
 import com.vinson.mmanager.model.device.DeviceConfig;
@@ -27,6 +25,7 @@ import com.vinson.mmanager.utils.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
+import eu.davidea.flexibleadapter.FlexibleAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,7 +34,7 @@ import retrofit2.Response;
 public class DeviceConfigsActivity extends BaseActivity {
     CustomList mCustomList;
     List<DeviceConfig> mDeviceConfigs = new ArrayList<>();
-    DeviceConfigsAdapter mConfigsAdapter;
+    FlexibleAdapter<DeviceConfig> mConfigsAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -66,7 +65,7 @@ public class DeviceConfigsActivity extends BaseActivity {
                     for (JsonElement element : data.getAsJsonArray("list")) {
                         mDeviceConfigs.add(mGson.fromJson(element, DeviceConfig.class));
                     }
-                    mConfigsAdapter.setData(mDeviceConfigs);
+                    mConfigsAdapter.addItems(0, mDeviceConfigs);
                     KLog.d(mDeviceConfigs.size());
                     mSkeletonScreen.hide();
                 }
@@ -119,7 +118,7 @@ public class DeviceConfigsActivity extends BaseActivity {
         super.initView();
         mCustomList = findViewById(R.id.rcv);
         mCustomList.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-        mConfigsAdapter = new DeviceConfigsAdapter(null, this);
+        mConfigsAdapter = new FlexibleAdapter<>(null, this);
         mCustomList.setAdapter(mConfigsAdapter);
 
         mSkeletonScreen = Skeleton.bind(mCustomList)

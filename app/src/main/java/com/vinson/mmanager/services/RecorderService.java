@@ -15,7 +15,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.WindowManager;
 
-import com.vinson.mmanager.utils.util;
+import com.vinson.mmanager.utils.Utils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -73,7 +73,7 @@ public class RecorderService extends Service {
     private Camera.PictureCallback mPicture = new Camera.PictureCallback() {
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
-            File pictureFile = util.getOutputMediaFile(util.MEDIA_TYPE_IMAGE);
+            File pictureFile = Utils.getOutputMediaFile(Utils.MEDIA_TYPE_IMAGE);
 
             if (pictureFile == null) {
                 return;
@@ -109,7 +109,7 @@ public class RecorderService extends Service {
     }
 
     private void handleStartRecordingCommand(Intent intent) {
-        if (!util.isCameraExist(this)) {
+        if (!Utils.isCameraExist(this)) {
             throw new IllegalStateException("There is no device, not possible to start recording");
         }
 
@@ -124,7 +124,7 @@ public class RecorderService extends Service {
 
         final int cameraId = intent.getIntExtra(SELECTED_CAMERA_FOR_RECORDING,
                 Camera.CameraInfo.CAMERA_FACING_BACK);
-        mCamera = util.getCameraInstance(cameraId);
+        mCamera = Utils.getCameraInstance(cameraId);
         if (mCamera != null) {
             SurfaceView sv = new SurfaceView(this);
 
@@ -182,7 +182,7 @@ public class RecorderService extends Service {
                         mMediaRecorder.setProfile(CamcorderProfile.get(CamcorderProfile.QUALITY_480P));
                     }
 
-                    mRecordingPath = util.getOutputMediaFile(util.MEDIA_TYPE_VIDEO).getPath();
+                    mRecordingPath = Utils.getOutputMediaFile(Utils.MEDIA_TYPE_VIDEO).getPath();
                     mMediaRecorder.setOutputFile(mRecordingPath);
 
                     mMediaRecorder.setPreviewDisplay(holder.getSurface());

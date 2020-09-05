@@ -14,12 +14,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.socks.library.KLog;
 import com.vinson.mmanager.R;
-import com.vinson.mmanager.adapter.CompaniesAdapter;
-import com.vinson.mmanager.adapter.LiftRecordsAdapter;
 import com.vinson.mmanager.base.BaseActivity;
 import com.vinson.mmanager.data.ServerHelper;
 import com.vinson.mmanager.model.Company;
-import com.vinson.mmanager.model.lift.LiftRecord;
 import com.vinson.mmanager.model.request.BaseListParams;
 import com.vinson.mmanager.model.response.BaseResponse;
 import com.vinson.mmanager.ui.view.CustomList;
@@ -28,6 +25,7 @@ import com.vinson.mmanager.utils.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
+import eu.davidea.flexibleadapter.FlexibleAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,7 +34,7 @@ import retrofit2.Response;
 public class CompaniesActivity extends BaseActivity {
     CustomList mCustomList;
     List<Company> mCompanies = new ArrayList<>();
-    CompaniesAdapter mCompaniesAdapter;
+    FlexibleAdapter<Company> mCompaniesAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,7 +65,7 @@ public class CompaniesActivity extends BaseActivity {
                     for (JsonElement element : data.getAsJsonArray("list")) {
                         mCompanies.add(mGson.fromJson(element, Company.class));
                     }
-                    mCompaniesAdapter.setData(mCompanies);
+                    mCompaniesAdapter.addItems(0, mCompanies);
                     KLog.d(mCompanies.size());
                     mSkeletonScreen.hide();
                 }
@@ -120,7 +118,7 @@ public class CompaniesActivity extends BaseActivity {
         super.initView();
         mCustomList = findViewById(R.id.rcv);
         mCustomList.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-        mCompaniesAdapter = new CompaniesAdapter(null, this);
+        mCompaniesAdapter = new FlexibleAdapter<>(null, this);
         mCustomList.setAdapter(mCompaniesAdapter);
 
         mSkeletonScreen = Skeleton.bind(mCustomList)

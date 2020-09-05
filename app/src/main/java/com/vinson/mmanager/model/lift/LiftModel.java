@@ -1,9 +1,12 @@
 package com.vinson.mmanager.model.lift;
 
-import com.vinson.mmanager.model.BaseModel;
 import com.vinson.mmanager.model.Company;
 
-public class LiftModel extends BaseModel {
+public class LiftModel{
+        int ID;
+    String CreatedAt;
+    String UpdatedAt;
+    String DeletedAt;
     private Company company;
     private String brand;
     private String modal;

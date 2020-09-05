@@ -1,13 +1,32 @@
 package com.vinson.mmanager.model.lift;
 
-import com.vinson.mmanager.model.device.Device;
+import android.view.View;
+
+import androidx.annotation.NonNull;
+
+import com.blankj.utilcode.constant.TimeConstants;
+import com.blankj.utilcode.util.TimeUtils;
+import com.google.android.material.textview.MaterialTextView;
+import com.vinson.mmanager.R;
 import com.vinson.mmanager.model.Address;
-import com.vinson.mmanager.model.BaseModel;
 import com.vinson.mmanager.model.Category;
 import com.vinson.mmanager.model.Company;
+import com.vinson.mmanager.model.device.Device;
+import com.vinson.mmanager.utils.Utils;
 
+import java.util.List;
 import java.util.Objects;
-public class LiftInfo extends BaseModel {
+
+import eu.davidea.flexibleadapter.FlexibleAdapter;
+import eu.davidea.flexibleadapter.items.AbstractFlexibleItem;
+import eu.davidea.flexibleadapter.items.IFlexible;
+import eu.davidea.viewholders.FlexibleViewHolder;
+
+public class LiftInfo extends AbstractFlexibleItem<LiftInfo.LiftViewHolder> {
+    int ID;
+    String CreatedAt;
+    String UpdatedAt;
+    String DeletedAt;
     String nickName;
     String code;
     Company installer;
@@ -41,193 +60,40 @@ public class LiftInfo extends BaseModel {
         return Objects.hash(ID, nickName, code);
     }
 
-    public LiftInfo(int ID, String nickName, String code, Company installer, Company maintainer, Company checker, Company owner, String factoryTime, String installTime, String checkTime, LiftModel liftModel, Category category, Address address, String location, int floorCount, String building, int cell, Device device) {
-        this.ID = ID;
-        this.nickName = nickName;
-        this.code = code;
-        this.installer = installer;
-        this.maintainer = maintainer;
-        this.checker = checker;
-        this.owner = owner;
-        this.factoryTime = factoryTime;
-        this.installTime = installTime;
-        this.checkTime = checkTime;
-        this.liftModel = liftModel;
-        this.category = category;
-        this.address = address;
-        this.location = location;
-        this.floorCount = floorCount;
-        this.building = building;
-        this.cell = cell;
-        this.mDevice = device;
+    @Override
+    public int getLayoutRes() {
+        return R.layout.item_lift;
     }
-
-    public int getFloorCount() {
-        return floorCount;
-    }
-
-    public void setFloorCount(int floorCount) {
-        this.floorCount = floorCount;
-    }
-
-    public String getBuilding() {
-        return building;
-    }
-
-    public void setBuilding(String building) {
-        this.building = building;
-    }
-
-    public int getCell() {
-        return cell;
-    }
-
-    public void setCell(int cell) {
-        this.cell = cell;
-    }
-
-    public Device getDevice() {
-        return mDevice;
-    }
-
-    public void setDevice(Device device) {
-        this.mDevice = device;
-    }
-
-    public int getID() {
-        return ID;
-    }
-
-    public void setID(int ID) {
-        this.ID = ID;
-    }
-
-    public String getNickName() {
-        return nickName;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public Company getInstaller() {
-        return installer;
-    }
-
-    public void setInstaller(Company installer) {
-        this.installer = installer;
-    }
-
-    public Company getMaintainer() {
-        return maintainer;
-    }
-
-    public void setMaintainer(Company maintainer) {
-        this.maintainer = maintainer;
-    }
-
-    public Company getChecker() {
-        return checker;
-    }
-
-    public void setChecker(Company checker) {
-        this.checker = checker;
-    }
-
-    public Company getOwner() {
-        return owner;
-    }
-
-    public void setOwner(Company owner) {
-        this.owner = owner;
-    }
-
-    public String getFactoryTime() {
-        return factoryTime;
-    }
-
-    public void setFactoryTime(String factoryTime) {
-        this.factoryTime = factoryTime;
-    }
-
-    public String getInstallTime() {
-        return installTime;
-    }
-
-    public void setInstallTime(String installTime) {
-        this.installTime = installTime;
-    }
-
-    public String getCheckTime() {
-        return checkTime;
-    }
-
-    public void setCheckTime(String checkTime) {
-        this.checkTime = checkTime;
-    }
-
-    public LiftModel getLiftModel() {
-        return liftModel;
-    }
-
-    public void setLiftModel(LiftModel liftModel) {
-        this.liftModel = liftModel;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
 
     @Override
-    public String toString() {
-        return "LiftInfo{" +
-                "ID=" + ID +
-                ", nickName='" + nickName + '\'' +
-                ", code='" + code + '\'' +
-                ", installer=" + installer +
-                ", maintainer=" + maintainer +
-                ", checker=" + checker +
-                ", owner=" + owner +
-                ", factoryTime='" + factoryTime + '\'' +
-                ", installTime='" + installTime + '\'' +
-                ", checkTime='" + checkTime + '\'' +
-                ", liftModel=" + liftModel +
-                ", category=" + category +
-                ", address=" + address +
-                ", location='" + location + '\'' +
-                ", floorCount=" + floorCount +
-                ", building='" + building + '\'' +
-                ", cell=" + cell +
-                ", adDevice=" + mDevice +
-                '}';
+    public LiftViewHolder createViewHolder(View view, FlexibleAdapter<IFlexible> adapter) {
+        return new LiftViewHolder(view, adapter);
+    }
+
+    @Override
+    public void bindViewHolder(FlexibleAdapter<IFlexible> adapter, LiftViewHolder holder,
+                               int position, List<Object> payloads) {
+        holder.name.setText(nickName);
+        holder.code.setText(code);
+        holder.address.setText(address.getAddressName() + building + "栋" + cell + "单元");
+        long uptimeSum = TimeUtils.string2Millis(installTime, Utils.DATE_PATTERN);
+        long checktimeSum = TimeUtils.string2Millis(checkTime, Utils.DATE_PATTERN);
+        holder.uptime.setText(TimeUtils.getTimeSpanByNow(uptimeSum, TimeConstants.HOUR) + " hours");
+        holder.checkTime.setText(TimeUtils.getFitTimeSpanByNow(checktimeSum, 1));
+//        holder.online.setText(info.getDevice().isOnline() ? "Online":"Offline");
+    }
+
+    static class LiftViewHolder extends FlexibleViewHolder {
+        MaterialTextView name, code, address, uptime, checkTime, online;
+
+        public LiftViewHolder(@NonNull View itemView, FlexibleAdapter adapter) {
+            super(itemView, adapter);
+            name = itemView.findViewById(R.id.tv_name);
+            code = itemView.findViewById(R.id.tv_code);
+            address = itemView.findViewById(R.id.tv_address);
+            uptime = itemView.findViewById(R.id.tv_uptime);
+            checkTime = itemView.findViewById(R.id.tv_checktime);
+            online = itemView.findViewById(R.id.tv_online);
+        }
     }
 }

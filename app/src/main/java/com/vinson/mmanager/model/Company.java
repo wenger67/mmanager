@@ -1,118 +1,65 @@
 package com.vinson.mmanager.model;
 
 
-public class Company extends BaseModel{
-    private String fullName;
-    private String alias;
-    private String legalPerson;
-    private String phone;
-    private String status;
-    private String regCode;
-    private String orgCode;
-    private String creditCode;
-    private String taxCode;
-    private String address;
-    private Category category;
+import android.view.View;
 
-    public Company(String fullName, String alias, String legalPerson, String phone, String status, String regCode, String orgCode, String creditCode, String taxCode, String address, Category category) {
-        this.fullName = fullName;
-        this.alias = alias;
-        this.legalPerson = legalPerson;
-        this.phone = phone;
-        this.status = status;
-        this.regCode = regCode;
-        this.orgCode = orgCode;
-        this.creditCode = creditCode;
-        this.taxCode = taxCode;
-        this.address = address;
-        this.category = category;
+import androidx.annotation.NonNull;
+
+import com.google.android.material.textview.MaterialTextView;
+import com.vinson.mmanager.R;
+
+import java.util.List;
+
+import eu.davidea.flexibleadapter.FlexibleAdapter;
+import eu.davidea.flexibleadapter.items.AbstractFlexibleItem;
+import eu.davidea.flexibleadapter.items.IFlexible;
+import eu.davidea.viewholders.FlexibleViewHolder;
+
+public class Company extends AbstractFlexibleItem<Company.CompaniesViewHolder> {
+
+    int ID;
+    String CreatedAt;
+    String UpdatedAt;
+    String DeletedAt;
+    String fullName;
+    String alias;
+    String legalPerson;
+    String phone;
+    String status;
+    String regCode;
+    String orgCode;
+    String creditCode;
+    String taxCode;
+    String address;
+    Category category;
+
+    @Override
+    public boolean equals(Object o) {
+        return false;
     }
 
-    public Category getCategory() {
-        return category;
+    @Override
+    public int getLayoutRes() {
+        return 0;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    @Override
+    public CompaniesViewHolder createViewHolder(View view, FlexibleAdapter<IFlexible> adapter) {
+        return null;
     }
 
-    public String getFullName() {
-        return fullName;
+    @Override
+    public void bindViewHolder(FlexibleAdapter<IFlexible> adapter, CompaniesViewHolder holder, int position, List<Object> payloads) {
+
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getAlias() {
-        return alias;
-    }
-
-    public void setAlias(String alias) {
-        this.alias = alias;
-    }
-
-    public String getLegalPerson() {
-        return legalPerson;
-    }
-
-    public void setLegalPerson(String legalPerson) {
-        this.legalPerson = legalPerson;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getRegCode() {
-        return regCode;
-    }
-
-    public void setRegCode(String regCode) {
-        this.regCode = regCode;
-    }
-
-    public String getOrgCode() {
-        return orgCode;
-    }
-
-    public void setOrgCode(String orgCode) {
-        this.orgCode = orgCode;
-    }
-
-    public String getCreditCode() {
-        return creditCode;
-    }
-
-    public void setCreditCode(String creditCode) {
-        this.creditCode = creditCode;
-    }
-
-    public String getTaxCode() {
-        return taxCode;
-    }
-
-    public void setTaxCode(String taxCode) {
-        this.taxCode = taxCode;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
+    static class CompaniesViewHolder extends FlexibleViewHolder {
+        MaterialTextView name, code, owner;
+        public CompaniesViewHolder(@NonNull View itemView, FlexibleAdapter adapter) {
+            super(itemView, adapter);
+            name = itemView.findViewById(R.id.tv_name);
+            code = itemView.findViewById(R.id.tv_code);
+            owner = itemView.findViewById(R.id.tv_content);
+        }
     }
 }

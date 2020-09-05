@@ -1,10 +1,25 @@
 package com.vinson.mmanager.model.device;
 
-import com.vinson.mmanager.model.BaseModel;
+import android.view.View;
+
+import androidx.annotation.NonNull;
+
+import com.google.android.material.textview.MaterialTextView;
+import com.vinson.mmanager.R;
 import com.vinson.mmanager.model.Category;
 
-public class DeviceData extends BaseModel {
+import java.util.List;
 
+import eu.davidea.flexibleadapter.FlexibleAdapter;
+import eu.davidea.flexibleadapter.items.AbstractFlexibleItem;
+import eu.davidea.flexibleadapter.items.IFlexible;
+import eu.davidea.viewholders.FlexibleViewHolder;
+
+public class DeviceData extends AbstractFlexibleItem<DeviceData.DataViewHolder> {
+    int ID;
+    String CreatedAt;
+    String UpdatedAt;
+    String DeletedAt;
     int deviceId;
     Device device;
     int troubleId;
@@ -21,63 +36,36 @@ public class DeviceData extends BaseModel {
     Category doorState;
     boolean peopleInside;
 
-    public int getDeviceId() {
-        return deviceId;
+    @Override
+    public boolean equals(Object o) {
+        return false;
     }
 
-    public Device getDevice() {
-        return device;
+    @Override
+    public int getLayoutRes() {
+        return 0;
     }
 
-    public int getTroubleId() {
-        return troubleId;
+    @Override
+    public DataViewHolder createViewHolder(View view, FlexibleAdapter<IFlexible> adapter) {
+        return new DataViewHolder(view, adapter);
     }
 
-    public Category getTrouble() {
-        return trouble;
+    @Override
+    public void bindViewHolder(FlexibleAdapter<IFlexible> adapter, DataViewHolder holder, int position, List<Object> payloads) {
+        holder.name.setText(String.valueOf(ID));
+        holder.code.setText(accx + ", " + accy + ", " + accz);
+        holder.owner.setText(degx + ", " + degy + ", " + degz);
     }
 
-    public float getAccx() {
-        return accx;
-    }
+    static class DataViewHolder extends FlexibleViewHolder {
+        MaterialTextView name, code, owner;
 
-    public float getAccy() {
-        return accy;
-    }
-
-    public float getAccz() {
-        return accz;
-    }
-
-    public float getDegx() {
-        return degx;
-    }
-
-    public float getDegy() {
-        return degy;
-    }
-
-    public float getDegz() {
-        return degz;
-    }
-
-    public float getSpeedz() {
-        return speedz;
-    }
-
-    public float getFloor() {
-        return floor;
-    }
-
-    public int getDoorStateId() {
-        return doorStateId;
-    }
-
-    public Category getDoorState() {
-        return doorState;
-    }
-
-    public boolean isPeopleInside() {
-        return peopleInside;
+        public DataViewHolder(@NonNull View itemView, FlexibleAdapter adapter) {
+            super(itemView, adapter);
+            name = itemView.findViewById(R.id.tv_name);
+            code = itemView.findViewById(R.id.tv_code);
+            owner = itemView.findViewById(R.id.tv_content);
+        }
     }
 }

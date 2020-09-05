@@ -14,7 +14,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.socks.library.KLog;
 import com.vinson.mmanager.R;
-import com.vinson.mmanager.adapter.LiftTroublesAdapter;
 import com.vinson.mmanager.base.BaseActivity;
 import com.vinson.mmanager.data.ServerHelper;
 import com.vinson.mmanager.model.lift.LiftTrouble;
@@ -26,6 +25,8 @@ import com.vinson.mmanager.utils.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
+import eu.davidea.flexibleadapter.FlexibleAdapter;
+import eu.davidea.flexibleadapter.common.FlexibleItemDecoration;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -34,7 +35,7 @@ import retrofit2.Response;
 public class LiftTroublesActivity extends BaseActivity {
     CustomList mCustomList;
     List<LiftTrouble> mLiftTroubles = new ArrayList<>();
-    LiftTroublesAdapter mTroublesAdapter;
+    FlexibleAdapter<LiftTrouble> mTroublesAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,7 +66,7 @@ public class LiftTroublesActivity extends BaseActivity {
                     for (JsonElement element : data.getAsJsonArray("list")) {
                         mLiftTroubles.add(mGson.fromJson(element, LiftTrouble.class));
                     }
-                    mTroublesAdapter.setData(mLiftTroubles);
+                    mTroublesAdapter.addItems(0, mLiftTroubles);
                     mSkeletonScreen.hide();
                 }
             }
@@ -117,18 +118,19 @@ public class LiftTroublesActivity extends BaseActivity {
         super.initView();
         mCustomList = findViewById(R.id.rcv);
         mCustomList.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-        mTroublesAdapter = new LiftTroublesAdapter(null, this);
+        mCustomList.addItemDecoration(new FlexibleItemDecoration(this).withOffset(1).withDefaultDivider());
 
-
-        mSkeletonScreen = Skeleton.bind(mCustomList)
-                .adapter(mTroublesAdapter).load(R.layout.activity_data_list_skeleton)
-                .show();
-        mHandler.sendEmptyMessage(MSG_FETCH_LIST_DATA);
+        mTroublesAdapter = new FlexibleAdapter<>(null, this);
+        mCustomList.setAdapter(mTroublesAdapter);
     }
 
 
     @Override
     protected void initEvent() {
         super.initEvent();
+        mSkeletonScreen = Skeleton.bind(mCustomList)
+                .adapter(mTroublesAdapter).load(R.layout.activity_data_list_skeleton)
+                .show();
+        mHandler.sendEmptyMessage(MSG_FETCH_LIST_DATA);
     }
 }

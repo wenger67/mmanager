@@ -95,7 +95,7 @@ public class ServerHelper {
                         newRequest = chain.request().newBuilder()
                                 .addHeader("Content-Type", "application/json")
                                 .addHeader("x-token", token)
-                                .addHeader("x-user-id", Integer.toString(userInfo.getID()))
+                                .addHeader("x-user-id", Integer.toString(userInfo.ID))
                                 .build();
                     } else newRequest = chain.request();
 

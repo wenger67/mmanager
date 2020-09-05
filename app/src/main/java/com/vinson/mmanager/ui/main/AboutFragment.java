@@ -33,9 +33,9 @@ public class AboutFragment extends BaseFragment {
         mBrief = root.findViewById(R.id.tv_brief);
 
         UserInfo userInfo = Config.getUserInfo();
-        Glide.with(root).load(userInfo.getAvatar()).into(mUserHeader);
-        mUserName.setText(userInfo.getRealName());
-        mBrief.setText(userInfo.getPhoneNumber());
+        Glide.with(root).load(userInfo.avatar).into(mUserHeader);
+        mUserName.setText(userInfo.realName);
+        mBrief.setText(userInfo.phoneNumber);
     }
 
     @Override

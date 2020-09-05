@@ -12,9 +12,10 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class util {
+public class Utils {
     public static final int MEDIA_TYPE_IMAGE = 1;
     public static final int MEDIA_TYPE_VIDEO = 2;
+    public static final String DATE_PATTERN = "yyyy-MM-dd'T'HH:mm:ss";
 
     public static boolean isCameraExist(Context context) {
         return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA);

@@ -14,12 +14,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.socks.library.KLog;
 import com.vinson.mmanager.R;
-import com.vinson.mmanager.adapter.DevicesAdapter;
-import com.vinson.mmanager.adapter.LiftRecordsAdapter;
 import com.vinson.mmanager.base.BaseActivity;
 import com.vinson.mmanager.data.ServerHelper;
 import com.vinson.mmanager.model.device.Device;
-import com.vinson.mmanager.model.lift.LiftRecord;
 import com.vinson.mmanager.model.request.BaseListParams;
 import com.vinson.mmanager.model.response.BaseResponse;
 import com.vinson.mmanager.ui.view.CustomList;
@@ -28,6 +25,7 @@ import com.vinson.mmanager.utils.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
+import eu.davidea.flexibleadapter.FlexibleAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,7 +34,7 @@ import retrofit2.Response;
 public class DevicesActivity extends BaseActivity {
     CustomList mCustomList;
     List<Device> mDevices = new ArrayList<>();
-    DevicesAdapter mDevicesAdapter;
+    FlexibleAdapter<Device> mDevicesAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,7 +65,7 @@ public class DevicesActivity extends BaseActivity {
                     for (JsonElement element : data.getAsJsonArray("list")) {
                         mDevices.add(mGson.fromJson(element, Device.class));
                     }
-                    mDevicesAdapter.setData(mDevices);
+                    mDevicesAdapter.addItems(0, mDevices);
                     KLog.d(mDevices.size());
                     mSkeletonScreen.hide();
                 }
@@ -120,7 +118,7 @@ public class DevicesActivity extends BaseActivity {
         super.initView();
         mCustomList = findViewById(R.id.rcv);
         mCustomList.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-        mDevicesAdapter = new DevicesAdapter(null, this);
+        mDevicesAdapter = new FlexibleAdapter<>(null, this);
         mCustomList.setAdapter(mDevicesAdapter);
 
         mSkeletonScreen = Skeleton.bind(mCustomList)

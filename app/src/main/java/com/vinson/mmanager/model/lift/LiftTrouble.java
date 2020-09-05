@@ -1,10 +1,29 @@
 package com.vinson.mmanager.model.lift;
 
-import com.vinson.mmanager.model.BaseModel;
+import android.view.View;
+
+import androidx.annotation.NonNull;
+
+import com.blankj.utilcode.constant.TimeConstants;
+import com.blankj.utilcode.util.TimeUtils;
+import com.google.android.material.textview.MaterialTextView;
+import com.vinson.mmanager.R;
 import com.vinson.mmanager.model.Category;
 import com.vinson.mmanager.model.login.UserInfo;
+import com.vinson.mmanager.utils.Utils;
 
-public class LiftTrouble extends BaseModel {
+import java.util.List;
+
+import eu.davidea.flexibleadapter.FlexibleAdapter;
+import eu.davidea.flexibleadapter.items.AbstractFlexibleItem;
+import eu.davidea.flexibleadapter.items.IFlexible;
+import eu.davidea.viewholders.FlexibleViewHolder;
+
+public class LiftTrouble extends AbstractFlexibleItem<LiftTrouble.TroubleViewHolder> {
+        int ID;
+    String CreatedAt;
+    String UpdatedAt;
+    String DeletedAt;
     int liftId;
     LiftInfo lift;
     int fromCategoryId;
@@ -32,107 +51,41 @@ public class LiftTrouble extends BaseModel {
     String feedbackContent;
     int feedbackRate;
 
-    public int getLiftId() {
-        return liftId;
+    @Override
+    public boolean equals(Object o) {
+        return false;
     }
 
-    public LiftInfo getLift() {
-        return lift;
+    @Override
+    public int getLayoutRes() {
+        return R.layout.item_lift_trouble;
     }
 
-    public int getFromCategoryId() {
-        return fromCategoryId;
+    @Override
+    public TroubleViewHolder createViewHolder(View view, FlexibleAdapter<IFlexible> adapter) {
+        return new TroubleViewHolder(view, adapter);
     }
 
-    public Category getFromCategory() {
-        return fromCategory;
+    @Override
+    public void bindViewHolder(FlexibleAdapter<IFlexible> adapter, TroubleViewHolder holder, int position, List<Object> payloads) {
+        holder.category.setText(fromCategory.categoryName);
+        holder.name.setText(lift.nickName);
+        holder.code.setText(lift.code);
+        holder.timeCost.setText(TimeUtils.getTimeSpan(TimeUtils.string2Millis(responseTime,
+                Utils.DATE_PATTERN), TimeUtils.string2Millis(startTime, Utils.DATE_PATTERN),
+                TimeConstants.HOUR) + "小时");
     }
 
-    public String getStartTime() {
-        return startTime;
-    }
+    static class TroubleViewHolder extends FlexibleViewHolder {
+        MaterialTextView category, name, code, timeCost;
 
-    public int getStartUserId() {
-        return startUserId;
-    }
-
-    public UserInfo getStartUser() {
-        return startUser;
-    }
-
-    public String getResponseTime() {
-        return responseTime;
-    }
-
-    public int getResponseUserId() {
-        return responseUserId;
-    }
-
-    public UserInfo getResponseUser() {
-        return responseUser;
-    }
-
-    public String getSceneTime() {
-        return sceneTime;
-    }
-
-    public int getSceneUserId() {
-        return sceneUserId;
-    }
-
-    public UserInfo getSceneUser() {
-        return sceneUser;
-    }
-
-    public String getFixTime() {
-        return fixTime;
-    }
-
-    public int getFixUserId() {
-        return fixUserId;
-    }
-
-    public UserInfo getFixUser() {
-        return fixUser;
-    }
-
-    public int getFixCategoryId() {
-        return fixCategoryId;
-    }
-
-    public Category getFixCategory() {
-        return fixCategory;
-    }
-
-    public int getReasonCategoryId() {
-        return reasonCategoryId;
-    }
-
-    public Category getReasonCategory() {
-        return reasonCategory;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public int getProgress() {
-        return progress;
-    }
-
-    public int getRecorderId() {
-        return recorderId;
-    }
-
-    public UserInfo getRecorder() {
-        return recorder;
-    }
-
-    public String getFeedbackContent() {
-        return feedbackContent;
-    }
-
-    public int getFeedbackRate() {
-        return feedbackRate;
+        public TroubleViewHolder(@NonNull View itemView, FlexibleAdapter adapter) {
+            super(itemView,
+                    adapter);
+            category = itemView.findViewById(R.id.tv_category);
+            name = itemView.findViewById(R.id.tv_name);
+            code = itemView.findViewById(R.id.tv_code);
+            timeCost = itemView.findViewById(R.id.tv_timecost);
+        }
     }
 }

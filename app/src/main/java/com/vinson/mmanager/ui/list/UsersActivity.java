@@ -14,9 +14,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.socks.library.KLog;
 import com.vinson.mmanager.R;
-import com.vinson.mmanager.adapter.UsersAdapter;
 import com.vinson.mmanager.base.BaseActivity;
 import com.vinson.mmanager.data.ServerHelper;
+import com.vinson.mmanager.model.ProgressItem;
 import com.vinson.mmanager.model.login.UserInfo;
 import com.vinson.mmanager.model.request.BaseListParams;
 import com.vinson.mmanager.model.response.BaseResponse;
@@ -26,6 +26,9 @@ import com.vinson.mmanager.utils.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
+import eu.davidea.flexibleadapter.FlexibleAdapter;
+import eu.davidea.flexibleadapter.common.FlexibleItemDecoration;
+import eu.davidea.flexibleadapter.items.AbstractFlexibleItem;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -35,8 +38,10 @@ import retrofit2.Response;
 @Route(path = Constants.AROUTER_PAGE_USERS)
 public class UsersActivity extends BaseActivity {
     CustomList mCustomList;
-    List<UserInfo> mUsers = new ArrayList<>();
-    UsersAdapter mUsersAdapter;
+    List<AbstractFlexibleItem> mUsers = new ArrayList<>();
+    FlexibleAdapter<AbstractFlexibleItem> mUsersAdapter;
+    int lastPos = 0;
+    int curPage = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,8 +61,10 @@ public class UsersActivity extends BaseActivity {
     }
 
     private void fetchData() {
-        BaseListParams listParams = new BaseListParams();
-        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), mGson.toJson(listParams));
+        mUsers  = new ArrayList<>(); // clear
+        BaseListParams listParams = new BaseListParams( curPage + 1, 10);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"),
+                mGson.toJson(listParams));
         ServerHelper.getInstance().getUserList(requestBody).enqueue(new Callback<BaseResponse<JsonObject>>() {
             @Override
             public void onResponse(Call<BaseResponse<JsonObject>> call,
@@ -68,7 +75,11 @@ public class UsersActivity extends BaseActivity {
                     for (JsonElement element : data.getAsJsonArray("list")) {
                         mUsers.add(mGson.fromJson(element, UserInfo.class));
                     }
-                    mUsersAdapter.setData(mUsers);
+                    mUsersAdapter.onLoadMoreComplete(mUsers, 500);
+                    KLog.d("EndlessCurrentPage=" + mUsersAdapter.getEndlessCurrentPage());
+                    KLog.d("EndlessPageSize=" + mUsersAdapter.getEndlessPageSize());
+                    KLog.d("EndlessTargetCount=" + mUsersAdapter.getEndlessTargetCount());
+
                     mSkeletonScreen.hide();
                 } else {
                     KLog.w("get user list empty!");
@@ -122,18 +133,39 @@ public class UsersActivity extends BaseActivity {
         super.initView();
         mCustomList = findViewById(R.id.rcv);
         mCustomList.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-        mUsersAdapter = new UsersAdapter(null, this);
+        mCustomList.addItemDecoration(new FlexibleItemDecoration(this).withOffset(1).withDefaultDivider());
+
+        mUsersAdapter = new FlexibleAdapter<>(null);
         mCustomList.setAdapter(mUsersAdapter);
-
-        mSkeletonScreen = Skeleton.bind(mCustomList)
-                .adapter(mUsersAdapter).load(R.layout.activity_data_list_skeleton)
-                .show();
-        mHandler.sendEmptyMessage(MSG_FETCH_LIST_DATA);
     }
-
 
     @Override
     protected void initEvent() {
         super.initEvent();
+        mSkeletonScreen = Skeleton.bind(mCustomList)
+                .adapter(mUsersAdapter).load(R.layout.activity_data_list_skeleton)
+                .show();
+
+        mUsersAdapter.setEndlessScrollListener(new FlexibleAdapter.EndlessScrollListener() {
+            @Override
+            public void noMoreLoad(int newItemsSize) {
+                KLog.d(newItemsSize);
+            }
+
+            @Override
+            public void onLoadMore(int lastPosition, int currentPage) {
+                KLog.d(lastPosition + ", " + currentPage);
+                lastPos += lastPosition;
+                curPage = currentPage;
+                mHandler.sendEmptyMessage(MSG_FETCH_LIST_DATA);
+            }
+
+
+        }, new ProgressItem()).
+                setEndlessPageSize(10).
+                setLoadingMoreAtStartUp(true).
+                setEndlessScrollThreshold(1);
     }
+
+
 }

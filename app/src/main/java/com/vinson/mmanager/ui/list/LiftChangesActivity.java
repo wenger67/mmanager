@@ -14,7 +14,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.socks.library.KLog;
 import com.vinson.mmanager.R;
-import com.vinson.mmanager.adapter.LiftChangesAdapter;
 import com.vinson.mmanager.base.BaseActivity;
 import com.vinson.mmanager.data.ServerHelper;
 import com.vinson.mmanager.model.lift.LiftChange;
@@ -26,6 +25,7 @@ import com.vinson.mmanager.utils.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
+import eu.davidea.flexibleadapter.FlexibleAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -34,7 +34,7 @@ import retrofit2.Response;
 public class LiftChangesActivity extends BaseActivity {
     CustomList mCustomList;
     List<LiftChange> mLiftChanges = new ArrayList<>();
-    LiftChangesAdapter mChangesAdapter;
+    FlexibleAdapter<LiftChange> mChangesAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,7 +65,7 @@ public class LiftChangesActivity extends BaseActivity {
                     for (JsonElement element : data.getAsJsonArray("list")) {
                         mLiftChanges.add(mGson.fromJson(element, LiftChange.class));
                     }
-                    mChangesAdapter.setData(mLiftChanges);
+                    mChangesAdapter.addItems(0, mLiftChanges);
                     mSkeletonScreen.hide();
                 }
             }
@@ -117,7 +117,7 @@ public class LiftChangesActivity extends BaseActivity {
         super.initView();
         mCustomList = findViewById(R.id.rcv);
         mCustomList.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-        mChangesAdapter = new LiftChangesAdapter(null, this);
+        mChangesAdapter = new FlexibleAdapter<>(null, this);
         mCustomList.setAdapter(mChangesAdapter);
 
         mSkeletonScreen = Skeleton.bind(mCustomList)

@@ -1,11 +1,27 @@
 package com.vinson.mmanager.model.device;
 
-import com.vinson.mmanager.model.BaseModel;
+import android.view.View;
+
+import androidx.annotation.NonNull;
+
+import com.google.android.material.textview.MaterialTextView;
+import com.vinson.mmanager.R;
 import com.vinson.mmanager.model.Category;
 import com.vinson.mmanager.model.Company;
 import com.vinson.mmanager.model.login.UserInfo;
 
-public class Device extends BaseModel {
+import java.util.List;
+
+import eu.davidea.flexibleadapter.FlexibleAdapter;
+import eu.davidea.flexibleadapter.items.AbstractFlexibleItem;
+import eu.davidea.flexibleadapter.items.IFlexible;
+import eu.davidea.viewholders.FlexibleViewHolder;
+
+public class Device extends AbstractFlexibleItem<Device.DeviceViewHolder> {
+        int ID;
+    String CreatedAt;
+    String UpdatedAt;
+    String DeletedAt;
     int typeId;
     Category type;
     int factoryId;
@@ -20,55 +36,35 @@ public class Device extends BaseModel {
     UserInfo[] owners;
     DeviceConfig[] configs;
 
-    public int getTypeId() {
-        return typeId;
+    @Override
+    public boolean equals(Object o) {
+        return false;
     }
 
-    public Category getType() {
-        return type;
+    @Override
+    public int getLayoutRes() {
+        return 0;
     }
 
-    public int getFactoryId() {
-        return factoryId;
+    @Override
+    public DeviceViewHolder createViewHolder(View view, FlexibleAdapter<IFlexible> adapter) {
+        return new DeviceViewHolder(view, adapter);
     }
 
-    public Company getFactory() {
-        return factory;
+    @Override
+    public void bindViewHolder(FlexibleAdapter<IFlexible> adapter, DeviceViewHolder holder, int position, List<Object> payloads) {
+        holder.name.setText(type.categoryName);
+        holder.code.setText(status.categoryName);
+        holder.owner.setText(CreatedAt);
     }
 
-    public String getFactoryTime() {
-        return factoryTime;
-    }
-
-    public String getInstallTime() {
-        return installTime;
-    }
-
-    public int getStatusId() {
-        return statusId;
-    }
-
-    public Category getStatus() {
-        return status;
-    }
-
-    public boolean isOnline() {
-        return online;
-    }
-
-    public String getLastOfflineTime() {
-        return lastOfflineTime;
-    }
-
-    public String getLastOnlineTime() {
-        return lastOnlineTime;
-    }
-
-    public UserInfo[] getOwners() {
-        return owners;
-    }
-
-    public DeviceConfig[] getConfigs() {
-        return configs;
+    static class DeviceViewHolder extends FlexibleViewHolder {
+        MaterialTextView name, code, owner;
+        public DeviceViewHolder(@NonNull View itemView, FlexibleAdapter adapter) {
+            super(itemView, adapter);
+            name = itemView.findViewById(R.id.tv_name);
+            code = itemView.findViewById(R.id.tv_code);
+            owner = itemView.findViewById(R.id.tv_content);
+        }
     }
 }

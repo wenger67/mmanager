@@ -14,7 +14,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.socks.library.KLog;
 import com.vinson.mmanager.R;
-import com.vinson.mmanager.adapter.LiftRecordsAdapter;
 import com.vinson.mmanager.base.BaseActivity;
 import com.vinson.mmanager.data.ServerHelper;
 import com.vinson.mmanager.model.lift.LiftRecord;
@@ -26,6 +25,9 @@ import com.vinson.mmanager.utils.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
+import eu.davidea.flexibleadapter.FlexibleAdapter;
+import eu.davidea.flexibleadapter.common.FlexibleItemDecoration;
+import eu.davidea.flexibleadapter.items.IFlexible;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -34,7 +36,7 @@ import retrofit2.Response;
 public class LiftRecordsActivity extends BaseActivity {
     CustomList mCustomList;
     List<LiftRecord> mLiftRecords = new ArrayList<>();
-    LiftRecordsAdapter mRecordsAdapter;
+    FlexibleAdapter<LiftRecord> mRecordsAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,8 +67,7 @@ public class LiftRecordsActivity extends BaseActivity {
                     for (JsonElement element : data.getAsJsonArray("list")) {
                         mLiftRecords.add(mGson.fromJson(element, LiftRecord.class));
                     }
-                    mRecordsAdapter.setData(mLiftRecords);
-                    KLog.d(mLiftRecords.size());
+                    mRecordsAdapter.addItems(0, mLiftRecords);
                     mSkeletonScreen.hide();
                 }
             }
@@ -118,18 +119,20 @@ public class LiftRecordsActivity extends BaseActivity {
         super.initView();
         mCustomList = findViewById(R.id.rcv);
         mCustomList.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-        mRecordsAdapter = new LiftRecordsAdapter(null, this);
+        mCustomList.addItemDecoration(new FlexibleItemDecoration(this).withOffset(1).withDefaultDivider());
+
+        mRecordsAdapter = new FlexibleAdapter<>(null, this);
         mCustomList.setAdapter(mRecordsAdapter);
 
-        mSkeletonScreen = Skeleton.bind(mCustomList)
-                .adapter(mRecordsAdapter).load(R.layout.activity_data_list_skeleton)
-                .show();
-        mHandler.sendEmptyMessage(MSG_FETCH_LIST_DATA);
     }
 
 
     @Override
     protected void initEvent() {
         super.initEvent();
+        mSkeletonScreen = Skeleton.bind(mCustomList)
+                .adapter(mRecordsAdapter).load(R.layout.activity_data_list_skeleton)
+                .show();
+        mHandler.sendEmptyMessage(MSG_FETCH_LIST_DATA);
     }
 }
