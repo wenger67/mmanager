@@ -14,28 +14,26 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.socks.library.KLog;
 import com.vinson.mmanager.R;
-import com.vinson.mmanager.base.BaseActivity;
+import com.vinson.mmanager.base.BaseListActivity;
 import com.vinson.mmanager.data.ServerHelper;
+import com.vinson.mmanager.model.annotation.ModuleType;
 import com.vinson.mmanager.model.device.DeviceEvent;
 import com.vinson.mmanager.model.request.BaseListParams;
 import com.vinson.mmanager.model.response.BaseResponse;
-import com.vinson.mmanager.ui.view.CustomList;
 import com.vinson.mmanager.utils.Constants;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import eu.davidea.flexibleadapter.FlexibleAdapter;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okhttp3.internal.annotations.EverythingIsNonNull;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 @Route(path = Constants.AROUTER_PAGE_DEVICE_EVENT)
-public class DeviceEventsActivity extends BaseActivity {
-    CustomList mCustomList;
-    List<DeviceEvent> mDeviceEvents = new ArrayList<>();
-    FlexibleAdapter<DeviceEvent> mEventsAdapter;
-
+public class DeviceEventsActivity extends BaseListActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,24 +52,26 @@ public class DeviceEventsActivity extends BaseActivity {
     }
 
     private void fetchData() {
-        BaseListParams listParams = new BaseListParams();
-        ServerHelper.getInstance().getAdDeviceEventList(listParams.getPage(), listParams.getPageSize()).enqueue(new Callback<BaseResponse<JsonObject>>() {
+        mItems = new ArrayList<>(); // clear
+        BaseListParams listParams = new BaseListParams(curPage + 1, 10);
+        ServerHelper.getInstance().getList(ModuleType.MODULE_DEVICE_EVENT, listParams.page, listParams.pageSize).enqueue(new Callback<BaseResponse<JsonObject>>() {
             @Override
+            @EverythingIsNonNull
             public void onResponse(Call<BaseResponse<JsonObject>> call,
                                    Response<BaseResponse<JsonObject>> response) {
                 BaseResponse<JsonObject> body = response.body();
                 if (body != null) {
                     JsonObject data = body.getData();
                     for (JsonElement element : data.getAsJsonArray("list")) {
-                        mDeviceEvents.add(mGson.fromJson(element, DeviceEvent.class));
+                        mItems.add(mGson.fromJson(element, DeviceEvent.class));
                     }
-                    mEventsAdapter.addItems(0, mDeviceEvents);
-                    KLog.d(mDeviceEvents.size());
-                    mSkeletonScreen.hide();
+                    mAdapter.onLoadMoreComplete(mItems, 3000L);
+                    if (curPage == 0) mSkeletonScreen.hide();
                 }
             }
 
             @Override
+            @EverythingIsNonNull
             public void onFailure(Call<BaseResponse<JsonObject>> call, Throwable t) {
                 KLog.d(t.getMessage());
             }
@@ -116,15 +116,6 @@ public class DeviceEventsActivity extends BaseActivity {
     @Override
     protected void initView() {
         super.initView();
-        mCustomList = findViewById(R.id.rcv);
-        mCustomList.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-        mEventsAdapter = new FlexibleAdapter<>(null, this);
-        mCustomList.setAdapter(mEventsAdapter);
-
-        mSkeletonScreen = Skeleton.bind(mCustomList)
-                .adapter(mEventsAdapter).load(R.layout.activity_data_list_skeleton)
-                .show();
-        mHandler.sendEmptyMessage(MSG_FETCH_LIST_DATA);
     }
 
 

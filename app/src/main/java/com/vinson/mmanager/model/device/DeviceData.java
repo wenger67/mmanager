@@ -5,6 +5,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 
 import com.google.android.material.textview.MaterialTextView;
+import com.vinson.mmanager.App;
 import com.vinson.mmanager.R;
 import com.vinson.mmanager.model.Category;
 
@@ -43,7 +44,7 @@ public class DeviceData extends AbstractFlexibleItem<DeviceData.DataViewHolder> 
 
     @Override
     public int getLayoutRes() {
-        return 0;
+        return R.layout.item_device_data;
     }
 
     @Override
@@ -53,19 +54,28 @@ public class DeviceData extends AbstractFlexibleItem<DeviceData.DataViewHolder> 
 
     @Override
     public void bindViewHolder(FlexibleAdapter<IFlexible> adapter, DataViewHolder holder, int position, List<Object> payloads) {
-        holder.name.setText(String.valueOf(ID));
-        holder.code.setText(accx + ", " + accy + ", " + accz);
-        holder.owner.setText(degx + ", " + degy + ", " + degz);
+        holder.trouble.setText(trouble.categoryName);
+        holder.deviceId.setText(String.valueOf(deviceId));
+        holder.acc.setText("三轴加速度:" + accx + " | " + accy + " | " + accz);
+        holder.deg.setText("三轴角度:" + degx + " | " + degy + " | " + degz);
+        holder.speed.setText(String.valueOf(speedz) + "m/s");
+        holder.door.setText(doorState.categoryName);
+        holder.people.setText(peopleInside ? "有人":"无人");
+        holder.people.setTextColor(peopleInside ? App.getInstance().getResources().getColor(R.color.md_red_A400) : R.color.md_light_blue_500);
     }
 
     static class DataViewHolder extends FlexibleViewHolder {
-        MaterialTextView name, code, owner;
+        MaterialTextView trouble, deviceId, acc, deg, speed, door, people;
 
         public DataViewHolder(@NonNull View itemView, FlexibleAdapter adapter) {
             super(itemView, adapter);
-            name = itemView.findViewById(R.id.tv_name);
-            code = itemView.findViewById(R.id.tv_code);
-            owner = itemView.findViewById(R.id.tv_content);
+            trouble = itemView.findViewById(R.id.tv_trouble);
+            deviceId = itemView.findViewById(R.id.tv_deviceid);
+            acc = itemView.findViewById(R.id.tv_acc);
+            deg = itemView.findViewById(R.id.tv_deg);
+            speed = itemView.findViewById(R.id.tv_speedz);
+            door = itemView.findViewById(R.id.tv_door);
+            people = itemView.findViewById(R.id.tv_people);
         }
     }
 }

@@ -5,6 +5,7 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="colorPrimaryBackground">#E0E0E0E0</color>
 
+    <color name="skeletonBg">#CDCDCD</color>
 
 
     <!-- google's material design colours from

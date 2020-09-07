@@ -1,6 +1,9 @@
 package com.vinson.mmanager.data;
 
+import android.annotation.SuppressLint;
+
 import com.google.gson.JsonObject;
+import com.vinson.mmanager.model.annotation.ModuleType;
 import com.vinson.mmanager.model.login.UserInfo;
 import com.vinson.mmanager.model.response.BaseResponse;
 import com.vinson.mmanager.tools.Config;
@@ -14,6 +17,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.internal.annotations.EverythingIsNonNull;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -43,50 +47,47 @@ public class ServerHelper {
         return INSTANCE;
     }
 
-    public Call<BaseResponse<JsonObject>> getLiftList(int page, int pageSize) {
-        return mLiftService.getLiftList(page, pageSize);
+    @SuppressLint("SwitchIntDef")
+    public Call<BaseResponse<JsonObject>> getList(RequestBody body, @ModuleType int type) {
+        switch (type) {
+            case ModuleType.MODULE_HOME_HEADER_USERS:
+                return mCompanyService.getUserList(body);
+        }
+        return null;
     }
 
-    public Call<BaseResponse<JsonObject>> getLiftChangeList(int page, int pageSize) {
-        return mLiftService.getLiftChangeList(page, pageSize);
-    }
-
-    public Call<BaseResponse<JsonObject>> getLiftRecordList(int page, int pageSize) {
-        return mLiftService.getLiftRecordList(page, pageSize);
-    }
-
-    public Call<BaseResponse<JsonObject>> getLiftTroubleList(int page, int pageSize) {
-        return mLiftService.getLiftTroubleList(page, pageSize);
-    }
-
-    public Call<BaseResponse<JsonObject>> getAdDeviceList(int page, int pageSize) {
-        return mDeviceService.getAdDeviceList(page, pageSize);
-    }
-
-    public Call<BaseResponse<JsonObject>> getDeviceDataList(int page, int pageSize) {
-        return mDeviceService.getAdDeviceDataList(page, pageSize);
-    }
-
-    public Call<BaseResponse<JsonObject>> getDeviceConfigList(int page, int pageSize) {
-        return mDeviceService.getAdDeviceConfigList(page, pageSize);
-    }
-
-    public Call<BaseResponse<JsonObject>> getAdDeviceEventList(int page, int pageSize) {
-        return mDeviceService.getAdDeviceEventList(page, pageSize);
-    }
-
-    public Call<BaseResponse<JsonObject>> getCompanyList(int page, int pageSize) {
-        return mCompanyService.getCompanyList(page, pageSize);
-    }
-
-    public Call<BaseResponse<JsonObject>> getUserList(RequestBody body) {
-        return mCompanyService.getUserList(body);
+    @SuppressLint("SwitchIntDef")
+    public Call<BaseResponse<JsonObject>> getList(@ModuleType int type, int... params) {
+        int page = params[0];
+        int pageSize = params[1];
+        switch (type) {
+            case ModuleType.MODULE_LIFT_LIST:
+                return mLiftService.getLiftList(page, pageSize);
+            case ModuleType.MODULE_LIFT_CHANGES:
+                return mLiftService.getLiftChangeList(page, pageSize);
+            case ModuleType.MODULE_LIFT_RECORDS:
+                return mLiftService.getLiftRecordList(page, pageSize);
+            case ModuleType.MODULE_LIFT_TROUBLE:
+                return mLiftService.getLiftTroubleList(page, pageSize);
+            case ModuleType.MODULE_DEVICE_LIST:
+                return mDeviceService.getAdDeviceList(page, pageSize);
+            case ModuleType.MODULE_DEVICE_CONFIG:
+                return mDeviceService.getAdDeviceConfigList(page, pageSize);
+            case ModuleType.MODULE_DEVICE_DATA:
+                return mDeviceService.getAdDeviceDataList(page, pageSize);
+            case ModuleType.MODULE_DEVICE_EVENT:
+                return mDeviceService.getAdDeviceEventList(page, pageSize);
+            case ModuleType.MODULE_COMPANY_LIST:
+                return mCompanyService.getCompanyList(page, pageSize);
+        }
+        return null;
     }
 
     private OkHttpClient getOkHttpClient() {
         if (okHttpClient == null) {
             Interceptor tokenInterceptor = new Interceptor() {
                 @Override
+                @EverythingIsNonNull
                 public Response intercept(Chain chain) throws IOException {
                     String token = Config.getToken();
                     UserInfo userInfo = Config.getUserInfo();

@@ -30,7 +30,7 @@ public class DeviceConfig  extends AbstractFlexibleItem<DeviceConfig.ConfigViewH
 
     @Override
     public int getLayoutRes() {
-        return 0;
+        return R.layout.item_device_config;
     }
 
     @Override

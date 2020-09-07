@@ -15,7 +15,7 @@ import eu.davidea.flexibleadapter.items.AbstractFlexibleItem;
 import eu.davidea.flexibleadapter.items.IFlexible;
 import eu.davidea.viewholders.FlexibleViewHolder;
 
-public class Company extends AbstractFlexibleItem<Company.CompaniesViewHolder> {
+public class Company extends AbstractFlexibleItem<Company.CompanyViewHolder> {
 
     int ID;
     String CreatedAt;
@@ -40,22 +40,24 @@ public class Company extends AbstractFlexibleItem<Company.CompaniesViewHolder> {
 
     @Override
     public int getLayoutRes() {
-        return 0;
+        return R.layout.item_company;
     }
 
     @Override
-    public CompaniesViewHolder createViewHolder(View view, FlexibleAdapter<IFlexible> adapter) {
-        return null;
+    public CompanyViewHolder createViewHolder(View view, FlexibleAdapter<IFlexible> adapter) {
+        return new CompanyViewHolder(view, adapter);
     }
 
     @Override
-    public void bindViewHolder(FlexibleAdapter<IFlexible> adapter, CompaniesViewHolder holder, int position, List<Object> payloads) {
-
+    public void bindViewHolder(FlexibleAdapter<IFlexible> adapter, CompanyViewHolder holder, int position, List<Object> payloads) {
+        holder.name.setText(fullName);
+        holder.code.setText(creditCode);
+        holder.owner.setText(legalPerson);
     }
 
-    static class CompaniesViewHolder extends FlexibleViewHolder {
+    static class CompanyViewHolder extends FlexibleViewHolder {
         MaterialTextView name, code, owner;
-        public CompaniesViewHolder(@NonNull View itemView, FlexibleAdapter adapter) {
+        public CompanyViewHolder(@NonNull View itemView, FlexibleAdapter adapter) {
             super(itemView, adapter);
             name = itemView.findViewById(R.id.tv_name);
             code = itemView.findViewById(R.id.tv_code);

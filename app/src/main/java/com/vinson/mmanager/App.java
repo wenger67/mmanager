@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import androidx.annotation.ColorInt;
+
 import com.bumptech.glide.annotation.GlideModule;
 import com.vinson.mmanager.base.BaseApplication;
 import com.vinson.mmanager.tools.CrashHandler;
@@ -35,6 +37,8 @@ public class App extends BaseApplication {
     public static App getInstance() {
         return INSTANCE;
     }
+
+    public @ColorInt
 
     public static ZegoExpressEngine getEngine() {
         return ENGINE;

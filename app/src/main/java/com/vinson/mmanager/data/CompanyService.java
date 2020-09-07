@@ -13,8 +13,7 @@ import retrofit2.http.Query;
 public interface CompanyService {
 
     @GET("/company/getCompanyList")
-    Call<BaseResponse<JsonObject>> getCompanyList(@Query("page") int page,
-                                               @Query("pageSize") int pageSize);
+    Call<BaseResponse<JsonObject>> getCompanyList(@Query("page") int page, @Query("pageSize") int pageSize);
 
     @POST("/user/getUserList")
     Call<BaseResponse<JsonObject>> getUserList(@Body RequestBody body);

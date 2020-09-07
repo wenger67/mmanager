@@ -4,37 +4,31 @@ import android.os.Bundle;
 import android.os.Message;
 
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.Postcard;
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.ethanhua.skeleton.Skeleton;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.socks.library.KLog;
 import com.vinson.mmanager.R;
-import com.vinson.mmanager.base.BaseActivity;
+import com.vinson.mmanager.base.BaseListActivity;
 import com.vinson.mmanager.data.ServerHelper;
 import com.vinson.mmanager.model.Company;
+import com.vinson.mmanager.model.annotation.ModuleType;
 import com.vinson.mmanager.model.request.BaseListParams;
 import com.vinson.mmanager.model.response.BaseResponse;
-import com.vinson.mmanager.ui.view.CustomList;
 import com.vinson.mmanager.utils.Constants;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import eu.davidea.flexibleadapter.FlexibleAdapter;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 @Route(path = Constants.AROUTER_PAGE_COMPANY_LIST)
-public class CompaniesActivity extends BaseActivity {
-    CustomList mCustomList;
-    List<Company> mCompanies = new ArrayList<>();
-    FlexibleAdapter<Company> mCompaniesAdapter;
+public class CompaniesActivity extends BaseListActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,8 +48,9 @@ public class CompaniesActivity extends BaseActivity {
     }
 
     private void fetchData() {
-        BaseListParams listParams = new BaseListParams();
-        ServerHelper.getInstance().getCompanyList(listParams.getPage(), listParams.getPageSize()).enqueue(new Callback<BaseResponse<JsonObject>>() {
+        mItems = new ArrayList<>(); // clear
+        BaseListParams listParams = new BaseListParams(curPage + 1, 10);
+        ServerHelper.getInstance().getList(ModuleType.MODULE_COMPANY_LIST, listParams.page, listParams.pageSize).enqueue(new Callback<BaseResponse<JsonObject>>() {
             @Override
             public void onResponse(Call<BaseResponse<JsonObject>> call,
                                    Response<BaseResponse<JsonObject>> response) {
@@ -63,11 +58,10 @@ public class CompaniesActivity extends BaseActivity {
                 if (body != null) {
                     JsonObject data = body.getData();
                     for (JsonElement element : data.getAsJsonArray("list")) {
-                        mCompanies.add(mGson.fromJson(element, Company.class));
+                        mItems.add(mGson.fromJson(element, Company.class));
                     }
-                    mCompaniesAdapter.addItems(0, mCompanies);
-                    KLog.d(mCompanies.size());
-                    mSkeletonScreen.hide();
+                    mAdapter.onLoadMoreComplete(mItems, 3000L);
+                    if (curPage == 0) mSkeletonScreen.hide();
                 }
             }
 
@@ -116,15 +110,6 @@ public class CompaniesActivity extends BaseActivity {
     @Override
     protected void initView() {
         super.initView();
-        mCustomList = findViewById(R.id.rcv);
-        mCustomList.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-        mCompaniesAdapter = new FlexibleAdapter<>(null, this);
-        mCustomList.setAdapter(mCompaniesAdapter);
-
-        mSkeletonScreen = Skeleton.bind(mCustomList)
-                .adapter(mCompaniesAdapter).load(R.layout.activity_data_list_skeleton)
-                .show();
-        mHandler.sendEmptyMessage(MSG_FETCH_LIST_DATA);
     }
 
 

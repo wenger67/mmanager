@@ -16,7 +16,6 @@ import eu.davidea.flexibleadapter.items.IFlexible;
 import eu.davidea.viewholders.FlexibleViewHolder;
 
 public class DeviceEvent extends AbstractFlexibleItem<DeviceEvent.EventViewHolder> {
-
     int ID;
     String CreatedAt;
     String UpdatedAt;
@@ -34,7 +33,7 @@ public class DeviceEvent extends AbstractFlexibleItem<DeviceEvent.EventViewHolde
 
     @Override
     public int getLayoutRes() {
-        return 0;
+        return R.layout.item_device_event;
     }
 
     @Override
@@ -45,20 +44,20 @@ public class DeviceEvent extends AbstractFlexibleItem<DeviceEvent.EventViewHolde
     @Override
     public void bindViewHolder(FlexibleAdapter<IFlexible> adapter, EventViewHolder holder,
                                int position, List<Object> payloads) {
-        holder.name.setText(type.categoryName);
-        holder.code.setText(String.valueOf(deviceId));
-        holder.owner.setText(content);
+        holder.type.setText(type.categoryName);
+        holder.deviceId.setText(String.valueOf(deviceId));
+        holder.content.setText(content);
     }
 
     static class EventViewHolder extends FlexibleViewHolder {
-        MaterialTextView name, code, owner;
+        MaterialTextView type, deviceId, content;
 
         public EventViewHolder(@NonNull View itemView, FlexibleAdapter adapter) {
             super(itemView,
                     adapter);
-            name = itemView.findViewById(R.id.tv_name);
-            code = itemView.findViewById(R.id.tv_code);
-            owner = itemView.findViewById(R.id.tv_content);
+            type = itemView.findViewById(R.id.tv_type);
+            deviceId = itemView.findViewById(R.id.tv_deviceid);
+            content = itemView.findViewById(R.id.tv_content);
         }
     }
 }

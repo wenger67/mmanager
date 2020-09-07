@@ -9,6 +9,9 @@ import com.bumptech.glide.Glide;
 import com.socks.library.KLog;
 import com.vinson.mmanager.BuildConfig;
 
+import eu.davidea.flexibleadapter.FlexibleAdapter;
+import eu.davidea.flexibleadapter.utils.Log;
+
 public class BaseApplication extends MultiDexApplication {
 
     public static BaseApplication application;
@@ -35,5 +38,8 @@ public class BaseApplication extends MultiDexApplication {
         ARouter.init(this);
 
         KLog.init(true);
+
+        FlexibleAdapter.useTag("aaaaaa");
+        FlexibleAdapter.enableLogs(Log.Level.VERBOSE);
     }
 }

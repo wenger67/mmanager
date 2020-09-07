@@ -4,37 +4,30 @@ import android.os.Bundle;
 import android.os.Message;
 
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.Postcard;
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.ethanhua.skeleton.Skeleton;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.socks.library.KLog;
 import com.vinson.mmanager.R;
-import com.vinson.mmanager.base.BaseActivity;
+import com.vinson.mmanager.base.BaseListActivity;
 import com.vinson.mmanager.data.ServerHelper;
+import com.vinson.mmanager.model.annotation.ModuleType;
 import com.vinson.mmanager.model.device.DeviceConfig;
 import com.vinson.mmanager.model.request.BaseListParams;
 import com.vinson.mmanager.model.response.BaseResponse;
-import com.vinson.mmanager.ui.view.CustomList;
 import com.vinson.mmanager.utils.Constants;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import eu.davidea.flexibleadapter.FlexibleAdapter;
+import okhttp3.internal.annotations.EverythingIsNonNull;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 @Route(path = Constants.AROUTER_PAGE_DEVICE_CONFIG)
-public class DeviceConfigsActivity extends BaseActivity {
-    CustomList mCustomList;
-    List<DeviceConfig> mDeviceConfigs = new ArrayList<>();
-    FlexibleAdapter<DeviceConfig> mConfigsAdapter;
+public class DeviceConfigsActivity extends BaseListActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,24 +47,27 @@ public class DeviceConfigsActivity extends BaseActivity {
     }
 
     private void fetchData() {
-        BaseListParams listParams = new BaseListParams();
-        ServerHelper.getInstance().getDeviceConfigList(listParams.getPage(), listParams.getPageSize()).enqueue(new Callback<BaseResponse<JsonObject>>() {
+        mItems = new ArrayList<>(); // clear
+        BaseListParams listParams = new BaseListParams(curPage + 1, 10);
+        ServerHelper.getInstance().getList(ModuleType.MODULE_DEVICE_LIST, listParams.page,
+                listParams.pageSize).enqueue(new Callback<BaseResponse<JsonObject>>() {
             @Override
+            @EverythingIsNonNull
             public void onResponse(Call<BaseResponse<JsonObject>> call,
                                    Response<BaseResponse<JsonObject>> response) {
                 BaseResponse<JsonObject> body = response.body();
                 if (body != null) {
                     JsonObject data = body.getData();
                     for (JsonElement element : data.getAsJsonArray("list")) {
-                        mDeviceConfigs.add(mGson.fromJson(element, DeviceConfig.class));
+                        mItems.add(mGson.fromJson(element, DeviceConfig.class));
                     }
-                    mConfigsAdapter.addItems(0, mDeviceConfigs);
-                    KLog.d(mDeviceConfigs.size());
-                    mSkeletonScreen.hide();
+                    mAdapter.onLoadMoreComplete(mItems, 3000L);
+                    if (curPage == 0) mSkeletonScreen.hide();
                 }
             }
 
             @Override
+            @EverythingIsNonNull
             public void onFailure(Call<BaseResponse<JsonObject>> call, Throwable t) {
                 KLog.d(t.getMessage());
             }
@@ -116,15 +112,6 @@ public class DeviceConfigsActivity extends BaseActivity {
     @Override
     protected void initView() {
         super.initView();
-        mCustomList = findViewById(R.id.rcv);
-        mCustomList.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-        mConfigsAdapter = new FlexibleAdapter<>(null, this);
-        mCustomList.setAdapter(mConfigsAdapter);
-
-        mSkeletonScreen = Skeleton.bind(mCustomList)
-                .adapter(mConfigsAdapter).load(R.layout.activity_data_list_skeleton)
-                .show();
-        mHandler.sendEmptyMessage(MSG_FETCH_LIST_DATA);
     }
 
 

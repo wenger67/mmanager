@@ -18,7 +18,7 @@ import eu.davidea.flexibleadapter.items.IFlexible;
 import eu.davidea.viewholders.FlexibleViewHolder;
 
 public class Device extends AbstractFlexibleItem<Device.DeviceViewHolder> {
-        int ID;
+    int ID;
     String CreatedAt;
     String UpdatedAt;
     String DeletedAt;
@@ -43,7 +43,7 @@ public class Device extends AbstractFlexibleItem<Device.DeviceViewHolder> {
 
     @Override
     public int getLayoutRes() {
-        return 0;
+        return R.layout.item_device;
     }
 
     @Override
@@ -52,7 +52,8 @@ public class Device extends AbstractFlexibleItem<Device.DeviceViewHolder> {
     }
 
     @Override
-    public void bindViewHolder(FlexibleAdapter<IFlexible> adapter, DeviceViewHolder holder, int position, List<Object> payloads) {
+    public void bindViewHolder(FlexibleAdapter<IFlexible> adapter, DeviceViewHolder holder,
+                               int position, List<Object> payloads) {
         holder.name.setText(type.categoryName);
         holder.code.setText(status.categoryName);
         holder.owner.setText(CreatedAt);
@@ -60,6 +61,7 @@ public class Device extends AbstractFlexibleItem<Device.DeviceViewHolder> {
 
     static class DeviceViewHolder extends FlexibleViewHolder {
         MaterialTextView name, code, owner;
+
         public DeviceViewHolder(@NonNull View itemView, FlexibleAdapter adapter) {
             super(itemView, adapter);
             name = itemView.findViewById(R.id.tv_name);
