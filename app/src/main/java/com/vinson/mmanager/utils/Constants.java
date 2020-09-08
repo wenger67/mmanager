@@ -7,7 +7,8 @@ public class Constants {
     public static final String WS_BASE_URL = "ws://" +  BuildConfig.BaseUrl;
     public static final String WS_PATH = "/api/ws/endpoint";
 
-    public static final String PREFIX="LIFT_";
+    public static final String PREFIX_LIFT="LIFT_";
+    public static final String PREFIX_USER="USER_";
 
 
     /**
@@ -22,11 +23,16 @@ public class Constants {
      */
     public static final String DATA_LIST_PARAM = "data.list.intent";
 
+    public static final String AROUTE_PAGE_VIDEO_ROOM = "/page/video";
+
     public static final String AROUTER_PAGE_WELCOME = "/page/welcome";
     public static final String AROUTER_PAGE_SPLASH = "/page/splash";
     public static final String AROUTER_PAGE_LOGIN = "/page/login";
     public static final String AROUTER_PAGE_REGISTER = "/page/register";
     public static final String AROUTER_PAGE_MAIN = "/page/main";
+    /**
+     * list
+     */
     public static final String AROUTER_PAGE_LIFT_LIST = "/page/list/lifts";
     public static final String AROUTER_PAGE_LIFT_CHANGES = "/page/list/liftchanges";
     public static final String AROUTER_PAGE_LIFT_RECORDS = "/page/list/liftrecords";
@@ -37,4 +43,18 @@ public class Constants {
     public static final String AROUTER_PAGE_DEVICE_DATA = "/page/list/devicedatas";
     public static final String AROUTER_PAGE_DEVICE_CONFIG = "/page/list/deviceconfigs";
     public static final String AROUTER_PAGE_COMPANY_LIST = "/page/list/companys";
+    /**
+     * item detail
+     */
+    public static final String AROUTER_PAGE_LIFT_DETAIL = "/page/item/lift";
+
+
+    /**
+     * websocket message what
+     */
+
+    public static final String WS_REQUEST_PUSH_STREAM = "request.push.stream";
+    public static final String WS_REQUEST_STOP_PUSH_STREAM = "request.stop.push.stream";
+    public static final String WS_REMOTE_PUSH_STREAM_SUCCESS = "push.stream.success";
+    public static final String WS_REMOTE_STOP_STREAM_SUCCESS = "stop.push.stream.success";
 }

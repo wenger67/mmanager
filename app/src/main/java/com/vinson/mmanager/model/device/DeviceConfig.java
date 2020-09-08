@@ -14,8 +14,8 @@ import eu.davidea.flexibleadapter.items.AbstractFlexibleItem;
 import eu.davidea.flexibleadapter.items.IFlexible;
 import eu.davidea.viewholders.FlexibleViewHolder;
 
-public class DeviceConfig  extends AbstractFlexibleItem<DeviceConfig.ConfigViewHolder> {
-        int ID;
+public class DeviceConfig extends AbstractFlexibleItem<DeviceConfig.ConfigViewHolder> {
+    int ID;
     String CreatedAt;
     String UpdatedAt;
     String DeletedAt;
@@ -39,19 +39,21 @@ public class DeviceConfig  extends AbstractFlexibleItem<DeviceConfig.ConfigViewH
     }
 
     @Override
-    public void bindViewHolder(FlexibleAdapter<IFlexible> adapter, ConfigViewHolder holder, int position, List<Object> payloads) {
-        holder.name.setText(key);
-        holder.code.setText(value);
-        holder.owner.setText(comment);
+    public void bindViewHolder(FlexibleAdapter<IFlexible> adapter, ConfigViewHolder holder,
+                               int position, List<Object> payloads) {
+        holder.key.setText(key);
+        holder.value.setText(value);
+        holder.comment.setText(comment);
     }
 
     static class ConfigViewHolder extends FlexibleViewHolder {
-        MaterialTextView name, code, owner;
+        MaterialTextView key, value, comment;
+
         public ConfigViewHolder(@NonNull View itemView, FlexibleAdapter adapter) {
             super(itemView, adapter);
-            name = itemView.findViewById(R.id.tv_name);
-            code = itemView.findViewById(R.id.tv_code);
-            owner = itemView.findViewById(R.id.tv_content);
+            key = itemView.findViewById(R.id.tv_key);
+            value = itemView.findViewById(R.id.tv_value);
+            comment = itemView.findViewById(R.id.tv_comment);
         }
     }
 }

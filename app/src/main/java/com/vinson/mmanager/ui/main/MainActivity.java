@@ -34,25 +34,9 @@ import com.vinson.mmanager.utils.Constants;
 public class MainActivity extends BaseActivity {
     public static final String TAG = MainActivity.class.getSimpleName();
 
-    WSService.Binder wsService;
     CustomViewPager mViewPager;
     TabLayout mBottomMenus;
     private SimpleFragmentPagerAdapter mPagerAdapter;
-
-    private ServiceConnection mServiceConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            Log.d(TAG, "onServiceConnected");
-            wsService = (WSService.Binder) service;
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            Log.d(TAG, "onServiceDisconnected");
-            wsService.setCallback(null);
-            wsService = null;
-        }
-    };
     private IIcon[] icons = new IIcon[]{CommunityMaterial.Icon2.cmd_home,
             CommunityMaterial.Icon2.cmd_hand_peace, CommunityMaterial.Icon2.cmd_message,
             CommunityMaterial.Icon2.cmd_home_account};
@@ -70,8 +54,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        Intent intent = new Intent(this, WSService.class);
-        bindService(intent, mServiceConnection, BIND_AUTO_CREATE);
+        startService(new Intent(this, WSService.class));
 
         mBottomMenus = findViewById(R.id.tl);
         mBottomMenus.setTabMode(TabLayout.MODE_FIXED);
@@ -209,9 +192,5 @@ public class MainActivity extends BaseActivity {
         } else {
             App.getInstance().showToast("Network disconnected");
         }
-    }
-
-    public Handler getHandler() {
-        return mHandler;
     }
 }

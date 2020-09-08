@@ -46,7 +46,6 @@ public abstract class BaseActivity extends AppCompatActivity implements NetworkO
     protected Handler mHandler = new Handler(this::handleMessage);
 
     protected MaterialToolbar mMaterialToolbar;
-
     protected abstract boolean handleMessage(Message message);
 
     public void routeTo(String url, Context context) {
@@ -60,12 +59,13 @@ public abstract class BaseActivity extends AppCompatActivity implements NetworkO
     public void routeTo(String url, String key, Parcelable parcelable, Context context) {
         ARouter.getInstance().build(url).withParcelable(key, parcelable).navigation(context, this);
     }
-
+    protected Bundle mBundle;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutRes());
         BarUtils.setStatusBarLightMode(this, true);
+        mBundle = savedInstanceState;
         initView();
         initEvent();
         // TODO add some common logic

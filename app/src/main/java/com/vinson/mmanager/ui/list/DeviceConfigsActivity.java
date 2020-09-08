@@ -49,7 +49,7 @@ public class DeviceConfigsActivity extends BaseListActivity {
     private void fetchData() {
         mItems = new ArrayList<>(); // clear
         BaseListParams listParams = new BaseListParams(curPage + 1, 10);
-        ServerHelper.getInstance().getList(ModuleType.MODULE_DEVICE_LIST, listParams.page,
+        ServerHelper.getInstance().getList(ModuleType.MODULE_DEVICE_CONFIG, listParams.page,
                 listParams.pageSize).enqueue(new Callback<BaseResponse<JsonObject>>() {
             @Override
             @EverythingIsNonNull

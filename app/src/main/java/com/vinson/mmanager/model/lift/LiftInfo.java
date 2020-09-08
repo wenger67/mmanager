@@ -23,27 +23,27 @@ import eu.davidea.flexibleadapter.items.IFlexible;
 import eu.davidea.viewholders.FlexibleViewHolder;
 
 public class LiftInfo extends AbstractFlexibleItem<LiftInfo.LiftViewHolder> {
-    int ID;
-    String CreatedAt;
-    String UpdatedAt;
-    String DeletedAt;
-    String nickName;
-    String code;
-    Company installer;
-    Company maintainer;
-    Company checker;
-    Company owner;
-    String factoryTime;
-    String installTime;
-    String checkTime;
-    LiftModel liftModel;
-    Category category;
-    Address address;
-    String location;
-    int floorCount;
-    String building;
-    int cell;
-    Device mDevice;
+    public int ID;
+    public String CreatedAt;
+    public String UpdatedAt;
+    public String DeletedAt;
+    public String nickName;
+    public String code;
+    public Company installer;
+    public Company maintainer;
+    public Company checker;
+    public Company owner;
+    public String factoryTime;
+    public String installTime;
+    public String checkTime;
+    public LiftModel liftModel;
+    public Category category;
+    public Address address;
+    public String location;
+    public int floorCount;
+    public String building;
+    public int cell;
+    public Device mDevice;
 
     @Override
     public boolean equals(Object o) {
@@ -75,7 +75,7 @@ public class LiftInfo extends AbstractFlexibleItem<LiftInfo.LiftViewHolder> {
                                int position, List<Object> payloads) {
         holder.name.setText(nickName);
         holder.code.setText(code);
-        holder.address.setText(address.getAddressName() + building + "栋" + cell + "单元");
+        holder.address.setText(address.addressName + building + "栋" + cell + "单元");
         long uptimeSum = TimeUtils.string2Millis(installTime, Utils.DATE_PATTERN);
         long checktimeSum = TimeUtils.string2Millis(checkTime, Utils.DATE_PATTERN);
         holder.uptime.setText(TimeUtils.getTimeSpanByNow(uptimeSum, TimeConstants.HOUR) + " hours");
@@ -88,12 +88,39 @@ public class LiftInfo extends AbstractFlexibleItem<LiftInfo.LiftViewHolder> {
 
         public LiftViewHolder(@NonNull View itemView, FlexibleAdapter adapter) {
             super(itemView, adapter);
-            name = itemView.findViewById(R.id.tv_name);
+            name = itemView.findViewById(R.id.tv_key);
             code = itemView.findViewById(R.id.tv_code);
             address = itemView.findViewById(R.id.tv_address);
             uptime = itemView.findViewById(R.id.tv_uptime);
             checkTime = itemView.findViewById(R.id.tv_checktime);
             online = itemView.findViewById(R.id.tv_online);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "LiftInfo{" +
+                "ID=" + ID +
+                ", CreatedAt='" + CreatedAt + '\'' +
+                ", UpdatedAt='" + UpdatedAt + '\'' +
+                ", DeletedAt='" + DeletedAt + '\'' +
+                ", nickName='" + nickName + '\'' +
+                ", code='" + code + '\'' +
+                ", installer=" + installer +
+                ", maintainer=" + maintainer +
+                ", checker=" + checker +
+                ", owner=" + owner +
+                ", factoryTime='" + factoryTime + '\'' +
+                ", installTime='" + installTime + '\'' +
+                ", checkTime='" + checkTime + '\'' +
+                ", liftModel=" + liftModel +
+                ", category=" + category +
+                ", address=" + address +
+                ", location='" + location + '\'' +
+                ", floorCount=" + floorCount +
+                ", building='" + building + '\'' +
+                ", cell=" + cell +
+                ", mDevice=" + mDevice +
+                '}';
     }
 }

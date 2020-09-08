@@ -1,5 +1,7 @@
 package com.vinson.mmanager.base;
 
+import android.view.View;
+
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,7 +20,7 @@ import eu.davidea.flexibleadapter.common.FlexibleItemDecoration;
 import eu.davidea.flexibleadapter.items.AbstractFlexibleItem;
 
 public abstract class BaseListActivity extends BaseActivity {
-    CustomList mCustomList;
+    protected CustomList mCustomList;
     protected List<AbstractFlexibleItem> mItems = new ArrayList<>();
     protected FlexibleAdapter<AbstractFlexibleItem> mAdapter;
     int lastPos = 0;
@@ -66,5 +68,10 @@ public abstract class BaseListActivity extends BaseActivity {
                 setLoadingMoreAtStartUp(true).
                 setEndlessScrollThreshold(1).
                 setTopEndless(false);
+
+        mAdapter.addListener(mItemClickListener);
     }
+
+    FlexibleAdapter.OnItemClickListener mItemClickListener = this::itemClick;
+    protected boolean itemClick(View view, int position){return false;}
 }

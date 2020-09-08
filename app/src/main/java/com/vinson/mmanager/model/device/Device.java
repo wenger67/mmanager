@@ -18,23 +18,23 @@ import eu.davidea.flexibleadapter.items.IFlexible;
 import eu.davidea.viewholders.FlexibleViewHolder;
 
 public class Device extends AbstractFlexibleItem<Device.DeviceViewHolder> {
-    int ID;
-    String CreatedAt;
-    String UpdatedAt;
-    String DeletedAt;
-    int typeId;
-    Category type;
-    int factoryId;
-    Company factory;
-    String factoryTime;
-    String installTime;
-    int statusId;
-    Category status;
-    boolean online;
-    String lastOfflineTime;
-    String lastOnlineTime;
-    UserInfo[] owners;
-    DeviceConfig[] configs;
+    public int ID;
+    public String CreatedAt;
+    public String UpdatedAt;
+    public String DeletedAt;
+    public int typeId;
+    public Category type;
+    public int factoryId;
+    public Company factory;
+    public String factoryTime;
+    public String installTime;
+    public int statusId;
+    public Category status;
+    public boolean online;
+    public String lastOfflineTime;
+    public String lastOnlineTime;
+    public UserInfo[] owners;
+    public DeviceConfig[] configs;
 
     @Override
     public boolean equals(Object o) {
@@ -64,7 +64,7 @@ public class Device extends AbstractFlexibleItem<Device.DeviceViewHolder> {
 
         public DeviceViewHolder(@NonNull View itemView, FlexibleAdapter adapter) {
             super(itemView, adapter);
-            name = itemView.findViewById(R.id.tv_name);
+            name = itemView.findViewById(R.id.tv_key);
             code = itemView.findViewById(R.id.tv_code);
             owner = itemView.findViewById(R.id.tv_content);
         }

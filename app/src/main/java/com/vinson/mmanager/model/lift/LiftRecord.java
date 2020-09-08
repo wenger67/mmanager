@@ -93,7 +93,7 @@ public class LiftRecord extends AbstractFlexibleItem<LiftRecord.RecordViewHolder
         public RecordViewHolder(@NonNull View itemView, FlexibleAdapter adapter) {
             super(itemView, adapter);
             category = itemView.findViewById(R.id.tv_category);
-            name = itemView.findViewById(R.id.tv_name);
+            name = itemView.findViewById(R.id.tv_key);
             code = itemView.findViewById(R.id.tv_code);
             timeCost = itemView.findViewById(R.id.tv_timecost);
         }

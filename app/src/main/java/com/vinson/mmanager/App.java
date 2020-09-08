@@ -1,13 +1,16 @@
 package com.vinson.mmanager;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 
 import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
 
 import com.bumptech.glide.annotation.GlideModule;
 import com.vinson.mmanager.base.BaseApplication;
+import com.vinson.mmanager.services.WSService;
 import com.vinson.mmanager.tools.CrashHandler;
 import com.vinson.mmanager.utils.ToastCompat;
 
@@ -27,18 +30,19 @@ public class App extends BaseApplication {
         sp = getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
         // register crash handler
         CrashHandler.getInstance().init();
-
         // video call
         ENGINE = ZegoExpressEngine.createEngine(BuildConfig.ZegoAppId, BuildConfig.ZegoAppSign,
                 true, ZegoScenario.GENERAL, this, null);
-
     }
 
     public static App getInstance() {
         return INSTANCE;
     }
 
-    public @ColorInt
+    @ColorInt
+    public int color(@ColorRes int colorRes) {
+        return INSTANCE.getResources().getColor(colorRes);
+    }
 
     public static ZegoExpressEngine getEngine() {
         return ENGINE;

@@ -119,7 +119,7 @@ public class UserInfo extends AbstractFlexibleItem<UserInfo.UserViewHolder> {
         public UserViewHolder(@NonNull View itemView, FlexibleAdapter adapter) {
             super(itemView, adapter);
             avatar = itemView.findViewById(R.id.iv_avatar);
-            name = itemView.findViewById(R.id.tv_name);
+            name = itemView.findViewById(R.id.tv_key);
             phone = itemView.findViewById(R.id.tv_phone);
             address = itemView.findViewById(R.id.tv_address);
             registTime = itemView.findViewById(R.id.tv_regist_time);

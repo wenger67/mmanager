@@ -29,7 +29,7 @@ public class AboutFragment extends BaseFragment {
     protected void initView(View root) {
         mLogout = root.findViewById(R.id.cv_logout);
         mUserHeader = root.findViewById(R.id.iv_avatar);
-        mUserName = root.findViewById(R.id.tv_name);
+        mUserName = root.findViewById(R.id.tv_key);
         mBrief = root.findViewById(R.id.tv_brief);
 
         UserInfo userInfo = Config.getUserInfo();

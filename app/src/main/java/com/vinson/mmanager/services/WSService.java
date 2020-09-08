@@ -1,32 +1,32 @@
 package com.vinson.mmanager.services;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkInfo;
 import android.net.NetworkRequest;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.ResultReceiver;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
 
 import com.google.gson.Gson;
+import com.socks.library.KLog;
 import com.vinson.mmanager.App;
 import com.vinson.mmanager.model.ws.WSEvent;
 import com.vinson.mmanager.tools.Config;
+import com.vinson.mmanager.ui.VideoRoomActivity;
 import com.vinson.mmanager.utils.Constants;
-
-import org.json.JSONObject;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import im.zego.zegoexpress.callback.IZegoEventHandler;
-import im.zego.zegoexpress.constants.ZegoPublisherState;
-import im.zego.zegoexpress.entity.ZegoUser;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.WebSocket;
@@ -34,9 +34,14 @@ import okhttp3.WebSocketListener;
 
 public class WSService extends Service {
     public static final String TAG = WSService.class.getSimpleName();
-
+    public static final String EXTRA_RESULT_RECEIVER = "extra.result.receiver";
+    public static final String EXTRA_WS_EVENT = "extra.ws.event";
+    public static final int COMMAND_INVALID = -1;
+    public static final int COMMAND_REQUEST_PUSH_STREAM = 101;
+    public static final int COMMAND_REQUEST_STOP_PUSH_STREAM = 102;
+    public static final String EXTRA_START_COMMAND = "extra.start.command";
+    public static final String EXTRA_BUNDLE_STRING = "extra.bundle.string";
     private static final int REQUEST_RETRY_DELAY = 30 * 1000;
-
     private static final int MSG_RETRY_RECORD = 1;
     private static final int MSG_LOAD_AUTHORITY = 3;
     private static final int MSG_LOAD_CONFIG = 4;
@@ -45,18 +50,86 @@ public class WSService extends Service {
     private static final int MSG_UPLOAD_LOGS = 7;
     private static final int MSG_SCHEDULE_TASKS = 8;
     private static final int MSG_START_PUSH_STREAM = 101;
-
     private static final int WS_CLOSE_CODE = 1000;
-
-    private Binder mBinder = new Binder();
+    ResultReceiver resultReceiver;
     private ExecutorService mThreadPool;
     private ConnectivityManager mConnectivityManager;
     private boolean mNetworkAvailable;
-    private Callback mCallback = new Callback();
     private boolean mStopped = true;
     private WebSocket mWebSocket;
     private Gson mGson;
     private String pushStreamRequester;
+
+    private Handler mHandler = new Handler(msg -> {
+        if (mStopped) {
+            Log.w(TAG, "DataLoader stopped, ignore msg:" + msg.what);
+            return true;
+        }
+        switch (msg.what) {
+            case MSG_RETRY_RECORD:
+//                retryRecord();
+                break;
+            case MSG_LOAD_AUTHORITY:
+//                loadAuthority();
+                break;
+            case MSG_LOAD_CONFIG:
+//                loadConfig();
+                break;
+            case MSG_OPEN_WEBSOCKET:
+                if (mThreadPool != null && !mThreadPool.isShutdown())
+                    mThreadPool.execute(this::openWebSocket);
+                break;
+            case MSG_UPLOAD_DUMP_FILES:
+                if (mThreadPool != null && !mThreadPool.isShutdown())
+//                    mThreadPool.execute(this::uploadDumpFiles);
+                    break;
+            case MSG_UPLOAD_LOGS:
+                if (mThreadPool != null && !mThreadPool.isShutdown())
+//                    mThreadPool.execute(this::uploadLogs);
+                    break;
+            case MSG_SCHEDULE_TASKS:
+//                timerTask();
+                break;
+            case MSG_START_PUSH_STREAM:
+                // TODO push stream
+                startPushStream();
+        }
+        return true;
+    });
+    private ConnectivityManager.NetworkCallback mNetworkCallback =
+            new ConnectivityManager.NetworkCallback() {
+                @Override
+                public void onAvailable(Network network) {
+                    Log.w(TAG, "network available");
+                    mNetworkAvailable = true;
+                    App.getInstance().showToast("网络已连接");
+                    start();
+                }
+
+                @Override
+                public void onLost(Network network) {
+                    Log.w(TAG, "network lost");
+                    mNetworkAvailable = false;
+                    App.getInstance().showToast("网络已断开");
+                    stop();
+                }
+            };
+
+    public static void requestStream(Context context, ResultReceiver resultReceiver, String event) {
+        Intent intent = new Intent(context, WSService.class);
+        intent.putExtra(EXTRA_START_COMMAND, COMMAND_REQUEST_PUSH_STREAM);
+        intent.putExtra(EXTRA_RESULT_RECEIVER, resultReceiver);
+        intent.putExtra(EXTRA_WS_EVENT, event);
+        context.startService(intent);
+    }
+
+    public static void requestStopStream(Context context, ResultReceiver resultReceiver, String event) {
+        Intent intent = new Intent(context, WSService.class);
+        intent.putExtra(EXTRA_START_COMMAND, COMMAND_REQUEST_STOP_PUSH_STREAM);
+        intent.putExtra(EXTRA_RESULT_RECEIVER, resultReceiver);
+        intent.putExtra(EXTRA_WS_EVENT, event);
+        context.startService(intent);
+    }
 
     @Override
     public void onCreate() {
@@ -66,15 +139,15 @@ public class WSService extends Service {
         assert mConnectivityManager != null;
         NetworkInfo networkInfo = mConnectivityManager.getActiveNetworkInfo();
         mNetworkAvailable = (networkInfo != null && networkInfo.isConnected());
-        mConnectivityManager.registerNetworkCallback(new NetworkRequest.Builder().build(), mNetworkCallback);
-
+        mConnectivityManager.registerNetworkCallback(new NetworkRequest.Builder().build(),
+                mNetworkCallback);
         mGson = new Gson();
     }
 
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        return mBinder;
+        return null;
     }
 
     @Override
@@ -91,26 +164,6 @@ public class WSService extends Service {
         mConnectivityManager.unregisterNetworkCallback(mNetworkCallback);
     }
 
-    private ConnectivityManager.NetworkCallback mNetworkCallback = new ConnectivityManager.NetworkCallback() {
-        @Override
-        public void onAvailable(Network network) {
-            Log.w(TAG, "network available");
-            mNetworkAvailable = true;
-            App.getInstance().showToast("网络已连接");
-            start();
-            mCallback.onNetworkChanged(true);
-        }
-
-        @Override
-        public void onLost(Network network) {
-            Log.w(TAG, "network lost");
-            mNetworkAvailable = false;
-            App.getInstance().showToast("网络已断开");
-            stop();
-            mCallback.onNetworkChanged(false);
-        }
-    };
-
     private void start() {
         mStopped = false;
         // 1. load device config
@@ -118,8 +171,6 @@ public class WSService extends Service {
         mHandler.sendEmptyMessage(MSG_OPEN_WEBSOCKET);
         // 3. upload records that record when disconnect or upload faield
         // 4. schedule tasks
-
-        App.getEngine().setEventHandler(eventHandler);
     }
 
     private void stop() {
@@ -127,38 +178,6 @@ public class WSService extends Service {
         mHandler.removeCallbacksAndMessages(null);
         // report device offline
         // close websocket
-    }
-
-    public class Binder extends android.os.Binder {
-
-        public void setCallback(WSService.Callback callback) {
-            mCallback = callback;
-        }
-
-        public boolean networkAvailable() {
-            return mNetworkAvailable;
-        }
-    }
-
-    public static class Callback {
-        public void onInfo(String tips, boolean loading, int delay) {
-        }
-
-
-        public void onStaffRemoved(int[] staffIdArray) {
-        }
-
-        public void onAuthorityUpdate() {
-        }
-
-        public void onDeviceRemoved() {
-        }
-
-        public void onUpgrade(String bootlegs) {
-        }
-
-        public void onNetworkChanged(boolean connected) {
-        }
     }
 
     private void closeWebSocket() {
@@ -185,7 +204,8 @@ public class WSService extends Service {
         }
 
         OkHttpClient client = new OkHttpClient.Builder().readTimeout(0, TimeUnit.SECONDS).build();
-        Request request = new Request.Builder().url(Constants.WS_BASE_URL + Constants.WS_PATH).build();
+        Request request =
+                new Request.Builder().url(Constants.WS_BASE_URL + Constants.WS_PATH).build();
         client.newWebSocket(request, new WebSocketListener() {
             @Override
             public void onOpen(WebSocket webSocket, okhttp3.Response response) {
@@ -195,7 +215,7 @@ public class WSService extends Service {
                 WSEvent event = new WSEvent();
                 event.target = new String[]{"server"};
                 event.what = "report";
-                event.data = Config.getDeviceSerial();
+                event.data = "USER_" + Config.getUserInfo().ID;
                 mWebSocket.send(mGson.toJson(event));
             }
 
@@ -223,6 +243,22 @@ public class WSService extends Service {
                         mHandler.removeMessages(MSG_START_PUSH_STREAM);
                         mHandler.sendEmptyMessage(MSG_START_PUSH_STREAM);
                         break;
+                    case Constants.WS_REMOTE_PUSH_STREAM_SUCCESS:
+                        if (resultReceiver != null) {
+                            Bundle bundle = new Bundle();
+                            bundle.putString(EXTRA_BUNDLE_STRING, event.data);
+                            resultReceiver.send(VideoRoomActivity.RR_REMOTE_PUSH_STREAM_SUCCESS,
+                                    bundle);
+                        }
+                        break;
+                    case Constants.WS_REMOTE_STOP_STREAM_SUCCESS:
+                        if (resultReceiver != null) {
+                            Bundle bundle = new Bundle();
+                            bundle.putString(EXTRA_BUNDLE_STRING, event.data);
+                            resultReceiver.send(VideoRoomActivity.RR_REMOTE_STOP_STREAM_SUCCESS,
+                                    bundle);
+                        }
+                        break;
                     default:
                         Log.w(TAG, "unsupported event");
                         break;
@@ -249,69 +285,50 @@ public class WSService extends Service {
         client.dispatcher().executorService().shutdown();
     }
 
-    private Handler mHandler = new Handler(msg -> {
-        if (mStopped) {
-            Log.w(TAG, "DataLoader stopped, ignore msg:" + msg.what);
-            return true;
-        }
-        switch (msg.what) {
-            case MSG_RETRY_RECORD:
-//                retryRecord();
-                break;
-            case MSG_LOAD_AUTHORITY:
-//                loadAuthority();
-                break;
-            case MSG_LOAD_CONFIG:
-//                loadConfig();
-                break;
-            case MSG_OPEN_WEBSOCKET:
-                if (mThreadPool != null && !mThreadPool.isShutdown())
-                    mThreadPool.execute(this::openWebSocket);
-                break;
-            case MSG_UPLOAD_DUMP_FILES:
-                if (mThreadPool != null && !mThreadPool.isShutdown())
-//                    mThreadPool.execute(this::uploadDumpFiles);
-                break;
-            case MSG_UPLOAD_LOGS:
-                if (mThreadPool != null && !mThreadPool.isShutdown())
-//                    mThreadPool.execute(this::uploadLogs);
-                break;
-            case MSG_SCHEDULE_TASKS:
-//                timerTask();
-                break;
-            case MSG_START_PUSH_STREAM:
-                // TODO push stream
-                startPushStream();
-        }
-        return true;
-    });
-
     void startPushStream() {
-        String mStreamId = Config.getDeviceSerial();
-        Config.setStreamId(Config.getDeviceSerial());
-        ZegoUser user = new ZegoUser(Config.getDeviceSerial());
-        App.getEngine().loginRoom(Config.getDeviceSerial(), user);
-
         WSEvent event = new WSEvent();
         event.target = new String[]{pushStreamRequester};
         event.what = "push.stream.start";
-        event.data = "roomid:" + Config.getDeviceSerial();
+        event.data = "roomid:";
         mWebSocket.send(mGson.toJson(event));
-        App.getEngine().startPublishingStream(mStreamId);
     }
 
-    IZegoEventHandler eventHandler = new IZegoEventHandler() {
-        @Override
-        public void onPublisherStateUpdate(String streamID, ZegoPublisherState state, int errorCode, JSONObject extendedData) {
-            super.onPublisherStateUpdate(streamID, state, errorCode, extendedData);
-            Log.d(TAG, state + "");
-            if (state.equals(ZegoPublisherState.PUBLISHING)) {
-                WSEvent event = new WSEvent();
-                event.target = new String[]{pushStreamRequester};
-                event.what = "push.stream.success";
-                event.data = "streamid:" + streamID;
-                mWebSocket.send(mGson.toJson(event));
-            }
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        KLog.d();
+        if (intent == null) {
+            throw new IllegalStateException("Must start the service with intent");
         }
-    };
+
+        switch (intent.getIntExtra(EXTRA_START_COMMAND, COMMAND_INVALID)) {
+            case COMMAND_REQUEST_PUSH_STREAM:
+                handleRequestStream(intent);
+                break;
+            case COMMAND_REQUEST_STOP_PUSH_STREAM:
+                handleRequestStopStream(intent);
+                break;
+            case COMMAND_INVALID:
+            default:
+                super.onStartCommand(intent, flags, startId);
+        }
+        return START_NOT_STICKY;
+    }
+
+    private void handleRequestStream(Intent intent) {
+        resultReceiver = intent.getParcelableExtra(EXTRA_RESULT_RECEIVER);
+        String wsStr = intent.getStringExtra(EXTRA_WS_EVENT);
+        if (wsStr != null) {
+            mWebSocket.send(wsStr);
+        } else KLog.w("ws event is null");
+
+    }
+
+    private void handleRequestStopStream(Intent intent) {
+        resultReceiver = intent.getParcelableExtra(EXTRA_RESULT_RECEIVER);
+        String wsStr = intent.getStringExtra(EXTRA_WS_EVENT);
+        if (wsStr != null) {
+            mWebSocket.send(wsStr);
+        } else KLog.w("ws event is null");
+
+    }
 }

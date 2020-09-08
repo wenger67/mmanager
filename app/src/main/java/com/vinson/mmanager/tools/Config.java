@@ -56,18 +56,6 @@ public class Config {
         editor.apply();
     }
 
-
-    public static String getDeviceSerial() {
-        return App.getInstance().getSP().getString(SP_KEY_DEVICE_SERIAL, "");
-    }
-
-    public static void setDeviceSerial(String serial) {
-        if (serial.equals(getDeviceSerial())) return;
-        SharedPreferences.Editor editor = App.getInstance().getSP().edit();
-        editor.putString(SP_KEY_DEVICE_SERIAL, serial);
-        editor.apply();
-    }
-
     public static LiftInfo getLiftInfo() {
         String json = App.getInstance().getSP().getString(SP_KEY_LIFT_INFO, "");
         return new Gson().fromJson(json, new TypeToken<LiftInfo>() {
@@ -79,17 +67,6 @@ public class Config {
         SharedPreferences.Editor editor = App.getInstance().getSP().edit();
         String json = new Gson().toJson(liftInfo);
         editor.putString(SP_KEY_LIFT_INFO, json);
-        editor.apply();
-    }
-
-    public static String getStreamId() {
-        return App.getInstance().getSP().getString(SP_KEY_STREAM_ID, "");
-    }
-
-    public static void setStreamId(String serial) {
-        if (serial.equals(getStreamId())) return;
-        SharedPreferences.Editor editor = App.getInstance().getSP().edit();
-        editor.putString(SP_KEY_STREAM_ID, serial);
         editor.apply();
     }
 

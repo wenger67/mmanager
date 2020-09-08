@@ -2,11 +2,13 @@ package com.vinson.mmanager.ui.list;
 
 import android.os.Bundle;
 import android.os.Message;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 
 import com.alibaba.android.arouter.facade.Postcard;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.socks.library.KLog;
@@ -27,6 +29,8 @@ import okhttp3.internal.annotations.EverythingIsNonNull;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.vinson.mmanager.ui.item.LiftDetailActivity.EXTRA_LIFT_INFO;
 
 @Route(path = Constants.AROUTER_PAGE_LIFT_LIST)
 public class LiftsActivity extends BaseListActivity {
@@ -117,9 +121,18 @@ public class LiftsActivity extends BaseListActivity {
         super.initView();
     }
 
-
     @Override
     protected void initEvent() {
         super.initEvent();
+    }
+
+    @Override
+    protected boolean itemClick(View view, int position) {
+        LiftInfo liftInfo = (LiftInfo) mAdapter.getItem(position);
+        ARouter.getInstance()
+                .build(Constants.AROUTER_PAGE_LIFT_DETAIL)
+                .withObject(EXTRA_LIFT_INFO, liftInfo)
+                .navigation(this, this);
+        return true;
     }
 }

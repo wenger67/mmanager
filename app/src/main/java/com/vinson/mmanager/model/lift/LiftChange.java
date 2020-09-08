@@ -1,9 +1,7 @@
 package com.vinson.mmanager.model.lift;
 
 import android.view.View;
-
 import androidx.annotation.NonNull;
-
 import com.google.android.material.textview.MaterialTextView;
 import com.vinson.mmanager.R;
 
@@ -57,7 +55,7 @@ public class LiftChange extends AbstractFlexibleItem<LiftChange.MyViewHolder> {
 
         public MyViewHolder(@NonNull View itemView, FlexibleAdapter adapter) {
             super(itemView, adapter);
-            name = itemView.findViewById(R.id.tv_name);
+            name = itemView.findViewById(R.id.tv_key);
             code = itemView.findViewById(R.id.tv_code);
             content = itemView.findViewById(R.id.tv_content);
         }

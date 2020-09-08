@@ -17,7 +17,7 @@
         android:layout_marginBottom="16dp">
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_name"
+            android:id="@+id/tv_key"
             android:layout_width="wrap_content"
             android:layout_height="24dp"
             android:layout_marginStart="10dp"
@@ -34,8 +34,8 @@
             android:layout_marginStart="10dp"
             android:textColor="@android:color/black"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@id/tv_name"
-            app:layout_constraintLeft_toRightOf="@id/tv_name" />
+            app:layout_constraintBottom_toBottomOf="@id/tv_key"
+            app:layout_constraintLeft_toRightOf="@id/tv_key" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_content"

@@ -61,7 +61,7 @@ public class DeviceData extends AbstractFlexibleItem<DeviceData.DataViewHolder> 
         holder.speed.setText(String.valueOf(speedz) + "m/s");
         holder.door.setText(doorState.categoryName);
         holder.people.setText(peopleInside ? "有人":"无人");
-        holder.people.setTextColor(peopleInside ? App.getInstance().getResources().getColor(R.color.md_red_A400) : R.color.md_light_blue_500);
+        holder.people.setTextColor(peopleInside ? App.getInstance().color(R.color.md_red_A400) : App.getInstance().color(R.color.md_green_500));
     }
 
     static class DataViewHolder extends FlexibleViewHolder {

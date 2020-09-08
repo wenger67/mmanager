@@ -25,6 +25,7 @@
             android:maxLines="3"
             android:textColor="@android:color/black"
             android:textSize="20sp"
+            android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -55,8 +56,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            app:layout_constraintLeft_toRightOf="@id/tv_acc"
-            app:layout_constraintTop_toBottomOf="@id/tv_deviceid" />
+            app:layout_constraintLeft_toRightOf="@id/tv_trouble"
+            app:layout_constraintTop_toBottomOf="@id/tv_acc" />
 
 
         <com.google.android.material.textview.MaterialTextView
@@ -66,7 +67,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             app:layout_constraintLeft_toRightOf="@id/tv_trouble"
-            app:layout_constraintTop_toBottomOf="@id/tv_acc" />
+            app:layout_constraintTop_toBottomOf="@id/tv_deg" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_door"
@@ -75,7 +76,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             app:layout_constraintLeft_toRightOf="@id/tv_speedz"
-            app:layout_constraintTop_toBottomOf="@id/tv_acc" />
+            app:layout_constraintTop_toBottomOf="@id/tv_deg" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_people"
@@ -84,6 +85,6 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             app:layout_constraintLeft_toRightOf="@id/tv_door"
-            app:layout_constraintTop_toBottomOf="@id/tv_acc" />
+            app:layout_constraintTop_toBottomOf="@id/tv_deg" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
