@@ -13,10 +13,12 @@ import com.mikepenz.iconics.typeface.IIcon;
 import com.vinson.mmanager.R;
 import com.vinson.mmanager.adapter.home.HomeGridViewAdapter;
 import com.vinson.mmanager.adapter.home.HomeHeaderGridViewAdapter;
+import com.vinson.mmanager.adapter.home.HomeMarqueeAdapter;
 import com.vinson.mmanager.model.annotation.ModuleType;
 import com.vinson.mmanager.model.ui.ListParams;
 import com.vinson.mmanager.model.ui.HomeGridViewItem;
 import com.vinson.mmanager.base.BaseFragment;
+import com.vinson.mmanager.widget.marquee.XMarqueeView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +31,8 @@ public class HomeFragment extends BaseFragment {
     GridView mHeaderGridView;
     HomeGridViewAdapter mGridAdapter;
     HomeHeaderGridViewAdapter mHeaderGridViewAdapter;
+
+    XMarqueeView mMarqueeView;
 
     public HomeFragment() {
     }
@@ -54,6 +58,14 @@ public class HomeFragment extends BaseFragment {
         mGridAdapter = new HomeGridViewAdapter(getActivity(), R.layout.item_home_header_gridview,
                 getData());
         mGridView.setAdapter(mGridAdapter);
+
+        mMarqueeView = root.findViewById(R.id.mv_news);
+        List<String> mData = new ArrayList<>();
+        for (int i = 0; i < 7; i++) {
+            mData.add("这是跑马灯内容" + (i + 1));
+        }
+        HomeMarqueeAdapter adapter = new HomeMarqueeAdapter(mData,getActivity());
+        mMarqueeView.setAdapter(adapter);
     }
 
     private List<HomeGridViewItem> getHeaderData() {

@@ -10,6 +10,7 @@ import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textview.MaterialTextView;
 import com.vinson.mmanager.R;
 import com.vinson.mmanager.model.Company;
+import com.vinson.mmanager.model.base.DeletedAt;
 import com.vinson.mmanager.utils.Utils;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class UserInfo extends AbstractFlexibleItem<UserInfo.UserViewHolder> {
     public int ID;
     public String CreatedAt;
     public String UpdatedAt;
-    public String DeletedAt;
+    public DeletedAt DeletedAt;
     public String uuid;
     public String phoneNumber;
     public String realName;

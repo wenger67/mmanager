@@ -47,7 +47,16 @@
                 android:layout_margin="16dp"
                 android:background="@android:color/white"
                 app:layout_constraintTop_toTopOf="@id/cl"
-                android:layout_height="48dp"/>
+                android:layout_height="48dp">
+
+                <com.vinson.mmanager.widget.marquee.XMarqueeView
+                    android:id="@+id/mv_news"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:marquee_count="2"
+                    app:isSetAnimDuration="true"/>
+
+            </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
