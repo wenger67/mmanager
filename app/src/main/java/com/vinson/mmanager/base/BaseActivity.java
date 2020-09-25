@@ -23,6 +23,8 @@ import com.mikepenz.iconics.IconicsDrawable;
 import com.vinson.mmanager.R;
 import com.vinson.mmanager.tools.NetworkObserver;
 
+import butterknife.ButterKnife;
+
 public abstract class BaseActivity extends AppCompatActivity implements NetworkObserver.Listener,
         NavigationCallback {
 
@@ -64,6 +66,7 @@ public abstract class BaseActivity extends AppCompatActivity implements NetworkO
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutRes());
+        ButterKnife.bind(this);
         BarUtils.setStatusBarLightMode(this, true);
         mBundle = savedInstanceState;
         initView();

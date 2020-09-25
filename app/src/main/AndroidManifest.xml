@@ -59,6 +59,8 @@
         <activity android:name=".ui.list.UsersActivity"/>
         <activity android:name=".ui.list.CompaniesActivity"/>
         <activity android:name=".ui.item.LiftDetailActivity"/>
+        <activity android:name=".ui.item.LiftRecordDetailActivity"/>
+        <activity android:name=".ui.item.LiftTroubleDetailActivity"/>
 
         <service android:name=".services.WSService"/>
     </application>

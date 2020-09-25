@@ -32,6 +32,8 @@ import com.vinson.mmanager.ui.view.CustomViewPager;
 import com.vinson.mmanager.utils.Constants;
 import com.vinson.mmanager.utils.Utils;
 
+import java.util.Arrays;
+
 import static com.vinson.mmanager.utils.Constants.AROUTER_PAGE_LIFT_DETAIL;
 
 @Route(path = AROUTER_PAGE_LIFT_DETAIL)
@@ -66,17 +68,17 @@ public class LiftDetailActivity extends BaseActivity {
             mLiftInfo = mGson.fromJson(str, LiftInfo.class);
         }
 
-        mName = findViewById(R.id.tv_name);
+        mName = findViewById(R.id.tv_category);
         mName.setText(mLiftInfo.nickName);
 
-        mCode = findViewById(R.id.tv_code);
+        mCode = findViewById(R.id.tv_name);
         mCode.setText(mLiftInfo.code);
 
-        mUptime = findViewById(R.id.tv_uptime);
+        mUptime = findViewById(R.id.tv_code);
         mUptime.setText(TimeUtils.getTimeSpanByNow(TimeUtils.string2Millis(mLiftInfo.installTime,
                 Utils.DATE_PATTERN), TimeConstants.DAY) + " D");
 
-        mChecktime = findViewById(R.id.tv_checktime);
+        mChecktime = findViewById(R.id.tv_create_time);
         mChecktime.setText(TimeUtils.getTimeSpanByNow(TimeUtils.string2Millis(mLiftInfo.checkTime
                 , Utils.DATE_PATTERN), TimeConstants.DAY) + " D");
 
@@ -145,7 +147,9 @@ public class LiftDetailActivity extends BaseActivity {
     protected void initEvent() {
         super.initEvent();
         // set map center
-        String[] location = mLiftInfo.location.trim().split(",");
+        KLog.d(mLiftInfo.address);
+        String[] location = mLiftInfo.address.location.trim().split(",");
+        KLog.d(Arrays.toString(location));
         LatLng pos = new LatLng(Double.parseDouble(location[1]),
                 Double.parseDouble(location[0]));
         CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(

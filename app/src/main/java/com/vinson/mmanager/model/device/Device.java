@@ -8,6 +8,7 @@ import com.google.android.material.textview.MaterialTextView;
 import com.vinson.mmanager.R;
 import com.vinson.mmanager.model.Category;
 import com.vinson.mmanager.model.Company;
+import com.vinson.mmanager.model.base.DeletedAt;
 import com.vinson.mmanager.model.login.UserInfo;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class Device extends AbstractFlexibleItem<Device.DeviceViewHolder> {
     public int ID;
     public String CreatedAt;
     public String UpdatedAt;
-    public String DeletedAt;
+    public DeletedAt DeletedAt;
     public int typeId;
     public Category type;
     public int factoryId;
@@ -65,7 +66,7 @@ public class Device extends AbstractFlexibleItem<Device.DeviceViewHolder> {
         public DeviceViewHolder(@NonNull View itemView, FlexibleAdapter adapter) {
             super(itemView, adapter);
             name = itemView.findViewById(R.id.tv_key);
-            code = itemView.findViewById(R.id.tv_code);
+            code = itemView.findViewById(R.id.tv_name);
             owner = itemView.findViewById(R.id.tv_content);
         }
     }

@@ -9,7 +9,7 @@
         android:id="@+id/cv_user_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
+        android:background="@color/md_white_1000"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,7 +33,7 @@
                 android:layout_height="40dp"
                 android:layout_marginStart="24dp"
                 android:gravity="center"
-                android:textColor="@android:color/black"
+                android:textColor="@color/md_black_1000"
                 android:textSize="20sp"
                 app:layout_constraintLeft_toRightOf="@id/iv_avatar"
                 app:layout_constraintTop_toTopOf="@id/iv_avatar" />
@@ -57,7 +57,7 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
-        android:background="@android:color/white"
+        android:background="@color/md_white_1000"
         app:layout_constraintTop_toBottomOf="@id/cv_user_info">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -69,7 +69,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="24dp"
-                app:iiv_color="@android:color/black"
+                app:iiv_color="@color/md_black_1000"
                 app:iiv_icon="cmd_timer"
                 app:iiv_size="24dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -81,7 +81,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:textColor="@android:color/black"
+                android:textColor="@color/md_black_1000"
                 android:text="History"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@id/iv_history"
@@ -101,7 +101,7 @@
         android:id="@+id/cv_setting"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="@android:color/white"
+        android:background="@color/md_white_1000"
         app:layout_constraintTop_toBottomOf="@id/cv_history">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -113,7 +113,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="24dp"
-                app:iiv_color="@android:color/black"
+                app:iiv_color="@color/md_black_1000"
                 app:iiv_icon="cmd_settings"
                 app:iiv_size="24dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -126,7 +126,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:text="Setting"
-                android:textColor="@android:color/black"
+                android:textColor="@color/md_black_1000"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@id/iv_setting"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -143,7 +143,7 @@
         android:id="@+id/cv_about"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="@android:color/white"
+        android:background="@color/md_white_1000"
         app:layout_constraintTop_toBottomOf="@id/cv_setting">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -155,7 +155,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="24dp"
-                app:iiv_color="@android:color/black"
+                app:iiv_color="@color/md_black_1000"
                 app:iiv_icon="cmd_gift"
                 app:iiv_size="24dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -168,7 +168,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:text="About"
-                android:textColor="@android:color/black"
+                android:textColor="@color/md_black_1000"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@id/iv_about"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -179,7 +179,7 @@
         android:id="@+id/cv_logout"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="@android:color/white"
+        android:background="@color/md_white_1000"
         android:clickable="true"
         android:focusable="true"
         android:layout_marginTop="16dp"
@@ -191,7 +191,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:textColor="@android:color/black"
+            android:textColor="@color/md_black_1000"
             android:text="Logout Account"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"

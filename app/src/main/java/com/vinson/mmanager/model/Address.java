@@ -1,10 +1,12 @@
 package com.vinson.mmanager.model;
 
+import com.vinson.mmanager.model.base.DeletedAt;
+
 public class Address {
     public int ID;
     public String CreatedAt;
     public String UpdatedAt;
-    public String DeletedAt;
+    public DeletedAt DeletedAt;
     public Region region;
     public String addressName;
     public String location;
@@ -16,5 +18,15 @@ public class Address {
         this.addressName = addressName;
         this.location = location;
         this.userAmount = userAmount;
+    }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "region=" + region +
+                ", addressName='" + addressName + '\'' +
+                ", location='" + location + '\'' +
+                ", userAmount=" + userAmount +
+                '}';
     }
 }

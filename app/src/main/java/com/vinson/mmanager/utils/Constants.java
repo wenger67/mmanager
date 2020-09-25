@@ -48,7 +48,7 @@ public class Constants {
      */
     public static final String AROUTER_PAGE_LIFT_DETAIL = "/page/item/lift";
     public static final String AROUTER_PAGE_LIFT_TROUBLE_DETAIL = "/page/item/lift/trouble";
-
+    public static final String AROUTER_PAGE_LIFT_RECORD_DETAIL = "/page/item/lift/record";
     /**
      * websocket message what
      */

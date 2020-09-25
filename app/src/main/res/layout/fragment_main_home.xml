@@ -45,7 +45,7 @@
                 android:id="@+id/cv_event"
                 app:cardCornerRadius="8dp"
                 android:layout_margin="16dp"
-                android:background="@android:color/white"
+                android:background="@color/md_white_1000"
                 app:layout_constraintTop_toTopOf="@id/cl"
                 android:layout_height="48dp">
 
@@ -65,7 +65,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="16dp"
-                android:background="@android:color/white"
+                android:background="@color/md_white_1000"
                 app:layout_constraintTop_toBottomOf="@id/cv_event"
                 android:layout_height="400dp"/>
 

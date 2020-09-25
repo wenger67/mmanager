@@ -42,6 +42,7 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.internal.EverythingIsNonNull;
 
 @Route(path = Constants.AROUTER_PAGE_LOGIN)
 public class LoginActivity extends BaseActivity implements Handler.Callback {
@@ -85,6 +86,7 @@ public class LoginActivity extends BaseActivity implements Handler.Callback {
     private void fillCaptcha() {
         ServerHelperWithoutToken.getInstance().captcha().enqueue(new Callback<BaseResponse<Captcha>>() {
             @Override
+            @EverythingIsNonNull
             public void onResponse(Call<BaseResponse<Captcha>> call,
                                    Response<BaseResponse<Captcha>> response) {
                 BaseResponse<Captcha> body = response.body();
@@ -100,6 +102,7 @@ public class LoginActivity extends BaseActivity implements Handler.Callback {
             }
 
             @Override
+            @EverythingIsNonNull
             public void onFailure(Call<BaseResponse<Captcha>> call, Throwable t) {
                 mLoginParams.setCaptchaId(null);
             }
@@ -138,6 +141,7 @@ public class LoginActivity extends BaseActivity implements Handler.Callback {
                 RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), mGson.toJson(mLoginParams));
                 ServerHelperWithoutToken.getInstance().login(requestBody).enqueue(new Callback<BaseResponse<JsonObject>>() {
                     @Override
+                    @EverythingIsNonNull
                     public void onResponse(Call<BaseResponse<JsonObject>> call,
                                            Response<BaseResponse<JsonObject>> response) {
                         BaseResponse<JsonObject> body = response.body();
@@ -155,6 +159,7 @@ public class LoginActivity extends BaseActivity implements Handler.Callback {
                     }
 
                     @Override
+                    @EverythingIsNonNull
                     public void onFailure(Call<BaseResponse<JsonObject>> call, Throwable t) {
                         Toasty.error(LoginActivity.this, "登陆失败:" + t.getMessage(),
                                 Toast.LENGTH_LONG, true).show();

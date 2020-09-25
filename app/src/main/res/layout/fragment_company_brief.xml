@@ -11,23 +11,23 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_name"
+            android:id="@+id/tv_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8sp"
-            android:textColor="@android:color/black"
+            android:textColor="@color/md_black_1000"
             android:textSize="18sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_code"
+            android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8sp"
             android:textSize="16sp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_category" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_person"
@@ -36,7 +36,7 @@
             android:layout_marginTop="8sp"
             android:textSize="16sp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_code" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_name" />
 
 
         <com.google.android.material.textview.MaterialTextView
@@ -47,7 +47,7 @@
             android:layout_marginTop="8sp"
             android:textSize="16sp"
             app:layout_constraintLeft_toRightOf="@id/tv_person"
-            app:layout_constraintTop_toBottomOf="@+id/tv_code" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_name" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_address"

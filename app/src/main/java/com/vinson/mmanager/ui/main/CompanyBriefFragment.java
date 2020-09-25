@@ -28,8 +28,8 @@ public class CompanyBriefFragment extends BaseFragment {
             mCompany = App.getInstance().mGson.fromJson(str, Company.class);
         }
 
-        mName = root.findViewById(R.id.tv_name);
-        mCode = root.findViewById(R.id.tv_code);
+        mName = root.findViewById(R.id.tv_category);
+        mCode = root.findViewById(R.id.tv_name);
         mPerson = root.findViewById(R.id.tv_person);
         mPhone = root.findViewById(R.id.tv_phone);
         mAddress = root.findViewById(R.id.tv_address);

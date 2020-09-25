@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 
 import com.google.android.material.textview.MaterialTextView;
 import com.vinson.mmanager.R;
+import com.vinson.mmanager.model.base.DeletedAt;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class Company extends AbstractFlexibleItem<Company.CompanyViewHolder> {
     public int ID;
     public String CreatedAt;
     public String UpdatedAt;
-    public String DeletedAt;
+    public DeletedAt DeletedAt;
     public String fullName;
     public String alias;
     public String legalPerson;
@@ -73,7 +74,7 @@ public class Company extends AbstractFlexibleItem<Company.CompanyViewHolder> {
         public CompanyViewHolder(@NonNull View itemView, FlexibleAdapter adapter) {
             super(itemView, adapter);
             alias = itemView.findViewById(R.id.tv_alias);
-            name = itemView.findViewById(R.id.tv_name);
+            name = itemView.findViewById(R.id.tv_category);
             person = itemView.findViewById(R.id.tv_person);
             phone = itemView.findViewById(R.id.tv_phone);
             credit = itemView.findViewById(R.id.tv_credit);
