@@ -74,7 +74,7 @@ public class Company extends AbstractFlexibleItem<Company.CompanyViewHolder> {
         public CompanyViewHolder(@NonNull View itemView, FlexibleAdapter adapter) {
             super(itemView, adapter);
             alias = itemView.findViewById(R.id.tv_alias);
-            name = itemView.findViewById(R.id.tv_category);
+            name = itemView.findViewById(R.id.tv_name);
             person = itemView.findViewById(R.id.tv_person);
             phone = itemView.findViewById(R.id.tv_phone);
             credit = itemView.findViewById(R.id.tv_credit);
