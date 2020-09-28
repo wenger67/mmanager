@@ -65,8 +65,8 @@ public class Device extends AbstractFlexibleItem<Device.DeviceViewHolder> {
 
         public DeviceViewHolder(@NonNull View itemView, FlexibleAdapter adapter) {
             super(itemView, adapter);
-            name = itemView.findViewById(R.id.tv_key);
-            code = itemView.findViewById(R.id.tv_name);
+            name = itemView.findViewById(R.id.tv_name);
+            code = itemView.findViewById(R.id.tv_code);
             owner = itemView.findViewById(R.id.tv_content);
         }
     }

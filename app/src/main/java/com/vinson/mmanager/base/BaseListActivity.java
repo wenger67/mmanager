@@ -9,7 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ethanhua.skeleton.Skeleton;
-import com.mikepenz.iconics.view.IconicsImageButton;
+import com.github.florent37.viewanimator.ViewAnimator;
+import com.google.android.material.textview.MaterialTextView;
 import com.mikepenz.iconics.view.IconicsImageView;
 import com.socks.library.KLog;
 import com.vinson.mmanager.R;
@@ -25,16 +26,19 @@ import eu.davidea.flexibleadapter.common.FlexibleItemDecoration;
 import eu.davidea.flexibleadapter.items.AbstractFlexibleItem;
 
 public abstract class BaseListActivity extends BaseActivity {
+    protected static final int FETCH_DATA_FAILED_MESSAGE_DELAY = 500;
     protected CustomList mCustomList;
     protected List<AbstractFlexibleItem> mItems = new ArrayList<>();
     protected FlexibleAdapter<AbstractFlexibleItem> mAdapter;
-    int lastPos = 0;
     protected int curPage = 0;
-
+    @BindView(R.id.tv_tab_title)
+    protected MaterialTextView mTitle;
+    int lastPos = 0;
     @BindView(R.id.ll_lose_network)
     LinearLayout mRetry;
     @BindView(R.id.btn_retry)
     IconicsImageView mBtnRetry;
+    FlexibleAdapter.OnItemClickListener mItemClickListener = this::itemClick;
 
     @Override
     protected void initView() {
@@ -49,12 +53,23 @@ public abstract class BaseListActivity extends BaseActivity {
     }
 
     @Override
+    protected void setToolbarTitle() {
+        super.setToolbarTitle();
+    }
+
+    @Override
     protected boolean handleMessage(Message message) {
         switch (message.what) {
             case MSG_FETCH_DATA_FAILED:
-                mSkeletonScreen.hide();
-                mCustomList.setVisibility(View.GONE);
-                mRetry.setVisibility(View.VISIBLE);
+                ViewAnimator.animate(mCustomList)
+                        .alpha(1, 0).duration(500)
+                        .onStop(() -> mRetry.setVisibility(View.VISIBLE))
+                        .thenAnimate(mRetry)
+                        .alpha(0, 1).duration(500).start()
+                        .onStop(() -> {
+                            mSkeletonScreen.hide();
+                            mCustomList.setVisibility(View.GONE);
+                        });
                 break;
             case MSG_FETCH_DATA:
                 fetchData();
@@ -63,16 +78,23 @@ public abstract class BaseListActivity extends BaseActivity {
         return false;
     }
 
-    public void fetchData(){}
+    public void fetchData() {
+    }
 
     @Override
     protected void initEvent() {
         super.initEvent();
         mBtnRetry.setOnClickListener(v -> {
-            mSkeletonScreen.show();
-            mCustomList.setVisibility(View.VISIBLE);
-            mRetry.setVisibility(View.GONE);
-            mHandler.sendEmptyMessage(MSG_FETCH_DATA);
+            ViewAnimator.animate(mRetry)
+                    .alpha(1, 0).duration(500)
+                    .onStop(() -> {
+                        mRetry.setVisibility(View.GONE);
+                        mCustomList.setVisibility(View.VISIBLE);
+                        mSkeletonScreen.show();
+                    })
+                    .thenAnimate(mCustomList)
+                    .alpha(0, 1).duration(500).start()
+                    .onStop(() -> mHandler.sendEmptyMessage(MSG_FETCH_DATA));
         });
 
         mSkeletonScreen = Skeleton.bind(mCustomList)
@@ -104,6 +126,7 @@ public abstract class BaseListActivity extends BaseActivity {
         mAdapter.addListener(mItemClickListener);
     }
 
-    FlexibleAdapter.OnItemClickListener mItemClickListener = this::itemClick;
-    protected boolean itemClick(View view, int position){return false;}
+    protected boolean itemClick(View view, int position) {
+        return false;
+    }
 }

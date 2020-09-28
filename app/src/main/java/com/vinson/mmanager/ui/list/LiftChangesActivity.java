@@ -1,12 +1,12 @@
 package com.vinson.mmanager.ui.list;
 
 import android.os.Bundle;
-import android.os.Message;
 
 import androidx.annotation.Nullable;
 
 import com.alibaba.android.arouter.facade.Postcard;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.google.android.material.textview.MaterialTextView;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.socks.library.KLog;
@@ -21,6 +21,7 @@ import com.vinson.mmanager.utils.Constants;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
 import okhttp3.internal.annotations.EverythingIsNonNull;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,11 +35,17 @@ public class LiftChangesActivity extends BaseListActivity {
     }
 
     @Override
+    protected void setToolbarTitle() {
+        mMaterialToolbar.setTitle("信息变更");
+    }
+
+    @Override
     public void fetchData() {
         super.fetchData();
         mItems = new ArrayList<>(); // clear
         BaseListParams listParams = new BaseListParams(curPage + 1, 10);
-        ServerHelper.getInstance().getList(ModuleType.MODULE_LIFT_CHANGES, listParams.page, listParams.pageSize).enqueue(new Callback<BaseResponse<JsonObject>>() {
+        ServerHelper.getInstance().getList(ModuleType.MODULE_LIFT_CHANGES, listParams.page,
+                listParams.pageSize).enqueue(new Callback<BaseResponse<JsonObject>>() {
             @Override
             @EverythingIsNonNull
             public void onResponse(Call<BaseResponse<JsonObject>> call,
@@ -50,7 +57,7 @@ public class LiftChangesActivity extends BaseListActivity {
                         mItems.add(mGson.fromJson(element, LiftChange.class));
                     }
                     mAdapter.onLoadMoreComplete(mItems, 3000L);
-                    if (curPage == 0)mSkeletonScreen.hide();
+                    if (curPage == 0) mSkeletonScreen.hide();
                 }
             }
 
@@ -58,7 +65,8 @@ public class LiftChangesActivity extends BaseListActivity {
             @EverythingIsNonNull
             public void onFailure(Call<BaseResponse<JsonObject>> call, Throwable t) {
                 KLog.d(t.getMessage());
-                mHandler.sendEmptyMessageDelayed(MSG_FETCH_DATA_FAILED, 500);
+                mHandler.sendEmptyMessageDelayed(MSG_FETCH_DATA_FAILED,
+                        FETCH_DATA_FAILED_MESSAGE_DELAY);
             }
         });
     }

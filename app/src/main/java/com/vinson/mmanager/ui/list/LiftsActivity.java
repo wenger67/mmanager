@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import com.alibaba.android.arouter.facade.Postcard;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.google.android.material.textview.MaterialTextView;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.socks.library.KLog;
@@ -23,6 +24,7 @@ import com.vinson.mmanager.utils.Constants;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
 import okhttp3.internal.annotations.EverythingIsNonNull;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,7 +38,6 @@ public class LiftsActivity extends BaseListActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
     @Override
     public void fetchData() {
         super.fetchData();
@@ -51,6 +52,7 @@ public class LiftsActivity extends BaseListActivity {
                 if (body != null) {
                     JsonObject data = body.getData();
                     for (JsonElement element : data.getAsJsonArray("list")) {
+                        KLog.d(element);
                         LiftInfo liftInfo = mGson.fromJson(element, LiftInfo.class);
                         mItems.add(liftInfo);
                     }
@@ -65,7 +67,7 @@ public class LiftsActivity extends BaseListActivity {
             @EverythingIsNonNull
             public void onFailure(Call<BaseResponse<JsonObject>> call, Throwable t) {
                 KLog.d(t.getMessage());
-                mHandler.sendEmptyMessageDelayed(MSG_FETCH_DATA_FAILED, 500);
+                mHandler.sendEmptyMessageDelayed(MSG_FETCH_DATA_FAILED, FETCH_DATA_FAILED_MESSAGE_DELAY);
             }
         });
     }
@@ -108,6 +110,12 @@ public class LiftsActivity extends BaseListActivity {
     @Override
     protected void initView() {
         super.initView();
+        mTitle.setText("电梯列表");
+    }
+
+    @Override
+    protected void setToolbarTitle() {
+        mMaterialToolbar.setTitle("");
     }
 
     @Override

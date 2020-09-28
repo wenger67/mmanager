@@ -49,6 +49,7 @@ public class HomeGridViewAdapter extends ArrayAdapter<HomeGridViewItem> {
         }
         HomeGridViewItem item = mDatas.get(position);
         viewHolder.textView.setText(item.getTitle());
+        viewHolder.textView.setTextColor(context.getResources().getColor(R.color.md_black_1000));
         IconicsDrawable iconicsDrawable = new IconicsDrawable(context, item.getIcon());
         iconicsDrawable.sizeDp(18);
         iconicsDrawable.colorRes(android.R.color.black);

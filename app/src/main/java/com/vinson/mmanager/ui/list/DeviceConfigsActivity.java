@@ -33,7 +33,10 @@ public class DeviceConfigsActivity extends BaseListActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
+    @Override
+    protected void setToolbarTitle() {
+        mMaterialToolbar.setTitle("设备配置");
+    }
     @Override
     public void fetchData() {
         super.fetchData();
@@ -60,7 +63,7 @@ public class DeviceConfigsActivity extends BaseListActivity {
             @EverythingIsNonNull
             public void onFailure(Call<BaseResponse<JsonObject>> call, Throwable t) {
                 KLog.d(t.getMessage());
-                mHandler.sendEmptyMessageDelayed(MSG_FETCH_DATA_FAILED, 500);
+                mHandler.sendEmptyMessageDelayed(MSG_FETCH_DATA_FAILED, FETCH_DATA_FAILED_MESSAGE_DELAY);
             }
         });
     }

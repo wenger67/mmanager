@@ -38,6 +38,10 @@ public class LiftRecordsActivity extends BaseListActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+    @Override
+    protected void setToolbarTitle() {
+        mMaterialToolbar.setTitle("记录列表");
+    }
 
     @Override
     public void fetchData() {
@@ -65,7 +69,7 @@ public class LiftRecordsActivity extends BaseListActivity {
             @EverythingIsNonNull
             public void onFailure(Call<BaseResponse<JsonObject>> call, Throwable t) {
                 KLog.d(t.getMessage());
-                mHandler.sendEmptyMessageDelayed(MSG_FETCH_DATA_FAILED, 500);
+                mHandler.sendEmptyMessageDelayed(MSG_FETCH_DATA_FAILED, FETCH_DATA_FAILED_MESSAGE_DELAY);
             }
         });
     }

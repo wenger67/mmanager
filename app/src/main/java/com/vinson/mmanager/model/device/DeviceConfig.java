@@ -52,7 +52,7 @@ public class DeviceConfig extends AbstractFlexibleItem<DeviceConfig.ConfigViewHo
 
         public ConfigViewHolder(@NonNull View itemView, FlexibleAdapter adapter) {
             super(itemView, adapter);
-            key = itemView.findViewById(R.id.tv_key);
+            key = itemView.findViewById(R.id.tv_name);
             value = itemView.findViewById(R.id.tv_value);
             comment = itemView.findViewById(R.id.tv_comment);
         }

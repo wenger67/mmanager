@@ -22,10 +22,13 @@ import com.flyco.tablayout.SegmentTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.google.android.material.textview.MaterialTextView;
 import com.mikepenz.iconics.view.IconicsImageButton;
+import com.mikepenz.iconics.view.IconicsImageView;
 import com.socks.library.KLog;
+import com.vinson.mmanager.App;
 import com.vinson.mmanager.R;
 import com.vinson.mmanager.adapter.home.SimpleFragmentPagerAdapter;
 import com.vinson.mmanager.base.BaseActivity;
+import com.vinson.mmanager.model.Company;
 import com.vinson.mmanager.model.lift.LiftInfo;
 import com.vinson.mmanager.ui.main.CompanyBriefFragment;
 import com.vinson.mmanager.ui.view.CustomViewPager;
@@ -34,6 +37,7 @@ import com.vinson.mmanager.utils.Utils;
 
 import java.util.Arrays;
 
+import static com.vinson.mmanager.ui.item.CompanyDetailActivity.EXTRA_COMPANY;
 import static com.vinson.mmanager.utils.Constants.AROUTER_PAGE_LIFT_DETAIL;
 
 @Route(path = AROUTER_PAGE_LIFT_DETAIL)
@@ -43,12 +47,12 @@ public class LiftDetailActivity extends BaseActivity {
     MaterialTextView mName, mCode;
     MaterialTextView mUptime, mChecktime, mModel, mOnline;
     MaterialTextView mAddress;
-    IconicsImageButton mVideoCall;
+    IconicsImageView mVideoCall;
     MapView mMapView;
     AMap mAMap;
     SegmentTabLayout mTabLayout;
     CustomViewPager mViewPager;
-    String[] mTitles = new String[]{"Installer", "Maintainer", "Checker", "Owner"};
+    String[] mTitles = new String[]{"安装", "维保", "年检", "使用"};
 
     @Override
     protected boolean handleMessage(Message message) {
@@ -71,10 +75,10 @@ public class LiftDetailActivity extends BaseActivity {
         mName = findViewById(R.id.tv_category);
         mName.setText(mLiftInfo.nickName);
 
-        mCode = findViewById(R.id.tv_name);
+        mCode = findViewById(R.id.tv_code);
         mCode.setText(mLiftInfo.code);
 
-        mUptime = findViewById(R.id.tv_code);
+        mUptime = findViewById(R.id.tv_uptime);
         mUptime.setText(TimeUtils.getTimeSpanByNow(TimeUtils.string2Millis(mLiftInfo.installTime,
                 Utils.DATE_PATTERN), TimeConstants.DAY) + " D");
 
@@ -86,10 +90,9 @@ public class LiftDetailActivity extends BaseActivity {
         mModel.setText(mLiftInfo.liftModel.brand + "-" + mLiftInfo.liftModel.modal);
 
         mOnline = findViewById(R.id.tv_online);
-//        mOnline.setText(mLiftInfo.mDevice.online ? "Online" : "Offline");
-//        mOnline.setTextColor(mLiftInfo.mDevice.online ?
-//                App.getInstance().color(R.color.md_green_500) :
-//                App.getInstance().color(R.color.md_yellow_500));
+        mOnline.setText(mLiftInfo.mDevice.online ? "Online" : "Offline");
+        mOnline.setBackgroundResource(mLiftInfo.mDevice.online ?R.drawable.shape_text_green_bg :
+                R.drawable.shape_text_yellow_bg);
 
         mAddress = findViewById(R.id.tv_address);
         mAddress.setText(mLiftInfo.address.addressName + " | " + mLiftInfo.building + " | " + mLiftInfo.cell);

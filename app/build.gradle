@@ -170,6 +170,7 @@ dependencies {
     implementation 'com.amap.api:map2d:6.0.0'
 
     implementation 'com.youth.banner:banner:2.1.0'
+    implementation 'com.github.florent37:viewanimator:1.1.0'
 
     implementation "com.jakewharton:butterknife:10.0.0"
     annotationProcessor "com.jakewharton:butterknife-compiler:10.0.0"

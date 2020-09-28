@@ -11,4 +11,41 @@
         <item name="android:windowBackground">@mipmap/img_welcome_guide_1</item>
         <item name="android:windowFullscreen">true</item>
     </style>
+
+
+    <style name="Base.TitleText" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textColor">@color/md_black_1000</item>
+    </style>
+
+
+    <style name="Base.SmallText" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textColor">@color/md_white_1000</item>
+        <item name="android:padding">2dp</item>
+    </style>
+
+    <style name="SmallText.YellowBackground" parent="Base.SmallText">
+        <item name="android:background">@drawable/shape_text_yellow_bg</item>
+    </style>
+
+    <style name="SmallText.YellowBackground.Bold" parent="SmallText.YellowBackground">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="SmallText.BlueBackground" parent="Base.SmallText">
+        <item name="android:background">@drawable/shape_text_blue_bg</item>
+    </style>
+
+    <style name="SmallText.BlueBackground.Bold" parent="SmallText.BlueBackground">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
+    <style name="SmallText.GreenBackground" parent="Base.SmallText">
+        <item name="android:background">@drawable/shape_text_green_bg</item>
+    </style>
+
+    <style name="SmallText.GreenBackground.Bold" parent="SmallText.GreenBackground">
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

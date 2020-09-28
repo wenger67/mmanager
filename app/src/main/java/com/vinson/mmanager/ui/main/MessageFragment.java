@@ -5,6 +5,7 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.textview.MaterialTextView;
 import com.vinson.mmanager.R;
 import com.vinson.mmanager.base.BaseFragment;
@@ -25,8 +26,8 @@ public class MessageFragment extends BaseFragment {
 
     @Override
     protected void initView(View root) {
-        MaterialTextView textView = root.findViewById(R.id.tb_title);
-        textView.setText("Message");
+        MaterialTextView title = root.findViewById(R.id.tv_tab_title);
+        title.setText("Message");
     }
 
     @Override

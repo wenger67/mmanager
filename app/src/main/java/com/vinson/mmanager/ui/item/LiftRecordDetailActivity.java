@@ -50,9 +50,9 @@ public class LiftRecordDetailActivity extends BaseActivity {
     // created
     @BindView(R.id.tv_category)
     MaterialTextView mCategory;
-    @BindView(R.id.tv_name)
-    MaterialTextView mName;
     @BindView(R.id.tv_code)
+    MaterialTextView mName;
+    @BindView(R.id.tv_uptime)
     MaterialTextView mCode;
     @BindView(R.id.tv_create_time)
     MaterialTextView mCreateAt;

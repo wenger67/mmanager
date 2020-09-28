@@ -60,19 +60,18 @@ public abstract class BaseFragment extends Fragment {
     int getLayoutRes() {
         return -1;
     }
-
+    protected View root;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view;
         if (mContentLayoutId == -1) {
-            view = inflater.inflate(getLayoutRes(), container, false);
+            root = inflater.inflate(getLayoutRes(), container, false);
         } else
-            view = super.onCreateView(inflater, container, savedInstanceState);
+            root = super.onCreateView(inflater, container, savedInstanceState);
 
-        initView(view);
+        initView(root);
         initEvent();
-        return view;
+        return root;
     }
 }

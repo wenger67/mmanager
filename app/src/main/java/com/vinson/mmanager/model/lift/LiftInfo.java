@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import com.blankj.utilcode.constant.TimeConstants;
 import com.blankj.utilcode.util.TimeUtils;
 import com.google.android.material.textview.MaterialTextView;
+import com.google.gson.annotations.SerializedName;
 import com.vinson.mmanager.R;
 import com.vinson.mmanager.model.Address;
 import com.vinson.mmanager.model.Category;
@@ -44,6 +45,7 @@ public class LiftInfo extends AbstractFlexibleItem<LiftInfo.LiftViewHolder> {
     public int floorCount;
     public String building;
     public int cell;
+    @SerializedName("adDevice")
     public Device mDevice;
 
     @Override
@@ -81,7 +83,7 @@ public class LiftInfo extends AbstractFlexibleItem<LiftInfo.LiftViewHolder> {
         long checktimeSum = TimeUtils.string2Millis(checkTime, Utils.DATE_PATTERN);
         holder.uptime.setText(TimeUtils.getTimeSpanByNow(uptimeSum, TimeConstants.HOUR) + " hours");
         holder.checkTime.setText(TimeUtils.getFitTimeSpanByNow(checktimeSum, 1));
-//        holder.online.setText(info.getDevice().isOnline() ? "Online":"Offline");
+        holder.online.setText(mDevice.online ? "Online":"Offline");
     }
 
     static class LiftViewHolder extends FlexibleViewHolder {
@@ -89,10 +91,10 @@ public class LiftInfo extends AbstractFlexibleItem<LiftInfo.LiftViewHolder> {
 
         public LiftViewHolder(@NonNull View itemView, FlexibleAdapter adapter) {
             super(itemView, adapter);
-            name = itemView.findViewById(R.id.tv_key);
-            code = itemView.findViewById(R.id.tv_name);
+            name = itemView.findViewById(R.id.tv_name);
+            code = itemView.findViewById(R.id.tv_code);
             address = itemView.findViewById(R.id.tv_address);
-            uptime = itemView.findViewById(R.id.tv_code);
+            uptime = itemView.findViewById(R.id.tv_uptime);
             checkTime = itemView.findViewById(R.id.tv_create_time);
             online = itemView.findViewById(R.id.tv_online);
         }

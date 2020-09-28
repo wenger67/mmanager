@@ -6,7 +6,7 @@
     android:background="@color/colorPrimaryBackground">
 
     <include
-        android:id="@+id/tb"
+        android:id="@+id/inc_tb"
         layout="@layout/include_toolbar"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -14,15 +14,16 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
+        android:scrollbars="none"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tb">
+        app:layout_constraintTop_toBottomOf="@id/inc_tb">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cv_create"
+                android:id="@+id/cv_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -45,7 +46,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tv_name"
+                        android:id="@+id/tv_code"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -56,13 +57,13 @@
                         app:layout_constraintTop_toBottomOf="@id/tv_category" />
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tv_code"
+                        android:id="@+id/tv_uptime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="8dp"
                         app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_name" />
+                        app:layout_constraintTop_toBottomOf="@id/tv_code" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_create_time"
@@ -71,7 +72,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="8dp"
                         app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_code" />
+                        app:layout_constraintTop_toBottomOf="@id/tv_uptime" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -82,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@color/md_white_1000"
-                app:layout_constraintTop_toBottomOf="@id/cv_create">
+                app:layout_constraintTop_toBottomOf="@id/cv_info">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"

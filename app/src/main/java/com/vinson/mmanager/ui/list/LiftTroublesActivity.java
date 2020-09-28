@@ -64,9 +64,13 @@ public class LiftTroublesActivity extends BaseListActivity {
             @EverythingIsNonNull
             public void onFailure(Call<BaseResponse<JsonObject>> call, Throwable t) {
                 KLog.d(t.getMessage());
-                mHandler.sendEmptyMessageDelayed(MSG_FETCH_DATA_FAILED, 500);
+                mHandler.sendEmptyMessageDelayed(MSG_FETCH_DATA_FAILED, FETCH_DATA_FAILED_MESSAGE_DELAY);
             }
         });
+    }
+    @Override
+    protected void setToolbarTitle() {
+        mMaterialToolbar.setTitle("故障列表");
     }
 
     @Override

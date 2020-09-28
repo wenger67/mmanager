@@ -1,12 +1,13 @@
 package com.vinson.mmanager.ui.list;
 
 import android.os.Bundle;
-import android.os.Message;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 
 import com.alibaba.android.arouter.facade.Postcard;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.socks.library.KLog;
@@ -26,6 +27,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.internal.EverythingIsNonNull;
 
+import static com.vinson.mmanager.ui.item.CompanyDetailActivity.EXTRA_COMPANY;
+
 @Route(path = Constants.AROUTER_PAGE_COMPANY_LIST)
 public class CompaniesActivity extends BaseListActivity {
 
@@ -35,11 +38,17 @@ public class CompaniesActivity extends BaseListActivity {
     }
 
     @Override
+    protected void setToolbarTitle() {
+        mMaterialToolbar.setTitle("企业列表");
+    }
+
+    @Override
     public void fetchData() {
         super.fetchData();
         mItems = new ArrayList<>(); // clear
         BaseListParams listParams = new BaseListParams(curPage + 1, 10);
-        ServerHelper.getInstance().getList(ModuleType.MODULE_COMPANY_LIST, listParams.page, listParams.pageSize).enqueue(new Callback<BaseResponse<JsonObject>>() {
+        ServerHelper.getInstance().getList(ModuleType.MODULE_COMPANY_LIST, listParams.page,
+                listParams.pageSize).enqueue(new Callback<BaseResponse<JsonObject>>() {
             @Override
             @EverythingIsNonNull
             public void onResponse(Call<BaseResponse<JsonObject>> call,
@@ -59,7 +68,8 @@ public class CompaniesActivity extends BaseListActivity {
             @EverythingIsNonNull
             public void onFailure(Call<BaseResponse<JsonObject>> call, Throwable t) {
                 KLog.d(t.getMessage());
-                mHandler.sendEmptyMessageDelayed(MSG_FETCH_DATA_FAILED, 500);
+                mHandler.sendEmptyMessageDelayed(MSG_FETCH_DATA_FAILED,
+                        FETCH_DATA_FAILED_MESSAGE_DELAY);
             }
         });
     }
@@ -104,9 +114,18 @@ public class CompaniesActivity extends BaseListActivity {
         super.initView();
     }
 
-
     @Override
     protected void initEvent() {
         super.initEvent();
+    }
+
+    @Override
+    protected boolean itemClick(View view, int position) {
+        Company company = (Company) mAdapter.getItem(position);
+        ARouter.getInstance()
+                .build(Constants.AROUTER_PAGE_COMPANY_DETAIL)
+                .withObject(EXTRA_COMPANY, company)
+                .navigation(this, this);
+        return true;
     }
 }

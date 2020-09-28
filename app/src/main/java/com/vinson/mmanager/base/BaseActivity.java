@@ -107,9 +107,15 @@ public abstract class BaseActivity extends AppCompatActivity implements NetworkO
 
     protected void initView() {
         mMaterialToolbar = findViewById(R.id.tb);
+        setToolbarTitle();
+
         setSupportActionBar(mMaterialToolbar);
         mMaterialToolbar.setNavigationIcon(new IconicsDrawable(this,
                 CommunityMaterial.Icon.cmd_arrow_left).sizeDp(16).color(getResources().getColor(android.R.color.black)));
+    }
+
+    protected void setToolbarTitle(){
+
     }
 
     protected void initEvent(){

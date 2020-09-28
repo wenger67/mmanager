@@ -9,6 +9,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.flyco.tablayout.SegmentTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.textview.MaterialTextView;
 import com.socks.library.KLog;
 import com.vinson.mmanager.App;
@@ -31,12 +32,12 @@ public class ManageFragment extends BaseFragment {
     }
     SegmentTabLayout mTabs;
     CustomViewPager mPager;
-    private String[] mTitles = new String[]{"WaitToDo", "Process", "Done"};
+    private String[] mTitles = new String[]{"待处理", "处理中", "已完结"};
 
     @Override
     protected void initView(View root) {
-        MaterialTextView textView = root.findViewById(R.id.tb_title);
-        textView.setText("Manage");
+        MaterialTextView title = root.findViewById(R.id.tv_tab_title);
+        title.setText("Manage");
         mTabs = root.findViewById(R.id.tab_list);
         mPager = root.findViewById(R.id.vp_list);
         mPager.setCanScroll(true);

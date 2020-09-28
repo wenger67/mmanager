@@ -41,9 +41,9 @@ public class LiftTroubleDetailActivity extends BaseActivity {
     // progress 1:created
     @BindView(R.id.tv_category)
     MaterialTextView mTroubleCategory;
-    @BindView(R.id.tv_name)
-    MaterialTextView mLiftName;
     @BindView(R.id.tv_code)
+    MaterialTextView mLiftName;
+    @BindView(R.id.tv_uptime)
     MaterialTextView mLiftCode;
     @BindView(R.id.tv_start_user)
     MaterialTextView mStartUser;
