@@ -2,7 +2,7 @@ package com.vinson.mmanager.model;
 
 import com.vinson.mmanager.model.base.DeletedAt;
 
-public class ExaFileUploadAndDownload {
+public class FileUploadAndDownload {
     public int ID;
     public String CreatedAt;
     public String UpdatedAt;

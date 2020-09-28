@@ -9,7 +9,7 @@ import com.blankj.utilcode.util.TimeUtils;
 import com.google.android.material.textview.MaterialTextView;
 import com.vinson.mmanager.R;
 import com.vinson.mmanager.model.Category;
-import com.vinson.mmanager.model.ExaFileUploadAndDownload;
+import com.vinson.mmanager.model.FileUploadAndDownload;
 import com.vinson.mmanager.model.base.DeletedAt;
 import com.vinson.mmanager.model.login.UserInfo;
 import com.vinson.mmanager.utils.Utils;
@@ -32,7 +32,7 @@ public class LiftRecord extends AbstractFlexibleItem<LiftRecord.RecordViewHolder
     public LiftInfo lift;
     public int categoryId;
     public Category category;
-    public ExaFileUploadAndDownload[] medias;
+    public FileUploadAndDownload[] medias;
     public String content;
     public String startTime;
     public String endTime;

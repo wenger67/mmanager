@@ -21,8 +21,6 @@ import com.vinson.mmanager.utils.Constants;
 
 import java.util.ArrayList;
 
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
 import okhttp3.internal.annotations.EverythingIsNonNull;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,18 +35,8 @@ public class DevicesActivity extends BaseListActivity {
     }
 
     @Override
-    protected boolean handleMessage(Message message) {
-        switch (message.what) {
-            case MSG_FETCH_LIST_DATA:
-                fetchData();
-                break;
-            default:
-                break;
-        }
-        return false;
-    }
-
-    private void fetchData() {
+    public void fetchData() {
+        super.fetchData();
         mItems = new ArrayList<>(); // clear
         BaseListParams listParams = new BaseListParams(curPage + 1, 10);
         ServerHelper.getInstance().getList(ModuleType.MODULE_DEVICE_LIST, listParams.page, listParams.pageSize).enqueue(new Callback<BaseResponse<JsonObject>>() {
@@ -71,6 +59,7 @@ public class DevicesActivity extends BaseListActivity {
             @EverythingIsNonNull
             public void onFailure(Call<BaseResponse<JsonObject>> call, Throwable t) {
                 KLog.d(t.getMessage());
+                mHandler.sendEmptyMessageDelayed(MSG_FETCH_DATA_FAILED, 500);
             }
         });
     }

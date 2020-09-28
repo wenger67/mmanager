@@ -4,6 +4,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import com.google.android.material.textview.MaterialTextView;
 import com.vinson.mmanager.R;
+import com.vinson.mmanager.model.base.DeletedAt;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class LiftChange extends AbstractFlexibleItem<LiftChange.MyViewHolder> {
     int ID;
     String CreatedAt;
     String UpdatedAt;
-    String DeletedAt;
+    DeletedAt DeletedAt;
     int liftId;
     LiftInfo lift;
     String content;

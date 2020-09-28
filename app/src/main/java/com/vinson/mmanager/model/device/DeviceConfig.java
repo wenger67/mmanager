@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 
 import com.google.android.material.textview.MaterialTextView;
 import com.vinson.mmanager.R;
+import com.vinson.mmanager.model.base.DeletedAt;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class DeviceConfig extends AbstractFlexibleItem<DeviceConfig.ConfigViewHo
     int ID;
     String CreatedAt;
     String UpdatedAt;
-    String DeletedAt;
+    DeletedAt DeletedAt;
     String key;
     String value;
     String comment;

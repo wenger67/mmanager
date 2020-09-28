@@ -51,6 +51,7 @@
 
                 <com.vinson.mmanager.widget.marquee.XMarqueeView
                     android:id="@+id/mv_news"
+                    android:layout_gravity="center_vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:marquee_count="2"

@@ -8,6 +8,7 @@ import com.google.android.material.textview.MaterialTextView;
 import com.vinson.mmanager.App;
 import com.vinson.mmanager.R;
 import com.vinson.mmanager.model.Category;
+import com.vinson.mmanager.model.base.DeletedAt;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class DeviceData extends AbstractFlexibleItem<DeviceData.DataViewHolder> 
     int ID;
     String CreatedAt;
     String UpdatedAt;
-    String DeletedAt;
+    DeletedAt DeletedAt;
     int deviceId;
     Device device;
     int troubleId;

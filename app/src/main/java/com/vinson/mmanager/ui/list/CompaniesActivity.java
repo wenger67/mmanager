@@ -21,11 +21,10 @@ import com.vinson.mmanager.utils.Constants;
 
 import java.util.ArrayList;
 
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.internal.EverythingIsNonNull;
 
 @Route(path = Constants.AROUTER_PAGE_COMPANY_LIST)
 public class CompaniesActivity extends BaseListActivity {
@@ -36,22 +35,13 @@ public class CompaniesActivity extends BaseListActivity {
     }
 
     @Override
-    protected boolean handleMessage(Message message) {
-        switch (message.what) {
-            case MSG_FETCH_LIST_DATA:
-                fetchData();
-                break;
-            default:
-                break;
-        }
-        return false;
-    }
-
-    private void fetchData() {
+    public void fetchData() {
+        super.fetchData();
         mItems = new ArrayList<>(); // clear
         BaseListParams listParams = new BaseListParams(curPage + 1, 10);
         ServerHelper.getInstance().getList(ModuleType.MODULE_COMPANY_LIST, listParams.page, listParams.pageSize).enqueue(new Callback<BaseResponse<JsonObject>>() {
             @Override
+            @EverythingIsNonNull
             public void onResponse(Call<BaseResponse<JsonObject>> call,
                                    Response<BaseResponse<JsonObject>> response) {
                 BaseResponse<JsonObject> body = response.body();
@@ -66,8 +56,10 @@ public class CompaniesActivity extends BaseListActivity {
             }
 
             @Override
+            @EverythingIsNonNull
             public void onFailure(Call<BaseResponse<JsonObject>> call, Throwable t) {
                 KLog.d(t.getMessage());
+                mHandler.sendEmptyMessageDelayed(MSG_FETCH_DATA_FAILED, 500);
             }
         });
     }

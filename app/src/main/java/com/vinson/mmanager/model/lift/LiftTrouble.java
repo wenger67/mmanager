@@ -9,6 +9,8 @@ import com.blankj.utilcode.util.TimeUtils;
 import com.google.android.material.textview.MaterialTextView;
 import com.vinson.mmanager.R;
 import com.vinson.mmanager.model.Category;
+import com.vinson.mmanager.model.FileUploadAndDownload;
+import com.vinson.mmanager.model.base.DeletedAt;
 import com.vinson.mmanager.model.login.UserInfo;
 import com.vinson.mmanager.utils.Utils;
 
@@ -20,37 +22,45 @@ import eu.davidea.flexibleadapter.items.IFlexible;
 import eu.davidea.viewholders.FlexibleViewHolder;
 
 public class LiftTrouble extends AbstractFlexibleItem<LiftTrouble.TroubleViewHolder> {
-        int ID;
-    String CreatedAt;
-    String UpdatedAt;
-    String DeletedAt;
-    int liftId;
-    LiftInfo lift;
-    int fromCategoryId;
-    Category fromCategory;
-    String startTime;
-    int startUserId;
-    UserInfo startUser;
-    String responseTime;
-    int responseUserId;
-    UserInfo responseUser;
-    String sceneTime;
-    int sceneUserId;
-    UserInfo sceneUser;
-    String fixTime;
-    int fixUserId;
-    UserInfo fixUser;
-    int fixCategoryId;
-    Category fixCategory;
-    int reasonCategoryId;
-    Category reasonCategory;
-    String content;
-    int progress;
-    int recorderId;
-    UserInfo recorder;
-    String feedbackContent;
-    int feedbackRate;
+    public int ID;
+    public String CreatedAt;
+    public String UpdatedAt;
+    public DeletedAt DeletedAt;
+    public int liftId;
+    public LiftInfo lift;
+    public int fromCategoryId;
+    public Category fromCategory;
+    public String startTime;
+    public int startUserId;
+    public UserInfo startUser;
 
+    public String responseTime;
+    public int responseUserId;
+    public UserInfo responseUser;
+
+    public String sceneTime;
+    public int sceneUserId;
+    public UserInfo sceneUser;
+
+    public String fixTime;
+    public int fixUserId;
+    public UserInfo fixUser;
+    public int fixCategoryId;
+    public Category fixCategory;
+    public int reasonCategoryId;
+    public Category reasonCategory;
+
+    public FileUploadAndDownload[] medias;
+    public String content;
+
+    public String feedbackContent;
+    public int feedbackRate;
+    public String feedbackTime;
+
+    public int recorderId;
+    public UserInfo recorder;
+
+    public int progress;
     @Override
     public boolean equals(Object o) {
         return false;

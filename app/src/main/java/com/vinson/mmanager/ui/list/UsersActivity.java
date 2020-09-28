@@ -39,18 +39,8 @@ public class UsersActivity extends BaseListActivity {
     }
 
     @Override
-    protected boolean handleMessage(Message message) {
-        switch (message.what) {
-            case MSG_FETCH_LIST_DATA:
-                fetchData();
-                break;
-            default:
-                break;
-        }
-        return false;
-    }
-
-    private void fetchData() {
+    public void fetchData() {
+        super.fetchData();
         mItems = new ArrayList<>(); // clear
         BaseListParams listParams = new BaseListParams(curPage + 1, 10);
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"),
@@ -79,6 +69,7 @@ public class UsersActivity extends BaseListActivity {
             @EverythingIsNonNull
             public void onFailure(Call<BaseResponse<JsonObject>> call, Throwable t) {
                 KLog.d(t.getMessage());
+                mHandler.sendEmptyMessageDelayed(MSG_FETCH_DATA_FAILED, 500);
             }
         });
     }

@@ -5,24 +5,35 @@ import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.blankj.utilcode.util.TimeUtils;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textview.MaterialTextView;
 import com.socks.library.KLog;
+import com.vinson.mmanager.BuildConfig;
 import com.vinson.mmanager.R;
 import com.vinson.mmanager.base.BaseActivity;
+import com.vinson.mmanager.model.FileUploadAndDownload;
 import com.vinson.mmanager.model.lift.LiftRecord;
 import com.vinson.mmanager.utils.Constants;
 import com.vinson.mmanager.utils.Utils;
+import com.youth.banner.Banner;
+import com.youth.banner.adapter.BannerImageAdapter;
+import com.youth.banner.holder.BannerImageHolder;
+import com.youth.banner.indicator.CircleIndicator;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
 
 @Route(path = Constants.AROUTER_PAGE_LIFT_RECORD_DETAIL)
 public class LiftRecordDetailActivity extends BaseActivity {
     public static final String EXTRA_LIFT_RECORD = "lift.record";
-    public static final int PROGRESS_CRAETED = 1;
+    public static final int PROGRESS_CREATED = 1;
     public static final int PROGRESS_STARTED = 2;
     public static final int PROGRESS_FINISHED = 3;
 
@@ -36,7 +47,7 @@ public class LiftRecordDetailActivity extends BaseActivity {
         return R.layout.activity_lift_record_detail;
     }
     LiftRecord mLiftRecord;
-
+    // created
     @BindView(R.id.tv_category)
     MaterialTextView mCategory;
     @BindView(R.id.tv_name)
@@ -45,7 +56,7 @@ public class LiftRecordDetailActivity extends BaseActivity {
     MaterialTextView mCode;
     @BindView(R.id.tv_create_time)
     MaterialTextView mCreateAt;
-
+    // start
     @BindView(R.id.cv_start)
     MaterialCardView mStartCardView;
     @BindView(R.id.tv_start_user)
@@ -54,16 +65,16 @@ public class LiftRecordDetailActivity extends BaseActivity {
     MaterialTextView mStartCompany;
     @BindView(R.id.tv_start_time)
     MaterialTextView mStartTime;
-
+    // end
     @BindView(R.id.cv_end)
     MaterialCardView mEndCardView;
-    @BindView(R.id.tv_media)
-    MaterialTextView mMeida;
+    @BindView(R.id.banner_media)
+    Banner<String, BannerImageAdapter<String>> mBanner;
     @BindView(R.id.tv_content)
     MaterialTextView mContent;
     @BindView(R.id.tv_end_time)
     MaterialTextView mEndTime;
-
+    // review
     @BindView(R.id.cv_review)
     MaterialCardView mReviewCardView;
     @BindView(R.id.tv_recorder)
@@ -97,7 +108,23 @@ public class LiftRecordDetailActivity extends BaseActivity {
         }
 
         if (mLiftRecord.progress >= 3) {
-            mMeida.setText(Arrays.toString(mLiftRecord.medias));
+            List<String> images = new ArrayList<>();
+            for (FileUploadAndDownload file: mLiftRecord.medias) {
+                images.add(file.url);
+            }
+            KLog.d(Arrays.toString(new List[]{images}));
+            mBanner.setAdapter(new BannerImageAdapter<String>(images) {
+                @Override
+                public void onBindView(BannerImageHolder holder, String data, int position,
+                                       int size) {
+                    Glide.with(holder.itemView)
+                            .load(data.replace("127.0.0.1:8888", BuildConfig.BaseUrl))
+                            .apply(RequestOptions.bitmapTransform(new RoundedCorners(5)))
+                            .into(holder.imageView);
+                }
+            })
+            .addBannerLifecycleObserver(this)
+            .setIndicator(new CircleIndicator(this));
             mContent.setText(mLiftRecord.content);
             mEndTime.setText(TimeUtils.string2Date(mLiftRecord.endTime, Utils.DATE_PATTERN).toString());
         } else {
@@ -118,7 +145,7 @@ public class LiftRecordDetailActivity extends BaseActivity {
         super.initEvent();
 
         switch (mLiftRecord.progress) {
-            case PROGRESS_CRAETED:
+            case PROGRESS_CREATED:
                 mBtnOps.setText("接单");
                 break;
             case PROGRESS_STARTED:

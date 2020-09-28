@@ -40,8 +40,11 @@ public abstract class BaseActivity extends AppCompatActivity implements NetworkO
     public static final int MSG_LAUNCH_DEVICE_DATA = 103;
     public static final int MSG_LAUNCH_DEVICE_CONFIG = 104;
     public static final int MSG_LAUNCH_COMPANY_LIST = 201;
-    public static final int MSG_FETCH_LIST_DATA = 1002;
+
     public static final int MSG_NETWORK_CHANGE = 1001;
+    public static final int MSG_FETCH_DATA = 1002;
+    public static final int MSG_FETCH_DATA_FAILED = 1003;
+
     public NetworkObserver mNetwork;
     protected Gson mGson = new Gson();
     protected SkeletonScreen mSkeletonScreen;
