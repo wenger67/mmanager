@@ -21,14 +21,11 @@ import com.blankj.utilcode.util.TimeUtils;
 import com.flyco.tablayout.SegmentTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.google.android.material.textview.MaterialTextView;
-import com.mikepenz.iconics.view.IconicsImageButton;
 import com.mikepenz.iconics.view.IconicsImageView;
 import com.socks.library.KLog;
-import com.vinson.mmanager.App;
 import com.vinson.mmanager.R;
 import com.vinson.mmanager.adapter.home.SimpleFragmentPagerAdapter;
 import com.vinson.mmanager.base.BaseActivity;
-import com.vinson.mmanager.model.Company;
 import com.vinson.mmanager.model.lift.LiftInfo;
 import com.vinson.mmanager.ui.main.CompanyBriefFragment;
 import com.vinson.mmanager.ui.view.CustomViewPager;
@@ -37,7 +34,6 @@ import com.vinson.mmanager.utils.Utils;
 
 import java.util.Arrays;
 
-import static com.vinson.mmanager.ui.item.CompanyDetailActivity.EXTRA_COMPANY;
 import static com.vinson.mmanager.utils.Constants.AROUTER_PAGE_LIFT_DETAIL;
 
 @Route(path = AROUTER_PAGE_LIFT_DETAIL)
@@ -207,7 +203,7 @@ public class LiftDetailActivity extends BaseActivity {
 
         // request video call
         mVideoCall.setOnClickListener(v -> ARouter.getInstance().
-                build(Constants.AROUTE_PAGE_VIDEO_ROOM).
+                build(Constants.AROUTER_PAGE_VIDEO_ROOM).
                 withObject(EXTRA_LIFT_INFO, mLiftInfo).navigation(this, this));
     }
 }

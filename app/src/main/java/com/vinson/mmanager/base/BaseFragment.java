@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.gson.Gson;
 import com.vinson.mmanager.App;
 
 import java.util.Objects;
@@ -22,7 +23,8 @@ public abstract class BaseFragment extends Fragment {
     protected Handler mHandler;
     @LayoutRes
     private int mContentLayoutId = -1;
-    private Activity mActivity;
+    protected Activity mActivity;
+    protected Gson mGson = new Gson();
 
     public BaseFragment() {
     }
@@ -73,5 +75,10 @@ public abstract class BaseFragment extends Fragment {
         initView(root);
         initEvent();
         return root;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 }

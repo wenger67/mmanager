@@ -23,7 +23,9 @@ public class Constants {
      */
     public static final String DATA_LIST_PARAM = "data.list.intent";
 
-    public static final String AROUTE_PAGE_VIDEO_ROOM = "/page/video";
+    public static final String AROUTER_PAGE_VIDEO_ROOM = "/page/video";
+    public static final String AROUTER_PAGE_CREATE_LIFT_RECORD = "/page/create/lift/record";
+    public static final String AROUTER_PAGE_CREATE_LIFT_TROUBLE = "/page/create/lift/trouble";
 
     public static final String AROUTER_PAGE_WELCOME = "/page/welcome";
     public static final String AROUTER_PAGE_SPLASH = "/page/splash";

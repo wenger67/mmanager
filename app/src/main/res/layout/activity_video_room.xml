@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <include
-        android:id="@+id/tb"
+        android:id="@+id/inc_tb"
         layout="@layout/include_toolbar"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -33,7 +33,7 @@ import im.zego.zegoexpress.entity.ZegoCanvas;
 import im.zego.zegoexpress.entity.ZegoStream;
 import im.zego.zegoexpress.entity.ZegoUser;
 
-@Route(path = Constants.AROUTE_PAGE_VIDEO_ROOM)
+@Route(path = Constants.AROUTER_PAGE_VIDEO_ROOM)
 public class VideoRoomActivity extends BaseActivity {
 
     public static final int RR_REMOTE_PUSH_STREAM_SUCCESS = 1;
