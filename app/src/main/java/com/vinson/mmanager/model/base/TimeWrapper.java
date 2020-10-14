@@ -2,7 +2,7 @@ package com.vinson.mmanager.model.base;
 
 import com.google.gson.annotations.SerializedName;
 
-public class DeletedAt {
+public class TimeWrapper {
     @SerializedName("Time")
     public String time;
     @SerializedName("Valid")

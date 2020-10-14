@@ -62,8 +62,9 @@
         <activity android:name=".ui.item.LiftRecordDetailActivity"/>
         <activity android:name=".ui.item.LiftTroubleDetailActivity"/>
         <activity android:name=".ui.item.CompanyDetailActivity"/>
-        <activity android:name=".ui.CreateRecordActivity"/>
+        <activity android:name=".ui.page.CreateRecordActivity"/>
         <activity android:name=".ui.ReportTroubleActivity"/>
+        <activity android:name=".ui.page.FillRecordContentActivity"/>
 
         <service android:name=".services.WSService"/>
     </application>

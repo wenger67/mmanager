@@ -8,7 +8,7 @@ import com.google.android.material.textview.MaterialTextView;
 import com.vinson.mmanager.R;
 import com.vinson.mmanager.model.Category;
 import com.vinson.mmanager.model.Company;
-import com.vinson.mmanager.model.base.DeletedAt;
+import com.vinson.mmanager.model.base.TimeWrapper;
 import com.vinson.mmanager.model.login.UserInfo;
 
 import java.util.List;
@@ -22,7 +22,7 @@ public class Device extends AbstractFlexibleItem<Device.DeviceViewHolder> {
     public int ID;
     public String CreatedAt;
     public String UpdatedAt;
-    public DeletedAt DeletedAt;
+    public TimeWrapper TimeWrapper;
     public int typeId;
     public Category type;
     public int factoryId;

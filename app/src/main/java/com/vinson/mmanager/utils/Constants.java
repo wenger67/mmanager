@@ -25,6 +25,7 @@ public class Constants {
 
     public static final String AROUTER_PAGE_VIDEO_ROOM = "/page/video";
     public static final String AROUTER_PAGE_CREATE_LIFT_RECORD = "/page/create/lift/record";
+    public static final String AROUTER_PAGE_FILL_RECORD_CONTENT = "/page/fill/record/content";
     public static final String AROUTER_PAGE_CREATE_LIFT_TROUBLE = "/page/create/lift/trouble";
 
     public static final String AROUTER_PAGE_WELCOME = "/page/welcome";

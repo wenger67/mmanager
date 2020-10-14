@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import com.google.android.material.textview.MaterialTextView;
 import com.vinson.mmanager.R;
 import com.vinson.mmanager.model.Category;
-import com.vinson.mmanager.model.base.DeletedAt;
+import com.vinson.mmanager.model.base.TimeWrapper;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class DeviceEvent extends AbstractFlexibleItem<DeviceEvent.EventViewHolde
     int ID;
     String CreatedAt;
     String UpdatedAt;
-    DeletedAt DeletedAt;
+    TimeWrapper TimeWrapper;
     int deviceId;
     Device device;
     int typeId;

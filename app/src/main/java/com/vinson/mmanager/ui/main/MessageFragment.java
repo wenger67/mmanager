@@ -27,7 +27,7 @@ public class MessageFragment extends BaseFragment {
     @Override
     protected void initView(View root) {
         MaterialTextView title = root.findViewById(R.id.tv_tab_title);
-        title.setText("Message");
+        title.setText(R.string.tab_home_message);
     }
 
     @Override

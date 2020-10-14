@@ -17,6 +17,10 @@
         <item name="android:textColor">@color/md_black_1000</item>
     </style>
 
+    <style name="Base.HeadText" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textColor">@color/md_white_1000</item>
+        <item name="android:padding">2dp</item>
+    </style>
 
     <style name="Base.SmallText" parent="TextAppearance.AppCompat.Small">
         <item name="android:textColor">@color/md_white_1000</item>

@@ -3,6 +3,7 @@ package com.vinson.mmanager.ui.item;
 import android.os.Message;
 import android.view.View;
 
+import com.alibaba.android.arouter.facade.Postcard;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.blankj.utilcode.util.TimeUtils;
 import com.bumptech.glide.Glide;
@@ -11,12 +12,17 @@ import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textview.MaterialTextView;
+import com.google.gson.JsonObject;
 import com.socks.library.KLog;
 import com.vinson.mmanager.BuildConfig;
 import com.vinson.mmanager.R;
 import com.vinson.mmanager.base.BaseActivity;
+import com.vinson.mmanager.data.ServerHelper;
 import com.vinson.mmanager.model.FileUploadAndDownload;
 import com.vinson.mmanager.model.lift.LiftRecord;
+import com.vinson.mmanager.model.response.BaseResponse;
+import com.vinson.mmanager.tools.Config;
+import com.vinson.mmanager.ui.page.CreateRecordActivity;
 import com.vinson.mmanager.utils.Constants;
 import com.vinson.mmanager.utils.Utils;
 import com.youth.banner.Banner;
@@ -29,14 +35,21 @@ import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okhttp3.internal.annotations.EverythingIsNonNull;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.vinson.mmanager.model.annotation.RecordProgress.PROGRESS_CREATED;
+import static com.vinson.mmanager.model.annotation.RecordProgress.PROGRESS_FINISHED;
+import static com.vinson.mmanager.model.annotation.RecordProgress.PROGRESS_REVIEWED;
+import static com.vinson.mmanager.model.annotation.RecordProgress.PROGRESS_STARTED;
 
 @Route(path = Constants.AROUTER_PAGE_LIFT_RECORD_DETAIL)
 public class LiftRecordDetailActivity extends BaseActivity {
     public static final String EXTRA_LIFT_RECORD = "lift.record";
-    public static final int PROGRESS_CREATED = 1;
-    public static final int PROGRESS_STARTED = 2;
-    public static final int PROGRESS_FINISHED = 3;
-
     @Override
     protected boolean handleMessage(Message message) {
         return false;
@@ -143,18 +156,52 @@ public class LiftRecordDetailActivity extends BaseActivity {
     @Override
     protected void initEvent() {
         super.initEvent();
-
         switch (mLiftRecord.progress) {
             case PROGRESS_CREATED:
-                mBtnOps.setText("接单");
+                mBtnOps.setText("开始");
+                mBtnOps.setOnClickListener(v -> {
+                    mLiftRecord.workerId = Config.getUserInfo().ID;
+                    RequestBody body = RequestBody.create(MediaType.parse("application/json"), mGson.toJson(mLiftRecord));
+                    ServerHelper.getInstance().updateLiftRecord(body).enqueue(new Callback<BaseResponse<JsonObject>>() {
+                        @Override
+                        @EverythingIsNonNull
+                        public void onResponse(Call<BaseResponse<JsonObject>> call,
+                                               Response<BaseResponse<JsonObject>> response) {
+                            BaseResponse<JsonObject> body = response.body();
+                            if (body != null) {
+                                KLog.d(body.getMsg());
+                                recreate();
+                            } else {
+                                KLog.w("get data empty!");
+                            }
+                        }
+
+                        @Override
+                        @EverythingIsNonNull
+                        public void onFailure(Call<BaseResponse<JsonObject>> call, Throwable t) {
+                            KLog.d(t.getMessage());
+                        }
+                    });
+                });
                 break;
             case PROGRESS_STARTED:
                 mBtnOps.setText("前往处理");
+                mBtnOps.setOnClickListener(v ->
+                        routeTo(Constants.AROUTER_PAGE_FILL_RECORD_CONTENT, LiftRecordDetailActivity.this)
+                );
+                break;
+            case PROGRESS_REVIEWED:
+                mBtnOps.setText("审核");
                 break;
             case PROGRESS_FINISHED:
-                mBtnOps.setText("提交");
-                break;
+                mBtnOps.setText(R.string.record_progress_finished);
             default:
         }
+    }
+
+    @Override
+    public void onArrival(Postcard postcard) {
+        super.onArrival(postcard);
+        LiftRecordDetailActivity.this.finish();
     }
 }

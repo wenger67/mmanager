@@ -6,7 +6,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 @IntDef({ModuleType.MODULE_HOME_HEADER_CAMERA, ModuleType.MODULE_HOME_HEADER_HELP,
-        ModuleType.MODULE_HOME_HEADER_USERS,
+        ModuleType.MODULE_HOME_HEADER_USERS,ModuleType.MODULE_CATEGORY_LIST,
         ModuleType.MODULE_LIFT_LIST, ModuleType.MODULE_LIFT_CHANGES,
         ModuleType.MODULE_LIFT_RECORDS, ModuleType.MODULE_LIFT_TROUBLE,
         ModuleType.MODULE_DEVICE_LIST, ModuleType.MODULE_DEVICE_EVENT,
@@ -23,6 +23,8 @@ public @interface ModuleType {
     int MODULE_LIFT_CHANGES = 11;
     int MODULE_LIFT_RECORDS = 12;
     int MODULE_LIFT_TROUBLE = 13;
+
+    int MODULE_CATEGORY_LIST = 20;
 
     int MODULE_DEVICE_LIST = 101;
     int MODULE_DEVICE_EVENT = 102;

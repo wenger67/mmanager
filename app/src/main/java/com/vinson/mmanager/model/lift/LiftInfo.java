@@ -12,7 +12,7 @@ import com.vinson.mmanager.R;
 import com.vinson.mmanager.model.Address;
 import com.vinson.mmanager.model.Category;
 import com.vinson.mmanager.model.Company;
-import com.vinson.mmanager.model.base.DeletedAt;
+import com.vinson.mmanager.model.base.TimeWrapper;
 import com.vinson.mmanager.model.device.Device;
 import com.vinson.mmanager.utils.Utils;
 
@@ -28,7 +28,7 @@ public class LiftInfo extends AbstractFlexibleItem<LiftInfo.LiftViewHolder> {
     public int ID;
     public String CreatedAt;
     public String UpdatedAt;
-    public DeletedAt DeletedAt;
+    public TimeWrapper TimeWrapper;
     public String nickName;
     public String code;
     public Company installer;
@@ -106,7 +106,7 @@ public class LiftInfo extends AbstractFlexibleItem<LiftInfo.LiftViewHolder> {
                 "ID=" + ID +
                 ", CreatedAt='" + CreatedAt + '\'' +
                 ", UpdatedAt='" + UpdatedAt + '\'' +
-                ", DeletedAt='" + DeletedAt + '\'' +
+                ", DeletedAt='" + TimeWrapper + '\'' +
                 ", nickName='" + nickName + '\'' +
                 ", code='" + code + '\'' +
                 ", installer=" + installer +

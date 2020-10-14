@@ -1,14 +1,8 @@
 package com.vinson.mmanager.ui.main;
 
-import android.content.ComponentName;
 import android.content.Intent;
-import android.content.ServiceConnection;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.IBinder;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 
 import androidx.core.content.ContextCompat;
@@ -40,10 +34,12 @@ public class MainActivity extends BaseActivity {
     private IIcon[] icons = new IIcon[]{CommunityMaterial.Icon2.cmd_home,
             CommunityMaterial.Icon2.cmd_hand_peace, CommunityMaterial.Icon2.cmd_message,
             CommunityMaterial.Icon2.cmd_home_account};
-    private String[] titles = new String[]{"Home", "Manage", "Message", "About"};
+    private String[] titles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        titles = new String[]{getString(R.string.tab_home_home), getString(R.string.tab_home_manage),
+                getString(R.string.tab_home_message), getString(R.string.tab_home_mine)};
         super.onCreate(savedInstanceState);
     }
 

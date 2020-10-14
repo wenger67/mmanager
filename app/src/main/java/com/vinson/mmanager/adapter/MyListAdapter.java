@@ -14,6 +14,7 @@ import com.vinson.mmanager.model.lift.LiftRecord;
 import com.vinson.mmanager.model.lift.LiftTrouble;
 import com.vinson.mmanager.utils.Constants;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import eu.davidea.flexibleadapter.items.AbstractFlexibleItem;
@@ -25,12 +26,14 @@ public class MyListAdapter extends BaseAdapter {
     private Context mContext;
 
     public MyListAdapter(List<AbstractFlexibleItem> items, Context context) {
-        mItems = items;
+        if (items == null) mItems = new ArrayList<>();
+        else mItems = items;
         mContext = context;
     }
 
     public void setItems(List<AbstractFlexibleItem> items) {
-        mItems = items;
+        if (items == null) mItems = new ArrayList<>();
+        else mItems = items;
         super.notifyDataSetChanged();
     }
 

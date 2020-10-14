@@ -10,7 +10,8 @@ import com.google.android.material.textview.MaterialTextView;
 import com.vinson.mmanager.R;
 import com.vinson.mmanager.model.Category;
 import com.vinson.mmanager.model.FileUploadAndDownload;
-import com.vinson.mmanager.model.base.DeletedAt;
+import com.vinson.mmanager.model.annotation.RecordProgress;
+import com.vinson.mmanager.model.base.TimeWrapper;
 import com.vinson.mmanager.model.login.UserInfo;
 import com.vinson.mmanager.utils.Utils;
 
@@ -27,7 +28,7 @@ public class LiftRecord extends AbstractFlexibleItem<LiftRecord.RecordViewHolder
     public int ID;
     public String CreatedAt;
     public String UpdatedAt;
-    public DeletedAt DeletedAt;
+    public TimeWrapper TimeWrapper;
     public int liftId;
     public LiftInfo lift;
     public int categoryId;
@@ -48,7 +49,7 @@ public class LiftRecord extends AbstractFlexibleItem<LiftRecord.RecordViewHolder
                 "ID=" + ID +
                 ", CreatedAt='" + CreatedAt + '\'' +
                 ", UpdatedAt='" + UpdatedAt + '\'' +
-                ", DeletedAt=" + DeletedAt +
+                ", DeletedAt=" + TimeWrapper +
                 ", liftId=" + liftId +
                 ", lift=" + lift +
                 ", categoryId=" + categoryId +
@@ -77,7 +78,7 @@ public class LiftRecord extends AbstractFlexibleItem<LiftRecord.RecordViewHolder
                 recorderId == that.recorderId &&
                 Objects.equals(CreatedAt, that.CreatedAt) &&
                 Objects.equals(UpdatedAt, that.UpdatedAt) &&
-                Objects.equals(DeletedAt, that.DeletedAt) &&
+                Objects.equals(TimeWrapper, that.TimeWrapper) &&
                 Objects.equals(lift, that.lift) &&
                 Objects.equals(category, that.category) &&
                 Objects.equals(content, that.content) &&
@@ -89,7 +90,7 @@ public class LiftRecord extends AbstractFlexibleItem<LiftRecord.RecordViewHolder
 
     @Override
     public int hashCode() {
-        return Objects.hash(ID, CreatedAt, UpdatedAt, DeletedAt, liftId, lift, categoryId,
+        return Objects.hash(ID, CreatedAt, UpdatedAt, TimeWrapper, liftId, lift, categoryId,
                 category, content, startTime, endTime, workerId, worker, recorderId, recorder);
     }
 
@@ -112,10 +113,26 @@ public class LiftRecord extends AbstractFlexibleItem<LiftRecord.RecordViewHolder
         holder.timeCost.setText(TimeUtils.getTimeSpan(TimeUtils.string2Millis(endTime,
                 Utils.DATE_PATTERN), TimeUtils.string2Millis(startTime, Utils.DATE_PATTERN),
                 TimeConstants.HOUR) + "小时");
+        switch (progress) {
+            case RecordProgress.PROGRESS_CREATED:
+                holder.progress.setText(R.string.record_progress_under_start);
+                break;
+            case RecordProgress.PROGRESS_STARTED:
+                holder.progress.setText(R.string.record_progress_under_process);
+                break;
+            case RecordProgress.PROGRESS_REVIEWED:
+                holder.progress.setText(R.string.record_progress_under_review);
+                break;
+            case RecordProgress.PROGRESS_FINISHED:
+                holder.progress.setText(R.string.record_progress_finished);
+                break;
+            default:
+                holder.progress.setText(progress);
+        }
     }
 
     static class RecordViewHolder extends FlexibleViewHolder {
-        MaterialTextView category, name, code, timeCost;
+        MaterialTextView category, name, code, timeCost, progress;
 
         public RecordViewHolder(@NonNull View itemView, FlexibleAdapter adapter) {
             super(itemView, adapter);
@@ -123,6 +140,7 @@ public class LiftRecord extends AbstractFlexibleItem<LiftRecord.RecordViewHolder
             name = itemView.findViewById(R.id.tv_name);
             code = itemView.findViewById(R.id.tv_code);
             timeCost = itemView.findViewById(R.id.tv_timecost);
+            progress = itemView.findViewById(R.id.tv_progress);
         }
     }
 }

@@ -10,7 +10,7 @@ import com.google.android.material.textview.MaterialTextView;
 import com.vinson.mmanager.R;
 import com.vinson.mmanager.model.Category;
 import com.vinson.mmanager.model.FileUploadAndDownload;
-import com.vinson.mmanager.model.base.DeletedAt;
+import com.vinson.mmanager.model.base.TimeWrapper;
 import com.vinson.mmanager.model.login.UserInfo;
 import com.vinson.mmanager.utils.Utils;
 
@@ -25,7 +25,7 @@ public class LiftTrouble extends AbstractFlexibleItem<LiftTrouble.TroubleViewHol
     public int ID;
     public String CreatedAt;
     public String UpdatedAt;
-    public DeletedAt DeletedAt;
+    public TimeWrapper TimeWrapper;
     public int liftId;
     public LiftInfo lift;
     public int fromCategoryId;

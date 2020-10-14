@@ -1,12 +1,12 @@
 package com.vinson.mmanager.model;
 
-import com.vinson.mmanager.model.base.DeletedAt;
+import com.vinson.mmanager.model.base.TimeWrapper;
 
 public class Address {
     public int ID;
     public String CreatedAt;
     public String UpdatedAt;
-    public DeletedAt DeletedAt;
+    public TimeWrapper TimeWrapper;
     public Region region;
     public String addressName;
     public String location;

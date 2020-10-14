@@ -1,7 +1,7 @@
 package com.vinson.mmanager.model.lift;
 
 import com.vinson.mmanager.model.Company;
-import com.vinson.mmanager.model.base.DeletedAt;
+import com.vinson.mmanager.model.base.TimeWrapper;
 
 public class LiftModel {
     public Company company;
@@ -11,7 +11,7 @@ public class LiftModel {
     public int ID;
     public String CreatedAt;
     public String UpdatedAt;
-    public DeletedAt DeletedAt;
+    public TimeWrapper TimeWrapper;
 
     public LiftModel(Company company, String brand, String modal, int load) {
         this.company = company;

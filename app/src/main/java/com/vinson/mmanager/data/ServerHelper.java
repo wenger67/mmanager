@@ -27,6 +27,7 @@ public class ServerHelper {
     private static OkHttpClient okHttpClient;
     private static ServerHelper INSTANCE;
     private LiftService mLiftService;
+    private CategoryService mCategoryService;
     private DeviceService mDeviceService;
     private CompanyService mCompanyService;
 
@@ -37,6 +38,7 @@ public class ServerHelper {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         mLiftService = retrofit.create(LiftService.class);
+        mCategoryService = retrofit.create(CategoryService.class);
         mDeviceService = retrofit.create(DeviceService.class);
         mCompanyService = retrofit.create(CompanyService.class);
     }
@@ -54,6 +56,14 @@ public class ServerHelper {
                 return mCompanyService.getUserList(body);
         }
         return null;
+    }
+
+    public Call<BaseResponse<JsonObject>> createLiftRecord(RequestBody body) {
+        return mLiftService.createLiftRecord(body);
+    }
+
+    public Call<BaseResponse<JsonObject>> updateLiftRecord(RequestBody body) {
+        return mLiftService.updateLiftRecord(body);
     }
 
     @SuppressLint("SwitchIntDef")
@@ -79,6 +89,8 @@ public class ServerHelper {
                 return mDeviceService.getAdDeviceEventList(page, pageSize);
             case ModuleType.MODULE_COMPANY_LIST:
                 return mCompanyService.getCompanyList(page, pageSize);
+            case ModuleType.MODULE_CATEGORY_LIST:
+                return mCategoryService.getCategoryList(page, pageSize);
         }
         return null;
     }

@@ -71,7 +71,7 @@ public abstract class BaseListActivity extends BaseActivity {
                             mCustomList.setVisibility(View.GONE);
                         });
                 break;
-            case MSG_FETCH_DATA:
+            case MSG_FETCH_DATA_START:
                 fetchData();
                 break;
         }
@@ -94,7 +94,7 @@ public abstract class BaseListActivity extends BaseActivity {
                     })
                     .thenAnimate(mCustomList)
                     .alpha(0, 1).duration(500).start()
-                    .onStop(() -> mHandler.sendEmptyMessage(MSG_FETCH_DATA));
+                    .onStop(() -> mHandler.sendEmptyMessage(MSG_FETCH_DATA_START));
         });
 
         mSkeletonScreen = Skeleton.bind(mCustomList)
@@ -113,7 +113,7 @@ public abstract class BaseListActivity extends BaseActivity {
                 KLog.d(lastPosition + ", " + currentPage);
                 lastPos += lastPosition;
                 curPage = currentPage;
-                mHandler.sendEmptyMessage(MSG_FETCH_DATA);
+                mHandler.sendEmptyMessage(MSG_FETCH_DATA_START);
             }
 
 

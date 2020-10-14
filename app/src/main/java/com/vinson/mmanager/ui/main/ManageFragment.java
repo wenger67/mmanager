@@ -42,7 +42,7 @@ public class ManageFragment extends BaseFragment {
     @Override
     protected void initView(View root) {
         MaterialTextView title = root.findViewById(R.id.tv_tab_title);
-        title.setText("Manage");
+        title.setText(R.string.tab_home_manage);
 
         mCreateLiftRecord = root.findViewById(R.id.cv_create_record);
         mReportLiftTrouble = root.findViewById(R.id.cv_create_report);

@@ -25,8 +25,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class HomeFragment extends BaseFragment {
-    private static final String TAG = HomeFragment.class.getSimpleName();
-
     GridView mGridView;
     GridView mHeaderGridView;
     HomeGridViewAdapter mGridAdapter;
@@ -72,7 +70,8 @@ public class HomeFragment extends BaseFragment {
         IIcon[] icons = new IIcon[]{CommunityMaterial.Icon2.cmd_scanner,
                 CommunityMaterial.Icon2.cmd_office_building, CommunityMaterial.Icon2.cmd_nature_people,
                 CommunityMaterial.Icon2.cmd_help};
-        String[] titles = new String[]{"Scan", "Lifts", "Users", "Help"};
+        String[] titles = new String[]{getString(R.string.home_head_scan), getString(R.string.home_head_lift),
+                getString(R.string.home_head_user), getString(R.string.home_head_help)};
         int[] type = new int[]{ModuleType.MODULE_HOME_HEADER_CAMERA, ModuleType.MODULE_LIFT_LIST,
         ModuleType.MODULE_HOME_HEADER_USERS, ModuleType.MODULE_HOME_HEADER_HELP};
         List<HomeGridViewItem> items = new ArrayList<>();
@@ -84,17 +83,17 @@ public class HomeFragment extends BaseFragment {
 
     private List<HomeGridViewItem> getData() {
         List<HomeGridViewItem> items = new ArrayList<>();
-        items.add(new HomeGridViewItem(CommunityMaterial.Icon2.cmd_hospital_building, "Lifts", ModuleType.MODULE_LIFT_LIST));
-        items.add(new HomeGridViewItem(CommunityMaterial.Icon2.cmd_table_edit, "Changes", ModuleType.MODULE_LIFT_CHANGES));
-        items.add(new HomeGridViewItem(CommunityMaterial.Icon2.cmd_view_list, "Records", ModuleType.MODULE_LIFT_RECORDS));
-        items.add(new HomeGridViewItem(CommunityMaterial.Icon2.cmd_help_circle, "Troubles", ModuleType.MODULE_LIFT_TROUBLE));
-        items.add(new HomeGridViewItem(CommunityMaterial.Icon2.cmd_nature_people, "Users", ModuleType.MODULE_HOME_HEADER_USERS));
-        items.add(new HomeGridViewItem(CommunityMaterial.Icon2.cmd_power_plug, "Events", ModuleType.MODULE_DEVICE_EVENT));
-        items.add(new HomeGridViewItem(CommunityMaterial.Icon2.cmd_pokeball, "Devices", ModuleType.MODULE_DEVICE_LIST));
-        items.add(new HomeGridViewItem(CommunityMaterial.Icon2.cmd_magnet_on, "Datas", ModuleType.MODULE_DEVICE_DATA));
-        items.add(new HomeGridViewItem(CommunityMaterial.Icon2.cmd_palette_advanced, "Configs", ModuleType.MODULE_DEVICE_CONFIG));
-        items.add(new HomeGridViewItem(CommunityMaterial.Icon2.cmd_karate, "Companys", ModuleType.MODULE_COMPANY_LIST));
-        items.add(new HomeGridViewItem(CommunityMaterial.Icon2.cmd_select_all, "ALL", ModuleType.MODULE_BUTTON_ALL));
+        items.add(new HomeGridViewItem(CommunityMaterial.Icon2.cmd_hospital_building, getString(R.string.home_module_lift), ModuleType.MODULE_LIFT_LIST));
+        items.add(new HomeGridViewItem(CommunityMaterial.Icon2.cmd_table_edit, getString(R.string.home_module_change), ModuleType.MODULE_LIFT_CHANGES));
+        items.add(new HomeGridViewItem(CommunityMaterial.Icon2.cmd_view_list, getString(R.string.home_module_record), ModuleType.MODULE_LIFT_RECORDS));
+        items.add(new HomeGridViewItem(CommunityMaterial.Icon2.cmd_help_circle, getString(R.string.home_module_trouble), ModuleType.MODULE_LIFT_TROUBLE));
+        items.add(new HomeGridViewItem(CommunityMaterial.Icon2.cmd_nature_people, getString(R.string.home_module_user), ModuleType.MODULE_HOME_HEADER_USERS));
+        items.add(new HomeGridViewItem(CommunityMaterial.Icon2.cmd_power_plug, getString(R.string.home_module_event), ModuleType.MODULE_DEVICE_EVENT));
+        items.add(new HomeGridViewItem(CommunityMaterial.Icon2.cmd_pokeball, getString(R.string.home_module_device), ModuleType.MODULE_DEVICE_LIST));
+        items.add(new HomeGridViewItem(CommunityMaterial.Icon2.cmd_magnet_on, getString(R.string.home_module_data), ModuleType.MODULE_DEVICE_DATA));
+        items.add(new HomeGridViewItem(CommunityMaterial.Icon2.cmd_palette_advanced, getString(R.string.home_module_configq), ModuleType.MODULE_DEVICE_CONFIG));
+        items.add(new HomeGridViewItem(CommunityMaterial.Icon2.cmd_karate, getString(R.string.home_module_company), ModuleType.MODULE_COMPANY_LIST));
+        items.add(new HomeGridViewItem(CommunityMaterial.Icon2.cmd_select_all, getString(R.string.home_module_all), ModuleType.MODULE_BUTTON_ALL));
         return items;
     }
 

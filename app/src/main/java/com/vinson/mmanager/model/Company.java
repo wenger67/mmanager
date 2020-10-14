@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 
 import com.google.android.material.textview.MaterialTextView;
 import com.vinson.mmanager.R;
-import com.vinson.mmanager.model.base.DeletedAt;
+import com.vinson.mmanager.model.base.TimeWrapper;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ public class Company extends AbstractFlexibleItem<Company.CompanyViewHolder> {
     public int ID;
     public String CreatedAt;
     public String UpdatedAt;
-    public DeletedAt DeletedAt;
+    public TimeWrapper TimeWrapper;
     public String fullName;
     public String alias;
     public String legalPerson;

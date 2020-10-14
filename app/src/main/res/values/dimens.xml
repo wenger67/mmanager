@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="item_margin_small_12dp">12dp</dimen>
+    <dimen name="item_margin_small_24dp">24dp</dimen>
+    <dimen name="item_height_small_24dp">24dp</dimen>
+    <dimen name="icon_size_small_48dp">48dp</dimen>
+    <dimen name="item_padding_small_24dp">24dp</dimen>
+    <dimen name="item_margin_medium_48dp">48dp</dimen>
+    <dimen name="item_height_medium_48dp">48dp</dimen>
+</resources>
