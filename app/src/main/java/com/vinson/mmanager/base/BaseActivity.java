@@ -17,12 +17,14 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.blankj.utilcode.util.BarUtils;
 import com.ethanhua.skeleton.SkeletonScreen;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.textview.MaterialTextView;
 import com.google.gson.Gson;
 import com.mikepenz.community_material_typeface_library.CommunityMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.vinson.mmanager.R;
 import com.vinson.mmanager.tools.NetworkObserver;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public abstract class BaseActivity extends AppCompatActivity implements NetworkObserver.Listener,
@@ -45,6 +47,7 @@ public abstract class BaseActivity extends AppCompatActivity implements NetworkO
     public static final int MSG_FETCH_DATA_START = 1002;
     public static final int MSG_FETCH_DATA_FAILED = 1003;
     protected static final int FETCH_DATA_FAILED_MESSAGE_DELAY = 500;
+    public static final String EXTRA_LIFT_RECORD = "lift.record";
 
     public NetworkObserver mNetwork;
     protected Gson mGson = new Gson();
@@ -65,6 +68,8 @@ public abstract class BaseActivity extends AppCompatActivity implements NetworkO
     public void routeTo(String url, String key, Parcelable parcelable, Context context) {
         ARouter.getInstance().build(url).withParcelable(key, parcelable).navigation(context, this);
     }
+    protected MaterialTextView mTitle;
+
     protected Bundle mBundle;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -108,6 +113,7 @@ public abstract class BaseActivity extends AppCompatActivity implements NetworkO
 
     protected void initView() {
         mMaterialToolbar = findViewById(R.id.tb);
+        mTitle = findViewById(R.id.tv_tab_title);
         setToolbarTitle();
 
         setSupportActionBar(mMaterialToolbar);
@@ -116,7 +122,7 @@ public abstract class BaseActivity extends AppCompatActivity implements NetworkO
     }
 
     protected void setToolbarTitle(){
-
+        mMaterialToolbar.setTitle("");
     }
 
     protected void initEvent(){

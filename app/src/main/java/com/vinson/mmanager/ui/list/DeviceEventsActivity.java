@@ -32,10 +32,7 @@ public class DeviceEventsActivity extends BaseListActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-    @Override
-    protected void setToolbarTitle() {
-        mMaterialToolbar.setTitle("设备事件");
-    }
+
     @Override
     public void fetchData() {
         super.fetchData();
@@ -104,6 +101,7 @@ public class DeviceEventsActivity extends BaseListActivity {
     @Override
     protected void initView() {
         super.initView();
+        mTitle.setText("设备事件");
     }
 
 

@@ -68,10 +68,6 @@ public class LiftTroublesActivity extends BaseListActivity {
             }
         });
     }
-    @Override
-    protected void setToolbarTitle() {
-        mMaterialToolbar.setTitle("故障列表");
-    }
 
     @Override
     protected void onResume() {
@@ -111,6 +107,7 @@ public class LiftTroublesActivity extends BaseListActivity {
     @Override
     protected void initView() {
         super.initView();
+        mTitle.setText("故障列表");
     }
 
     @Override

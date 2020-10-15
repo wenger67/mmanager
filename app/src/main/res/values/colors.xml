@@ -5,7 +5,8 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="colorPrimaryBackground">#F5F5F5F5</color>
     <color name="skeletonBg">#CDCDCD</color>
-
+    <color name="colorWhiteAlpha">#77FFFFFF</color>
+    <color name="colorGreyAlpha">#779E9E9E</color>
 
     <!-- google's material design colours from
 http://www.google.com/design/spec/style/color.html#color-ui-color-palette -->

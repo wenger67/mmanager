@@ -38,10 +38,6 @@ public class LiftRecordsActivity extends BaseListActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-    @Override
-    protected void setToolbarTitle() {
-        mMaterialToolbar.setTitle("记录列表");
-    }
 
     @Override
     public void fetchData() {
@@ -112,6 +108,7 @@ public class LiftRecordsActivity extends BaseListActivity {
     @Override
     protected void initView() {
         super.initView();
+        mTitle.setText("记录列表");
     }
 
     @Override

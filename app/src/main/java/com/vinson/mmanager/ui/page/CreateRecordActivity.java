@@ -63,15 +63,12 @@ public class CreateRecordActivity extends BaseActivity {
     }
 
     @Override
-    protected void setToolbarTitle() {
-        mMaterialToolbar.setTitle(getResources().getString(R.string.title_create_record));
-    }
-
-    @Override
     protected void initView() {
         super.initView();
         mLiftAdapter = new MySpinnerAdapter(mLifts, this);
         mCategoryAdapter = new MySpinnerAdapter(mCategories, this);
+
+        mTitle.setText(getResources().getString(R.string.title_create_record));
 
         mLiftSpinner.setAdapter(mLiftAdapter);
         mCategorySpinner.setAdapter(mCategoryAdapter);

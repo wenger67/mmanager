@@ -31,8 +31,7 @@ public abstract class BaseListActivity extends BaseActivity {
     protected List<AbstractFlexibleItem> mItems = new ArrayList<>();
     protected FlexibleAdapter<AbstractFlexibleItem> mAdapter;
     protected int curPage = 0;
-    @BindView(R.id.tv_tab_title)
-    protected MaterialTextView mTitle;
+
     int lastPos = 0;
     @BindView(R.id.ll_lose_network)
     LinearLayout mRetry;

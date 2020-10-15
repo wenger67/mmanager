@@ -5,6 +5,7 @@ import android.view.View;
 
 import com.alibaba.android.arouter.facade.Postcard;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.blankj.utilcode.util.TimeUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
@@ -49,7 +50,6 @@ import static com.vinson.mmanager.model.annotation.RecordProgress.PROGRESS_START
 
 @Route(path = Constants.AROUTER_PAGE_LIFT_RECORD_DETAIL)
 public class LiftRecordDetailActivity extends BaseActivity {
-    public static final String EXTRA_LIFT_RECORD = "lift.record";
     @Override
     protected boolean handleMessage(Message message) {
         return false;
@@ -170,7 +170,7 @@ public class LiftRecordDetailActivity extends BaseActivity {
                             BaseResponse<JsonObject> body = response.body();
                             if (body != null) {
                                 KLog.d(body.getMsg());
-                                recreate();
+                                routeTo(Constants.AROUTER_PAGE_LIFT_RECORDS, LiftRecordDetailActivity.this);
                             } else {
                                 KLog.w("get data empty!");
                             }
@@ -187,11 +187,38 @@ public class LiftRecordDetailActivity extends BaseActivity {
             case PROGRESS_STARTED:
                 mBtnOps.setText("前往处理");
                 mBtnOps.setOnClickListener(v ->
-                        routeTo(Constants.AROUTER_PAGE_FILL_RECORD_CONTENT, LiftRecordDetailActivity.this)
+                        ARouter.getInstance()
+                                .build(Constants.AROUTER_PAGE_FILL_RECORD_CONTENT)
+                                .withObject(EXTRA_LIFT_RECORD, mLiftRecord)
+                                .navigation(LiftRecordDetailActivity.this)
                 );
                 break;
             case PROGRESS_REVIEWED:
                 mBtnOps.setText("审核");
+                mBtnOps.setOnClickListener(v -> {
+                    mLiftRecord.recorderId = Config.getUserInfo().ID;
+                    RequestBody body = RequestBody.create(MediaType.parse("application/json"), mGson.toJson(mLiftRecord));
+                    ServerHelper.getInstance().updateLiftRecord(body).enqueue(new Callback<BaseResponse<JsonObject>>() {
+                        @Override
+                        @EverythingIsNonNull
+                        public void onResponse(Call<BaseResponse<JsonObject>> call,
+                                               Response<BaseResponse<JsonObject>> response) {
+                            BaseResponse<JsonObject> body = response.body();
+                            if (body != null) {
+                                KLog.d(body.getMsg());
+                                routeTo(Constants.AROUTER_PAGE_LIFT_RECORDS, LiftRecordDetailActivity.this);
+                            } else {
+                                KLog.w("get data empty!");
+                            }
+                        }
+
+                        @Override
+                        @EverythingIsNonNull
+                        public void onFailure(Call<BaseResponse<JsonObject>> call, Throwable t) {
+                            KLog.d(t.getMessage());
+                        }
+                    });
+                });
                 break;
             case PROGRESS_FINISHED:
                 mBtnOps.setText(R.string.record_progress_finished);

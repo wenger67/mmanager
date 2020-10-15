@@ -33,10 +33,7 @@ public class DeviceConfigsActivity extends BaseListActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-    @Override
-    protected void setToolbarTitle() {
-        mMaterialToolbar.setTitle("设备配置");
-    }
+
     @Override
     public void fetchData() {
         super.fetchData();
@@ -106,6 +103,7 @@ public class DeviceConfigsActivity extends BaseListActivity {
     @Override
     protected void initView() {
         super.initView();
+        mTitle.setText("设备配置");
     }
 
 

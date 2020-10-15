@@ -38,11 +38,6 @@ public class UsersActivity extends BaseListActivity {
         super.onCreate(savedInstanceState);
     }
     @Override
-    protected void setToolbarTitle() {
-        mMaterialToolbar.setTitle("用户列表");
-    }
-
-    @Override
     public void fetchData() {
         super.fetchData();
         mItems = new ArrayList<>(); // clear
@@ -116,7 +111,7 @@ public class UsersActivity extends BaseListActivity {
     @Override
     protected void initView() {
         super.initView();
-
+        mTitle.setText("用户列表");
     }
 
     @Override

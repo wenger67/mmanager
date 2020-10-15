@@ -137,13 +137,13 @@ dependencies {
 
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
-    implementation 'com.wang.avi:library:2.1.3'
+    implementation 'com.wang.avi:library:2.1.3' // loading
     implementation 'com.squareup.okhttp3:okhttp:3.12.3'
     implementation 'com.squareup.retrofit2:retrofit:2.6.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
-    implementation "com.mikepenz:iconics-core:3.2.1"
+    implementation "com.mikepenz:iconics-core:3.2.5"
     implementation 'com.mikepenz:community-material-typeface:2.7.94.1@aar'
-    implementation "com.mikepenz:iconics-views:3.2.1"
+    implementation "com.mikepenz:iconics-views:3.2.5"
     implementation 'com.github.zhaokaiqiang.klog:library:1.6.0' // logcat
     implementation 'com.github.GrenderG:Toasty:1.5.0' // toast
 
@@ -164,14 +164,13 @@ dependencies {
     implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
     implementation 'com.github.javafaker:javafaker:1.0.2' // fake data
 
-    implementation 'eu.davidea:flexible-adapter:5.1.0'
+    implementation 'eu.davidea:flexible-adapter:5.1.0' // adapter
     implementation 'eu.davidea:flexible-adapter-ui:1.0.0'
-
-    implementation 'com.amap.api:map2d:6.0.0'
+    implementation 'com.amap.api:map2d:6.0.0'   // map
 
     implementation 'com.youth.banner:banner:2.1.0'
     implementation 'com.github.florent37:viewanimator:1.1.0'
-
+    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.5.9' // selector
     implementation "com.jakewharton:butterknife:10.0.0"
     annotationProcessor "com.jakewharton:butterknife-compiler:10.0.0"
 

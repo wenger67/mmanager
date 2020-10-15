@@ -18,8 +18,8 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_category"
-            android:layout_width="@dimen/icon_size_small_48dp"
-            android:layout_height="@dimen/icon_size_small_48dp"
+            android:layout_width="@dimen/icon_size_48dp"
+            android:layout_height="@dimen/icon_size_48dp"
             android:layout_marginStart="@dimen/item_margin_small_12dp"
             android:gravity="center"
             android:maxLines="3"

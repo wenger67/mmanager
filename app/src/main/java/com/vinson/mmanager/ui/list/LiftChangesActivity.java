@@ -35,11 +35,6 @@ public class LiftChangesActivity extends BaseListActivity {
     }
 
     @Override
-    protected void setToolbarTitle() {
-        mMaterialToolbar.setTitle("信息变更");
-    }
-
-    @Override
     public void fetchData() {
         super.fetchData();
         mItems = new ArrayList<>(); // clear
@@ -109,6 +104,7 @@ public class LiftChangesActivity extends BaseListActivity {
     @Override
     protected void initView() {
         super.initView();
+        mTitle.setText("信息变更");
     }
 
 

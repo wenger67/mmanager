@@ -38,11 +38,6 @@ public class CompaniesActivity extends BaseListActivity {
     }
 
     @Override
-    protected void setToolbarTitle() {
-        mMaterialToolbar.setTitle("企业列表");
-    }
-
-    @Override
     public void fetchData() {
         super.fetchData();
         mItems = new ArrayList<>(); // clear
@@ -112,6 +107,7 @@ public class CompaniesActivity extends BaseListActivity {
     @Override
     protected void initView() {
         super.initView();
+        mTitle.setText("企业列表");
     }
 
     @Override

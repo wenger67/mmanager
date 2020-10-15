@@ -16,9 +16,11 @@ public class ReportTroubleActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
     @Override
-    protected void setToolbarTitle() {
-        mMaterialToolbar.setTitle(getResources().getString(R.string.title_report_trouble));
+    protected void initView() {
+        super.initView();
+        mTitle.setText(getResources().getString(R.string.title_report_trouble));
     }
 
     @Override

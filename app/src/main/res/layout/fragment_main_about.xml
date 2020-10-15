@@ -66,8 +66,8 @@
 
             <com.mikepenz.iconics.view.IconicsImageView
                 android:id="@+id/iv_history"
-                android:layout_width="@dimen/icon_size_small_48dp"
-                android:layout_height="@dimen/icon_size_small_48dp"
+                android:layout_width="@dimen/icon_size_48dp"
+                android:layout_height="@dimen/icon_size_48dp"
                 android:layout_marginStart="@dimen/item_margin_small_24dp"
                 app:iiv_color="@color/md_black_1000"
                 app:iiv_icon="cmd_timer"
@@ -110,8 +110,8 @@
 
             <com.mikepenz.iconics.view.IconicsImageView
                 android:id="@+id/iv_setting"
-                android:layout_width="@dimen/icon_size_small_48dp"
-                android:layout_height="@dimen/icon_size_small_48dp"
+                android:layout_width="@dimen/icon_size_48dp"
+                android:layout_height="@dimen/icon_size_48dp"
                 android:layout_marginStart="@dimen/item_margin_small_24dp"
                 app:iiv_color="@color/md_black_1000"
                 app:iiv_icon="cmd_settings"
@@ -153,8 +153,8 @@
 
             <com.mikepenz.iconics.view.IconicsImageView
                 android:id="@+id/iv_about"
-                android:layout_width="@dimen/icon_size_small_48dp"
-                android:layout_height="@dimen/icon_size_small_48dp"
+                android:layout_width="@dimen/icon_size_48dp"
+                android:layout_height="@dimen/icon_size_48dp"
                 android:layout_marginStart="@dimen/item_margin_small_24dp"
                 app:iiv_color="@color/md_black_1000"
                 app:iiv_icon="cmd_gift"
